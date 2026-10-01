@@ -71,7 +71,7 @@ URL: https://example.com/?q=<img src=x onerror=alert(1)>
 
 FAIL: Link <img src=x onerror=alert(1)> broken
 Recommendation: Remove <script>alert(1)</script>`), "Today");
-  assert.doesNotMatch(html, /<script>|<img/);
+  assert.equal(html.includes("<script>") || html.includes("<img"), false);
   assert.match(html, /&lt;script&gt;/);
   assert.match(html, /<details>/);
 });

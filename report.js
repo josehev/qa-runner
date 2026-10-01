@@ -2,7 +2,7 @@ const categories = ["Performance", "Accessibility", "Functionality", "Security"]
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
 })[char]);
-const clean = (value) => value.replace(/<[^>]*>/g, "").replace(/[`*_#]/g, "").trim();
+const clean = (value) => value.replace(/[`*_#]/g, "").trim();
 
 function parseReport(content) {
   const lines = content.split(/\r?\n/);
@@ -83,7 +83,7 @@ function renderReport(report, stamp) {
     counts.failed ? `❌ ${critical || counts.failed} ${critical ? "critical " : ""}issue${(critical || counts.failed) === 1 ? "" : "s"} found` :
     counts.warnings ? `⚠️ Passed with ${counts.warnings} warning${counts.warnings === 1 ? "" : "s"}` :
     "✅ All reported checks passed";
-  const tone = error || !total || counts.warnings ? "warning" : counts.failed ? "fail" : "pass";
+  const tone = error || !total ? "warning" : counts.failed ? "fail" : counts.warnings ? "warning" : "pass";
   const issueList = checks.filter(c => c.status !== "pass")
     .sort((a, b) => ["Critical", "High", "Medium", "Low"].indexOf(a.severity) - ["Critical", "High", "Medium", "Low"].indexOf(b.severity));
   const actions = [...new Set([...recommendations, ...issueList.map(c => ({

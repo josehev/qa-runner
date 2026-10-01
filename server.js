@@ -40,11 +40,12 @@ app.get("/results/:filename", (req, res) => {
     return res.status(404).send("Result not found");
   }
   const mdFile = req.params.filename.replace(/\.html$/, ".md");
-  const filePath = path.join(RESULTS, mdFile);
+  const savedFile = fs.readdirSync(RESULTS).find(file => file === mdFile);
 
-  if (!fs.existsSync(filePath)) {
+  if (!savedFile) {
     return res.status(404).send("Result not found");
   }
+  const filePath = path.join(RESULTS, savedFile);
   const stamp = new Date(parseInt(mdFile.split('-')[0])).toLocaleString();
   res.type("html").send(renderReport(parseReport(fs.readFileSync(filePath, "utf8")), stamp));
 });
