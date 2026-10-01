@@ -34,8 +34,19 @@ app.get("/api/results", (_req, res) => {
   })));
 });
 
+let reportWindowStart = Date.now();
+const reportRequests = new Map();
+
 // Render saved results as a stakeholder-friendly report
 app.get("/results/:filename", (req, res) => {
+  if (Date.now() - reportWindowStart >= 60_000) {
+    reportRequests.clear();
+    reportWindowStart = Date.now();
+  }
+  const requests = reportRequests.get(req.ip) || 0;
+  if (requests >= 120) return res.status(429).send("Too many report requests");
+  reportRequests.set(req.ip, requests + 1);
+
   if (!/^\d+-[a-z0-9-]+\.html$/.test(req.params.filename)) {
     return res.status(404).send("Result not found");
   }
