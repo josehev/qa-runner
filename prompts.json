@@ -16,5 +16,11 @@
     "name": "Form validation",
     "agent": "qa-agent",
     "prompt": "Find all forms on {{URL}} and test the validation with valid, empty and invalid input. Report the results as a table."
+  },
+  {
+    "id": "browser-check",
+    "name": "Browser Check",
+    "type": "playwright",
+    "prompt": "Deterministic Playwright checks on {{URL}}: response status, page errors, console errors, images missing alt attributes, and a full-page screenshot. No AI agent involved."
   }
 ]
