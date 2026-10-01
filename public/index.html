@@ -183,7 +183,8 @@
   const showPreview = () => {
     const p = prompts.find(x => x.id === $('prompt').value);
     if (p) {
-      $('preview').innerHTML = `<strong>Agent:</strong> ${p.agent}<br><strong>Prompt:</strong> ${p.prompt}`;
+      const runner = p.type === 'playwright' ? '<strong>Runner:</strong> Playwright (no agent)' : `<strong>Agent:</strong> ${p.agent}`;
+      $('preview').innerHTML = `${runner}<br><strong>Prompt:</strong> ${p.prompt}`;
     }
   };
 

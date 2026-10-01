@@ -2,12 +2,14 @@ const express = require("express");
 const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const { toMarkdown } = require("./browser-check");
 
 const app = express();
 const PORT = 4545;
 // Folder containing .github/agents/*.agent.md (your QA project)
 const WORKSPACE = process.env.QA_WORKSPACE || process.cwd();
 const COPILOT_BIN = process.env.COPILOT_BIN || "copilot";
+const BROWSER_CHECK_TIMEOUT = 60000;
 const RESULTS = path.join(__dirname, "results");
 fs.mkdirSync(RESULTS, { recursive: true });
 
@@ -35,6 +37,11 @@ app.get("/api/results", (_req, res) => {
 
 // Convert markdown results to HTML
 app.get("/results/:filename", (req, res) => {
+  if (/^\d+-[\w-]+\.png$/.test(req.params.filename)) {
+    return res.sendFile(req.params.filename, { root: RESULTS }, (err) => {
+      if (err && !res.headersSent) res.status(404).send("Result not found");
+    });
+  }
   const mdFile = req.params.filename.replace('.html', '.md');
   const filePath = path.join(RESULTS, mdFile);
   
@@ -191,6 +198,8 @@ app.get("/api/run", (req, res) => {
   res.set({ "Content-Type": "text/event-stream", "Cache-Control": "no-cache", Connection: "keep-alive" });
   const send = (type, data) => res.write(`data: ${JSON.stringify({ type, data })}\n\n`);
 
+  if (p.type === "playwright") return runBrowserCheck(p, url, req, res, send);
+
   const fullPrompt = p.prompt.replaceAll("{{URL}}", url);
   const args = [
   "-p", fullPrompt,
@@ -225,5 +234,54 @@ child.on("error", (err) => {
 
   req.on("close", () => child.kill());
 });
+
+// Runs deterministic Playwright checks in a child process instead of the Copilot CLI
+function runBrowserCheck(p, url, req, res, send) {
+  const timestamp = Date.now();
+  const shotName = `${timestamp}-${p.id}.png`;
+  const args = [path.join(__dirname, "browser-check.js"), url, "--screenshot", path.join(RESULTS, shotName)];
+
+  send("start", `▶ ${p.name} on ${url}\n`);
+  const child = spawn(process.execPath, args, { cwd: __dirname });
+
+  let log = "";
+  let stdout = "";
+  child.stderr.on("data", (d) => { log += d; send("out", d.toString()); });
+  child.stdout.on("data", (d) => { stdout += d; });
+
+  const timer = setTimeout(() => {
+    const msg = `Timed out after ${BROWSER_CHECK_TIMEOUT / 1000}s\n`;
+    log += msg;
+    send("out", msg);
+    child.kill();
+  }, BROWSER_CHECK_TIMEOUT);
+
+  child.on("error", (err) => {
+    log += `Could not start browser check (${err.code})\n`;
+  });
+
+  child.on("close", (code) => {
+    clearTimeout(timer);
+    let result;
+    try {
+      result = JSON.parse(stdout);
+    } catch {
+      result = null;
+    }
+
+    const summary = result
+      ? toMarkdown(result, result.screenshot ? `/results/${shotName}` : null)
+      : "**Overall:** ❌ FAILED\n**Error:** Browser check did not produce a result.";
+    if (result) fs.writeFileSync(path.join(RESULTS, `${timestamp}-${p.id}.json`), JSON.stringify(result, null, 2));
+    fs.writeFileSync(path.join(RESULTS, `${timestamp}-${p.id}.md`), `# ${p.name}\nURL: ${url}\n\n${log}\n${summary}\n`);
+
+    send("out", `\n${summary}\n`);
+    const htmlFile = `/results/${timestamp}-${p.id}.html`;
+    send("end", `\n✔ Finished (exit ${code}). <a href="${htmlFile}" target="_blank">View full report →</a>`);
+    res.end();
+  });
+
+  req.on("close", () => child.kill());
+}
 
 app.listen(PORT, () => console.log(`QA Runner → http://localhost:${PORT}`));
