@@ -17,9 +17,9 @@
     "agent": "qa-agent",
     "prompt": "Find all forms on {{URL}} and test the validation with valid, empty and invalid input. Report the results as a table."
   },
-  {
-    "id": "browser-check",
-    "name": "Browser Check",
-    "type": "browser-check"
-  }
+ {
+  "id": "browser-check",
+  "name": "Browser Check",
+  "type": "playwright"
+}
 ]
