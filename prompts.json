@@ -20,7 +20,6 @@
   {
     "id": "browser-check",
     "name": "Browser Check",
-    "type": "playwright",
-    "prompt": "Deterministic Playwright checks on {{URL}}: response status, page errors, console errors, images missing alt attributes, and a full-page screenshot. No AI agent involved."
+    "type": "browser-check"
   }
 ]
