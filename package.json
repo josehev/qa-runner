@@ -1,0 +1,12 @@
+{
+  "name": "qa-runner",
+  "version": "1.0.0",
+  "description": "Local QA testing tool for Copilot agents",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}

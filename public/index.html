@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QA Runner</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: white; font-weight: 700; }
+    .subtitle { color: rgba(255,255,255,0.9); margin-bottom: 2rem; }
+    select, input, button {
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    select:focus, input:focus { outline: none; border-color: #667eea; }
+    select { width: 100%; margin-bottom: 1rem; background: white; }
+    input {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    button {
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102,126,234,0.4);
+    }
+    button:active { transform: translateY(0); }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .prompt {
+      color: #666;
+      font-size: 0.95rem;
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      border-radius: 4px;
+      line-height: 1.5;
+    }
+    pre {
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 1.5rem;
+      min-height: 300px;
+      max-height: 600px;
+      white-space: pre-wrap;
+      border-radius: 8px;
+      overflow-y: auto;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-top: 1rem;
+    }
+    a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover { text-decoration: underline; }
+    .history {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid #e9ecef;
+    }
+    .history h2 { color: #333; margin-bottom: 1rem; font-size: 1.3rem; }
+    .result-item {
+      background: #f8f9fa;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+    .result-item:hover {
+      background: #e9ecef;
+      transform: translateX(4px);
+    }
+    .result-name { font-weight: 500; color: #333; }
+    .result-time { font-size: 0.85rem; color: #666; }
+    .result-link {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #667eea;
+      color: white;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 Copilot QA Runner</h1>
+    <p class="subtitle">Run your QA agents from anywhere, no VS Code needed</p>
+    
+    <div class="card">
+      <label for="prompt" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Choose a test:</label>
+      <select id="prompt"></select>
+      <div class="prompt" id="preview"></div>
+      
+      <label for="url" style="display: block; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; color: #333;">Website to test:</label>
+      <input id="url" type="url" placeholder="https://example.com" />
+      <button id="run">▶ Run Test</button>
+    </div>
+    
+    <div class="card">
+      <h2 style="margin-bottom: 1rem; color: #333;">Test Output</h2>
+      <pre id="out">Waiting for test to start...</pre>
+    </div>
+    
+    <div class="card history">
+      <h2>📋 Recent Results</h2>
+      <div id="history" style="color: #666; font-size: 0.95rem;">Loading...</div>
+    </div>
+  </div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  let prompts = [];
+
+  // Load prompts
+  fetch("/api/prompts")
+    .then(r => r.json())
+    .then(list => {
+      prompts = list;
+      $('prompt').innerHTML = list.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+      showPreview();
+    })
+    .catch(e => console.error('Failed to load prompts:', e));
+
+  // Load results history
+  const loadHistory = () => {
+    fetch('/api/results')
+      .then(r => r.json())
+      .then(results => {
+        if (results.length === 0) {
+          $('history').innerHTML = '<p style="color: #999;">No test results yet. Run your first test!</p>';
+        } else {
+          $('history').innerHTML = results.map(r => `
+            <div class="result-item">
+              <div>
+                <div class="result-name">${r.name}</div>
+                <div class="result-time">${r.created}</div>
+              </div>
+              <a href="${r.path}" target="_blank" class="result-link">View →</a>
+            </div>
+          `).join('');
+        }
+      })
+      .catch(e => console.error('Failed to load results:', e));
+  };
+
+  const showPreview = () => {
+    const p = prompts.find(x => x.id === $('prompt').value);
+    if (p) {
+      $('preview').innerHTML = `<strong>Agent:</strong> ${p.agent}<br><strong>Prompt:</strong> ${p.prompt}`;
+    }
+  };
+
+  $('prompt').onchange = showPreview;
+
+  $('run').onclick = () => {
+    const url = $('url').value.trim();
+    if (!url) return alert('Paste a URL first');
+    if (!url.startsWith('http')) return alert('URL must start with http:// or https://');
+    
+    $('out').textContent = 'Starting test...\n';
+    $('run').disabled = true;
+    
+    const es = new EventSource(`/api/run?promptId=${$('prompt').value}&url=${encodeURIComponent(url)}`);
+    
+    es.onmessage = (e) => {
+      const { type, data } = JSON.parse(e.data);
+      if (type === 'start' || type === 'out') {
+        $('out').textContent += data;
+      } else if (type === 'end') {
+        $('out').textContent += data;
+        es.close();
+        $('run').disabled = false;
+        loadHistory();
+      }
+      $('out').scrollTop = $('out').scrollHeight;
+    };
+    
+    es.onerror = () => {
+      es.close();
+      $('run').disabled = false;
+      $('out').textContent += '\n❌ Error running test';
+    };
+  };
+
+  // Load history on page load
+  loadHistory();
+  // Reload history every 5 seconds
+  setInterval(loadHistory, 5000);
+</script>
+</body>
+</html>

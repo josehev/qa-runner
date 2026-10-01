@@ -1,0 +1,20 @@
+[
+  {
+    "id": "smoke",
+    "name": "Smoke test",
+    "agent": "qa-agent",
+    "prompt": "Run a smoke test on {{URL}}. Check the page loads, there are no console errors, the main navigation works and there are no broken links. Report pass/fail per check."
+  },
+  {
+    "id": "a11y",
+    "name": "Accessibility audit",
+    "agent": "qa-agent",
+    "prompt": "Do an accessibility audit of {{URL}} (WCAG 2.2 AA). List issues with severity and suggested fixes."
+  },
+  {
+    "id": "forms",
+    "name": "Form validation",
+    "agent": "qa-agent",
+    "prompt": "Find all forms on {{URL}} and test the validation with valid, empty and invalid input. Report the results as a table."
+  }
+]
