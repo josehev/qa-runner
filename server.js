@@ -195,7 +195,12 @@ app.get("/api/run", (req, res) => {
   if (p.agent) args.push("--agent", p.agent);
 
   send("start", `▶ ${p.name} on ${url}\n`);
-  const child = spawn("copilot", args, { cwd: WORKSPACE, shell: process.platform === "win32" });
+  const child = spawn(COPILOT_BIN, args, { cwd: WORKSPACE, shell: process.platform === "win32" });
+
+child.on("error", (err) => {
+  send("end", `\n❌ Could not start Copilot CLI (${err.code}). Check that "copilot --version" works in Terminal, or set COPILOT_BIN to its full path.`);
+  res.end();
+});
 
   let log = "";
   const onData = (d) => { log += d; send("out", d.toString()); };
