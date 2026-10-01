@@ -65,16 +65,20 @@
       border-radius: 4px;
       line-height: 1.5;
     }
+    .run-status { font-size: 1.15rem; color: #19283a; line-height: 1.5; }
+    .report-link { display: inline-block; margin-top: 1rem; padding: 0.75rem 1rem; background: #145329; color: white; border-radius: 8px; }
+    .report-link[hidden] { display: none; }
+    .report-link:hover { color: white; }
+    details { margin-top: 1.5rem; color: #4b5b6b; }
+    summary { cursor: pointer; font-weight: 600; }
     pre {
-      background: #0d1117;
-      color: #e6edf3;
-      padding: 1.5rem;
-      min-height: 300px;
-      max-height: 600px;
+      background: #f4f6f8;
+      color: #19283a;
+      padding: 1rem;
+      max-height: 350px;
       white-space: pre-wrap;
       border-radius: 8px;
       overflow-y: auto;
-      font-family: 'Monaco', 'Menlo', monospace;
       font-size: 0.9rem;
       line-height: 1.5;
       margin-top: 1rem;
@@ -134,8 +138,10 @@
     </div>
     
     <div class="card">
-      <h2 style="margin-bottom: 1rem; color: #333;">Test Output</h2>
-      <pre id="out">Waiting for test to start...</pre>
+      <h2 style="margin-bottom: 1rem; color: #333;">Test result</h2>
+      <p id="status" class="run-status" role="status">Choose a test to get started.</p>
+      <a id="report-link" class="report-link" hidden target="_blank" rel="noopener">View Pass / Fail report →</a>
+      <details><summary>Technical output (optional)</summary><pre id="out">No test has run yet.</pre></details>
     </div>
     
     <div class="card history">
@@ -194,7 +200,10 @@
     if (!url) return alert('Paste a URL first');
     if (!url.startsWith('http')) return alert('URL must start with http:// or https://');
     
-    $('out').textContent = 'Starting test...\n';
+    $('out').textContent = '';
+    $('status').textContent = 'Running the test… Results will appear here when it finishes.';
+    $('report-link').hidden = true;
+    $('report-link').removeAttribute('href');
     $('run').disabled = true;
     
     const es = new EventSource(`/api/run?promptId=${$('prompt').value}&url=${encodeURIComponent(url)}`);
@@ -203,8 +212,13 @@
       const { type, data } = JSON.parse(e.data);
       if (type === 'start' || type === 'out') {
         $('out').textContent += data;
+      } else if (type === 'report') {
+        if (/^\/results\/\d+-[a-z0-9-]+\.html$/.test(data)) {
+          $('report-link').href = data;
+          $('report-link').hidden = false;
+        }
       } else if (type === 'end') {
-        $('out').textContent += data;
+        $('status').textContent = data;
         es.close();
         $('run').disabled = false;
         loadHistory();
@@ -215,7 +229,7 @@
     es.onerror = () => {
       es.close();
       $('run').disabled = false;
-      $('out').textContent += '\n❌ Error running test';
+      $('status').textContent = 'The test could not be completed. Open technical output for details.';
     };
   };
 

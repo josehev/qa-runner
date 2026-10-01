@@ -2,7 +2,14 @@ const categories = ["Performance", "Accessibility", "Functionality", "Security"]
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
 })[char]);
-const clean = (value) => value.replace(/[`*_#]/g, "").trim();
+const clean = (value) => value.replace(/[*_]/g, "").trim();
+const friendly = (value) => value
+  .replace(/\s*[\[(](?:selector|element|file|line|stack|code):[^\])]*[\])]/gi, "")
+  .replace(/\s*[\[(][^\])]*\b[\w.-]+\.(?:js|jsx|ts|tsx|html|css)(?::\d+)?[^\])]*[\])]/gi, "")
+  .replace(/(?:[\w.-]+\/)+[\w.-]+\.(?:js|jsx|ts|tsx|html|css)(?::\d+)?/gi, "the affected file")
+  .replace(/#[\w-]+/g, "the affected element")
+  .replace(/`[^`]+`/g, "the affected element")
+  .trim();
 
 function parseReport(content) {
   const lines = content.split(/\r?\n/);
@@ -96,14 +103,16 @@ function renderReport(report, stamp) {
     `<div class="card"><span>${escapeHtml(m.label)}</span><strong>${escapeHtml(m.value)}</strong></div>`).join("")}</div></section>` : "";
   const categoryHtml = categories.map(category => {
     const group = checks.filter(c => c.category === category);
-    const failing = group.filter(c => c.status === "fail").length;
-    const warning = group.filter(c => c.status === "warning").length;
     const related = metrics.filter(m => (category === "Performance" && /load/i.test(m.label)) ||
       (category === "Accessibility" && /accessibility/i.test(m.label)) ||
       (category === "Functionality" && /links/i.test(m.label)));
-    const state = !group.length ? related.length ? "Measured (no verdict)" : "Not checked" :
-      failing ? `❌ ${failing} failed` : warning ? `⚠️ ${warning} warning${warning === 1 ? "" : "s"}` : "✅ Passed";
-    return `<div class="category"><strong>${category}</strong><span>${state}${related.length ? ` · ${related.map(m => `${escapeHtml(m.label)}: ${escapeHtml(m.value)}`).join(", ")}` : ""}</span></div>`;
+    const metricNote = related.length ? ` · ${related.map(m => `${escapeHtml(m.label)}: ${escapeHtml(m.value)}`).join(", ")}` : "";
+    const rows = group.length ? group.map(c =>
+      `<tr><th scope="row">${escapeHtml(friendly(c.description))}</th>${["pass", "fail", "warning"].map(status =>
+        `<td class="${c.status === status ? `result ${status}` : "empty"}">${c.status === status ?
+          `${status === "pass" ? "✓ Pass" : status === "fail" ? `✕ Fail · ${escapeHtml(c.severity)}` : `! Warning · ${escapeHtml(c.severity)}`}` : "—"}</td>`).join("")}</tr>`
+    ).join("") : `<tr><th scope="row">${related.length ? "Measurement recorded" : "No checks reported"}</th><td colspan="3" class="muted">${related.length ? "Measured (no verdict)" : "Not checked"}${metricNote}</td></tr>`;
+    return `<tbody><tr class="category-heading"><th scope="rowgroup" colspan="4">${category}${group.length ? metricNote : ""}</th></tr>${rows}</tbody>`;
   }).join("");
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -116,11 +125,15 @@ h1{font-size:2rem;margin:0 0 8px}h2{font-size:1.35rem;margin:0 0 16px}section{ma
 .pass{background:#e5f4e9;color:#145329}.fail{background:#fce9e9;color:#972b2b}.warning{background:#fff2d7;color:#795000}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}.card{border:1px solid #dce3ea;border-radius:8px;padding:18px;background:#fafbfd}
 .card span{display:block;color:#4b5b6b}.card strong{display:block;font-size:1.8rem;margin-top:4px}
-.category{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #dce3ea;padding:14px 0}.category span{text-align:right}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:600px;text-align:left}
+th,td{padding:12px;border-bottom:1px solid #dce3ea;vertical-align:top}thead th{background:#e9eff4}
+tbody th[scope="row"]{font-weight:500;width:49%;overflow-wrap:anywhere}
+.category-heading th{background:#f0f3f6;font-size:1.05rem;padding:12px;font-weight:700}
+td.result{font-weight:700;border-left:3px solid currentColor;white-space:nowrap}td.empty{color:#697989}td.muted{font-weight:500}
 li{margin:12px 0}li strong{margin-right:8px}details{margin-top:32px;border-top:1px solid #dce3ea;padding-top:18px}
 summary{cursor:pointer;font-weight:600}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f6f8;padding:18px;border-radius:8px;font-size:.85rem}
 a{color:#174c78}footer{margin-top:40px} .muted{color:#4b5b6b}
-@media(max-width:600px){main{margin:0;padding:24px 18px;border:0;border-radius:0}.category{display:block}.category span{display:block;text-align:left}}
+@media(max-width:600px){main{margin:0;padding:24px 18px;border:0;border-radius:0}}
 @media print{body{background:#fff}main{border:0;margin:0;padding:0}footer,details{display:none}.card,.headline{break-inside:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style></head><body><main>
 <header><h1>${escapeHtml(title)}</h1><div class="meta">Website: ${escapeHtml(url || "Not provided")}<br>Test date: ${escapeHtml(stamp)}</div>
@@ -131,10 +144,10 @@ a{color:#174c78}footer{margin-top:40px} .muted{color:#4b5b6b}
 <div class="card"><span>❌ Failed</span><strong>${counts.failed}</strong></div>
 <div class="card"><span>⚠️ Warnings</span><strong>${counts.warnings}</strong></div></div></section>
 ${metricHtml}
-<section><h2>By category</h2>${categoryHtml}</section>
-<section><h2>Issues found</h2>${issueList.length ? `<ul>${issueList.map(c => `<li><strong>${escapeHtml(c.severity)} · ${escapeHtml(c.category)}</strong>${escapeHtml(c.description)}</li>`).join("")}</ul>` :
+<section><h2>Results by category</h2><div class="table-wrap"><table><thead><tr><th scope="col">What was checked</th><th scope="col">Pass</th><th scope="col">Fail</th><th scope="col">Warning</th></tr></thead>${categoryHtml}</table></div></section>
+<section><h2>Issues found</h2>${issueList.length ? `<ul>${issueList.map(c => `<li><strong>${escapeHtml(c.severity)} · ${escapeHtml(c.category)}</strong>${escapeHtml(friendly(c.description))}</li>`).join("")}</ul>` :
   `<p class="muted">${total && !error ? "No issues were reported in the checks above." : "No findings available. The test needs to be run successfully before results can be assessed."}</p>`}</section>
-<section><h2>Recommendations</h2>${actions.length ? `<ul>${actions.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul>` :
+<section><h2>Recommendations</h2>${actions.length ? `<ul>${actions.map(a => `<li>${escapeHtml(friendly(a))}</li>`).join("")}</ul>` :
   `<p class="muted">${total && !error ? "No changes recommended based on the reported checks." : "Resolve the test setup or review the technical details, then run the test again."}</p>`}</section>
 <details><summary>Technical details (original test output)</summary><pre>${escapeHtml(output || "No output was recorded.")}</pre></details>
 <footer><a href="/">← Back to QA Runner</a></footer></main></body></html>`;

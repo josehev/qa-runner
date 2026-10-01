@@ -73,7 +73,7 @@ app.get("/api/run", (req, res) => {
   const send = (type, data) => res.write(`data: ${JSON.stringify({ type, data })}\n\n`);
 
   const fullPrompt = `${p.prompt.replaceAll("{{URL}}", url)}
-Report each verified check on its own line as PASS: description, FAIL: description, or WARNING: description. Include measured load time, broken links count, and accessibility issues count only if actually checked. For issues, use plain language and add a separate "Recommendation: action" line. Do not mark untested checks as passed.`;
+Report each verified check on its own line as PASS: description, FAIL: description, or WARNING: description. Use short, plain-language descriptions for non-technical readers; put code, selectors, file paths and stack traces after the summary, not in check descriptions or recommendations. Include measured load time, broken links count, and accessibility issues count only if actually checked. For issues, add a separate "Recommendation: action" line in plain language. Do not mark untested checks as passed.`;
   const args = ["-p", fullPrompt, "--allow-all-tools"];
   if (p.agent) args.push("--agent", p.agent);
 
@@ -97,7 +97,9 @@ child.on("error", (err) => {
     fs.writeFileSync(mdFile, content);
     
     const htmlFile = `/results/${timestamp}-${p.id}.html`;
-    send("end", `\n✔ Finished (exit ${code}). <a href="${htmlFile}" target="_blank">View full report →</a>`);
+    send("report", htmlFile);
+    send("end", code === 0 ? "Test complete. Open the Pass / Fail report to review the results." :
+      "The test could not be completed. Open the report or technical output for details.");
     res.end();
   });
 

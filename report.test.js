@@ -25,6 +25,9 @@ FAIL: This code example is not a check
   assert.match(html, /Update the contact page links/);
   assert.match(html, /Performance.*?2.3s/);
   assert.match(html, /Technical details \(original test output\)/);
+  assert.match(html, /<th scope="col">Pass<\/th><th scope="col">Fail<\/th><th scope="col">Warning<\/th>/);
+  assert.match(html, /<td class="result fail">✕ Fail · High<\/td>/);
+  assert.match(html, /<td class="result pass">✓ Pass<\/td>/);
 });
 
 test("does not claim success on an incomplete agent run", () => {
@@ -36,6 +39,7 @@ Error: No authentication information found.`);
   const html = renderReport(report, "Today");
   assert.match(html, /Test could not be completed/);
   assert.match(html, /Not checked/);
+  assert.match(html, /No checks reported/);
   assert.doesNotMatch(html, /All reported checks passed/);
 });
 
@@ -74,4 +78,20 @@ Recommendation: Remove <script>alert(1)</script>`), "Today");
   assert.equal(html.includes("<script>") || html.includes("<img"), false);
   assert.match(html, /&lt;script&gt;/);
   assert.match(html, /<details>/);
+});
+
+test("keeps code references in technical details but not stakeholder checks", () => {
+  const report = parseReport(`# Form test
+URL: https://example.com
+
+FAIL: Submit button does not work (selector: #submit) at \`document.querySelector('#submit')\`
+Recommendation: Fix the submit button (file: src/forms.js:12).
+\`\`\`js
+document.querySelector('#submit')
+\`\`\``);
+  const html = renderReport(report, "Today");
+  const visible = html.split("<details>")[0];
+  assert.match(visible, /Submit button does not work/);
+  assert.doesNotMatch(visible, /#submit|src\/forms\.js|document\.querySelector/);
+  assert.match(html, /document\.querySelector/);
 });
