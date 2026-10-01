@@ -3,7 +3,7 @@
     "id": "smoke",
     "name": "Smoke test",
     "agent": "qa-agent",
-    "prompt": "Run a smoke test on {{URL}}. Check the page loads, there are no console errors, the main navigation works and there are no broken links. Report pass/fail per check."
+    "prompt": "Run a smoke test on {{URL}}. Check for page structure, FrontEnd best practices, responsive design, accessibility using the WCAG AA standard, make sure there are no broken links. Create a report on the findings, what passed and what failed."
   },
   {
     "id": "a11y",
