@@ -7,6 +7,7 @@ const app = express();
 const PORT = 4545;
 // Folder containing .github/agents/*.agent.md (your QA project)
 const WORKSPACE = process.env.QA_WORKSPACE || process.cwd();
+const COPILOT_BIN = process.env.COPILOT_BIN || "copilot";
 const RESULTS = path.join(__dirname, "results");
 fs.mkdirSync(RESULTS, { recursive: true });
 
