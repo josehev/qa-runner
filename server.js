@@ -192,8 +192,12 @@ app.get("/api/run", (req, res) => {
   const send = (type, data) => res.write(`data: ${JSON.stringify({ type, data })}\n\n`);
 
   const fullPrompt = p.prompt.replaceAll("{{URL}}", url);
-  const args = ["-p", fullPrompt, "--allow-all-tools"];
-  if (p.agent) args.push("--agent", p.agent);
+  const args = [
+  "-p", fullPrompt,
+  "--allow-all-tools",
+  "--allow-url=qa3-oru.vml.dev"
+];
+ if (p.agent) args.push("--agent", p.agent);
 
   send("start", `▶ ${p.name} on ${url}\n`);
   const child = spawn(COPILOT_BIN, args, { cwd: WORKSPACE, shell: process.platform === "win32" });
