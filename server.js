@@ -44,8 +44,8 @@ app.get("/results/:filename", (req, res) => {
   let content = fs.readFileSync(filePath, "utf8");
   
   // Simple markdown to HTML conversion
-  const title = content.match(/# (.+)/)? .[1] || "Test Result";
-  const url = content.match(/URL: (.+)/)? .[1] || "";
+ const title = content.match(/# (.+)/)?.[1] || "Test Result";
+ const url = content.match(/URL: (.+)/)?.[1] || "";
   
   // Extract the test output (everything after the URL line)
   const output = content.split('\n').slice(2).join('\n');
