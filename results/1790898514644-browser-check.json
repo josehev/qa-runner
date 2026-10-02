@@ -1,0 +1,57 @@
+{
+  "url": "https://qa3-oru.vml.dev/en/save-money/homeboost",
+  "finalUrl": "https://qa3-oru.vml.dev/en/save-money/homeboost",
+  "status": 200,
+  "title": "Home Boost: Free Home Energy Efficiency Assessments | Orange & Rockland",
+  "pageErrors": [],
+  "consoleMessages": [
+    {
+      "type": "log",
+      "text": "%c⚠️ Security Warning! ⚠️ color: red; font-size: 30px; font-weight: bold; text-shadow: 3px 3px 0px rgba(0,0,0,0.2);"
+    },
+    {
+      "type": "log",
+      "text": "%cThis is a browser feature for developers. If you were instructed to enter a code or link here, this is a scam and doing so may compromise your security. background: yellow; color: black; font-size: 14px; padding: 1px; border-radius: 5px;"
+    },
+    {
+      "type": "warning",
+      "text": "VIDEOJS: WARN: Calling addRemoteTextTrack without explicitly setting the \"manualCleanup\" parameter to `true` is deprecated and default to `false` in future version of video.js"
+    }
+  ],
+  "imagesMissingAlt": {
+    "count": 0,
+    "samples": []
+  },
+  "screenshot": "/Users/jose.herrera/qa-runner/qa-runner/results/1790898514644-browser-check.png",
+  "checks": [
+    {
+      "name": "Page response status",
+      "status": "passed",
+      "detail": "HTTP 200"
+    },
+    {
+      "name": "No uncaught page errors",
+      "status": "passed",
+      "detail": "0 page error(s)"
+    },
+    {
+      "name": "No console errors",
+      "status": "passed",
+      "detail": "0 console error(s), 3 message(s) total"
+    },
+    {
+      "name": "Images have alt attributes",
+      "status": "passed",
+      "detail": "0 image(s) missing alt"
+    },
+    {
+      "name": "Screenshot captured",
+      "status": "passed",
+      "detail": "Full-page screenshot saved"
+    }
+  ],
+  "error": null,
+  "passed": true,
+  "startedAt": "2026-10-01T23:48:34.718Z",
+  "durationMs": 9476
+}
