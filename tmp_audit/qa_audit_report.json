@@ -1,0 +1,1360 @@
+{
+  "status": 200,
+  "finalUrl": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling",
+  "title": "Appliance Recycling Program in New Jersey",
+  "meta": {
+    "description": "Get incentives for recycling your old air conditioner or dehumidifier in New Jersey. View program eligibility requirements and upcoming event dates.",
+    "ogTitle": null,
+    "ogDescription": null,
+    "ogImage": null,
+    "canonical": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling",
+    "lang": "en"
+  },
+  "structure": {
+    "header": true,
+    "nav": true,
+    "main": false,
+    "footer": true,
+    "h1Count": 1,
+    "headings": [
+      {
+        "tag": "H4",
+        "text": "POPULAR SEARCH TOPICS"
+      },
+      {
+        "tag": "H3",
+        "text": "Extra Verification"
+      },
+      {
+        "tag": "H5",
+        "text": "Authorize this device."
+      },
+      {
+        "tag": "H1",
+        "text": "Get Rewarded for Recycling"
+      },
+      {
+        "tag": "H2",
+        "text": "About"
+      },
+      {
+        "tag": "H2",
+        "text": "Upcoming Events"
+      },
+      {
+        "tag": "H2",
+        "text": "Get Started"
+      },
+      {
+        "tag": "H3",
+        "text": "Step 1: Ensure Eligibility"
+      },
+      {
+        "tag": "H3",
+        "text": "Step 2: Bring Your Appliance and Participation Form"
+      },
+      {
+        "tag": "H3",
+        "text": "Step 3: Receive Your Reward"
+      },
+      {
+        "tag": "H2",
+        "text": "FAQs"
+      },
+      {
+        "tag": "H2",
+        "text": "Outages"
+      },
+      {
+        "tag": "H2",
+        "text": "Safety"
+      },
+      {
+        "tag": "H2",
+        "text": "About Us"
+      },
+      {
+        "tag": "H2",
+        "text": "Community Affairs"
+      },
+      {
+        "tag": "H2",
+        "text": "Contact Us"
+      },
+      {
+        "tag": "H2",
+        "text": "Renters and Homeowners"
+      },
+      {
+        "tag": "H2",
+        "text": "Small & Medium Businesses"
+      },
+      {
+        "tag": "H2",
+        "text": "Commercial & Industrial"
+      },
+      {
+        "tag": "H2",
+        "text": "Business Partners"
+      },
+      {
+        "tag": "H2",
+        "text": "Investors"
+      },
+      {
+        "tag": "H2",
+        "text": "Rates & Tariffs"
+      },
+      {
+        "tag": "H2",
+        "text": "Municipalities"
+      },
+      {
+        "tag": "H2",
+        "text": "Social"
+      }
+    ]
+  },
+  "images": [
+    {
+      "src": "https://qa3-oru.vml.dev/images/ajax-loader-oru.gif",
+      "alt": "ajax loader animation",
+      "loading": null,
+      "naturalWidth": 150,
+      "naturalHeight": 133,
+      "displayWidth": 0,
+      "displayHeight": 0
+    },
+    {
+      "src": "https://qa3-oru.vml.dev/images/logo-oru.svg",
+      "alt": "Orange & Rockland logo",
+      "loading": null,
+      "naturalWidth": 300,
+      "naturalHeight": 42,
+      "displayWidth": 250,
+      "displayHeight": 36
+    },
+    {
+      "src": "https://qa3-oru.vml.dev/images/logo-oru.svg",
+      "alt": "Orange & Rockland logo",
+      "loading": null,
+      "naturalWidth": 300,
+      "naturalHeight": 42,
+      "displayWidth": 250,
+      "displayHeight": 36
+    },
+    {
+      "src": "https://qa3-oru.vml.dev/images/ajax-loader-oru.gif",
+      "alt": "ajax loader animation",
+      "loading": null,
+      "naturalWidth": 150,
+      "naturalHeight": 133,
+      "displayWidth": 0,
+      "displayHeight": 0
+    },
+    {
+      "src": "https://qa3-oru.vml.dev/images/logo-oru.svg",
+      "alt": "Orange & Rockland logo",
+      "loading": null,
+      "naturalWidth": 300,
+      "naturalHeight": 42,
+      "displayWidth": 0,
+      "displayHeight": 0
+    },
+    {
+      "src": "https://qa3-oru.vml.dev/images/ajax-loader-oru.gif",
+      "alt": "ajax loader animation",
+      "loading": null,
+      "naturalWidth": 150,
+      "naturalHeight": 133,
+      "displayWidth": 0,
+      "displayHeight": 0
+    },
+    {
+      "src": "https://qa3-oru.vml.dev/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/nj/residential/efficient-products/recycling/hero.png?rev=6d7784a91ef145a48260da06217a0c3f",
+      "alt": "An image of an old, worn portable air conditioner and a window air conditioner stored in a garage.",
+      "loading": null,
+      "naturalWidth": 850,
+      "naturalHeight": 478,
+      "displayWidth": 850,
+      "displayHeight": 478
+    },
+    {
+      "src": "https://qa3-oru.vml.dev/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/nj/residential/efficient-products/recycling/step-1.png?rev=723f283e053e46f7afaf1a1e3fe08fb4",
+      "alt": "An illustration of a customer using a laptop representing appliance eligibility.",
+      "loading": null,
+      "naturalWidth": 260,
+      "naturalHeight": 161,
+      "displayWidth": 260,
+      "displayHeight": 161
+    },
+    {
+      "src": "https://qa3-oru.vml.dev/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/nj/residential/efficient-products/recycling/step-2.png?rev=be6b8a2456b34110847d258bfa50897f",
+      "alt": "An illustration of a window air conditioner and portable air conditioner representing eligible appliances.",
+      "loading": null,
+      "naturalWidth": 260,
+      "naturalHeight": 161,
+      "displayWidth": 260,
+      "displayHeight": 161
+    },
+    {
+      "src": "https://qa3-oru.vml.dev/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/nj/residential/efficient-products/recycling/step-3.png?rev=bd9cb8ac390b46658d6dc5870f599fc4",
+      "alt": "An illustration of a handshake and a dollar sign representing a customer rebate.",
+      "loading": null,
+      "naturalWidth": 260,
+      "naturalHeight": 161,
+      "displayWidth": 260,
+      "displayHeight": 161
+    }
+  ],
+  "links": [
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling#mainContent",
+      "text": "Skip to Main Content",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://www.google.com/chrome/downloads/",
+      "text": "Chrome",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://www.mozilla.org/en-US/firefox/new/",
+      "text": "Firefox",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://www.microsoft.com/en-us/edge",
+      "text": "Edge",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://support.apple.com/downloads/safari",
+      "text": "Safari",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/contact-us",
+      "text": "Contact Us",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling#",
+      "text": "English",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/",
+      "text": "",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/my-account",
+      "text": "My Account",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/my-account/pay-my-bill",
+      "text": "Pay Bill",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/my-account/bill-history-assistance",
+      "text": "Bill History & Assistance",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/my-account/energy-use",
+      "text": "Energy Use",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/my-account/manage-my-account",
+      "text": "Manage My Account",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/how-to-read-your-meter",
+      "text": "How to Submit a Meter Reading",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/services-and-outages/service-management-page",
+      "text": "Start, Stop Your Service",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/services-and-outages/report-track-service-issue",
+      "text": "Report & Track Service Issue",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/services-and-outages/claim-form",
+      "text": "File a Claim",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/services-and-outages/preventing-recovering-from-outages",
+      "text": "Preventing & Recovering From Outages",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/contact-us",
+      "text": "Contact Us",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/tips-to-lower-your-bill",
+      "text": "Tips for Lowering Your Energy Bill",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/explore-clean-energy-programs",
+      "text": "Save with Rebates & Incentives",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/my-oru-store",
+      "text": "Energy Saving Store",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/estimate-your-energy-usage",
+      "text": "Estimate Your Energy Use",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/shop-for-energy-suppliers",
+      "text": "Shop for Energy Suppliers",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/using-private-generation-energy-sources",
+      "text": "Using Private Generation Energy Sources",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/our-energy-future/our-energy-vision/our-energy-future-commitment",
+      "text": "Our Clean Energy Commitment",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/our-energy-future/our-energy-vision",
+      "text": "Our Energy Vision",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/our-energy-future/clean-heating-and-cooling",
+      "text": "Clean Heating and Cooling",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/our-energy-future/electric-vehicles",
+      "text": "Electric Vehicles",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling#",
+      "text": "Login or Register",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/contact-us",
+      "text": "Contact Us",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling#",
+      "text": "English",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/my-account",
+      "text": "My Account",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/my-account/pay-my-bill",
+      "text": "Pay Bill",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/my-account/bill-history-assistance",
+      "text": "Bill History & Assistance",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/my-account/energy-use",
+      "text": "Energy Use",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/my-account/manage-my-account",
+      "text": "Manage My Account",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/how-to-read-your-meter",
+      "text": "How to Submit a Meter Reading",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/services-and-outages/service-management-page",
+      "text": "Start, Stop Your Service",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/services-and-outages/report-track-service-issue",
+      "text": "Report & Track Service Issue",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/services-and-outages/claim-form",
+      "text": "File a Claim",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/services-and-outages/preventing-recovering-from-outages",
+      "text": "Preventing & Recovering From Outages",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/contact-us",
+      "text": "Contact Us",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/tips-to-lower-your-bill",
+      "text": "Tips for Lowering Your Energy Bill",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/explore-clean-energy-programs",
+      "text": "Save with Rebates & Incentives",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/my-oru-store",
+      "text": "Energy Saving Store",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/estimate-your-energy-usage",
+      "text": "Estimate Your Energy Use",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/shop-for-energy-suppliers",
+      "text": "Shop for Energy Suppliers",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/using-private-generation-energy-sources",
+      "text": "Using Private Generation Energy Sources",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/our-energy-future/our-energy-vision/our-energy-future-commitment",
+      "text": "Our Clean Energy Commitment",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/our-energy-future/our-energy-vision",
+      "text": "Our Energy Vision",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/our-energy-future/clean-heating-and-cooling",
+      "text": "Clean Heating and Cooling",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/our-energy-future/electric-vehicles",
+      "text": "Electric Vehicles",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/small-medium-sized-businesses/project-center",
+      "text": "Project Center – Building and Service Upgrades\n             ",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/about-us/careers",
+      "text": "Careers\n                                            About Or",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/about-us/media-center",
+      "text": "Media Center\n                                            Med",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/register/pre-register",
+      "text": "Register",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/register/reset-password",
+      "text": "Reset my password",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/",
+      "text": "Home",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits",
+      "text": "Rebates, Incentives & Credits",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits",
+      "text": "Rebates, Incentives & Credits",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/-/media/files/oru/documents/saveenergyandmoney/incentives-and-rebates/for-renters-and-homeowners/reco-spring-recycle-participation-form.pdf?rev=ecba1737fc1f46fe92897888e17e8a1c",
+      "text": "DOWNLOAD PARTICIPATION FORM",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling#anchorNavigationID",
+      "text": "Back to top",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling#anchorNavigationID",
+      "text": "Back to top",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/-/media/files/oru/documents/saveenergyandmoney/incentives-and-rebates/for-renters-and-homeowners/reco-spring-recycle-tc.pdf?rev=66bb0a646e504368a817eeac012f3957&hash=8147C46CAA2DF1F38B1829C176F686BB",
+      "text": "terms and conditions",
+      "target": "_blank",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/-/media/files/oru/documents/saveenergyandmoney/incentives-and-rebates/for-renters-and-homeowners/reco-spring-recycle-participation-form.pdf?rev=ecba1737fc1f46fe92897888e17e8a1c&hash=D8CB0B7A47C49E92081A0BCACC01DE9C",
+      "text": "participation form",
+      "target": "_blank",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/-/media/files/oru/documents/saveenergyandmoney/incentives-and-rebates/for-renters-and-homeowners/reco-spring-recycle-tc.pdf?rev=66bb0a646e504368a817eeac012f3957&hash=8147C46CAA2DF1F38B1829C176F686BB",
+      "text": "terms and conditions",
+      "target": "_blank",
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling#anchorNavigationID",
+      "text": "Back to top",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/-/media/files/oru/documents/saveenergyandmoney/incentives-and-rebates/for-renters-and-homeowners/reco-spring-recycle-tc.pdf?rev=66bb0a646e504368a817eeac012f3957&hash=8147C46CAA2DF1F38B1829C176F686BB",
+      "text": "terms and conditions",
+      "target": "_blank",
+      "rel": null
+    },
+    {
+      "href": "https://nj.home.myorustore.com/",
+      "text": "My ORU Store",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/new-jersey-customers/incentives-for-residential-customers-nj/efficient-products/appliances",
+      "text": "Equipment Rebates",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling#anchorNavigationID",
+      "text": "Back to top",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/new-jersey-customers/incentives-for-residential-customers-nj/efficient-products/appliances",
+      "text": "Get Rebates and Incentives\n            \n            Find reb",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/thermostat-rebate",
+      "text": "Smart Thermostat Rebate\n            \n            Get an $85 ",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://nj.home.myorustore.com/",
+      "text": "My ORU Store\n            \n            Explore our online mar",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/services-and-outages/report-track-service-issue/check-outage-status",
+      "text": "Report Outage Status",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://outagemap.oru.com/external/default.html",
+      "text": "View Outage Map",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/home-energy-safety/beware-of-scammers",
+      "text": "Beware of Scammers",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/home-energy-safety/gas-safety",
+      "text": "Gas Safety",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/home-energy-safety/electric-safety",
+      "text": "Electric Safety",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/home-energy-safety/electric-vehicle-safety",
+      "text": "Electric Vehicle Safety",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/home-energy-safety/carbon-monoxide-safety",
+      "text": "Carbon Monoxide Safety",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/home-energy-safety/integrity-management",
+      "text": "Our Transmission Pipeline Integrity Management Plan",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/about-us/company-information",
+      "text": "Company Information",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/about-us/careers",
+      "text": "Careers",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/about-us/diversity-at-orange-rockland",
+      "text": "Diversity at Orange & Rockland",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/about-us/media-center",
+      "text": "Media Center",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/about-us/regulatory-guidance-and-oversight",
+      "text": "Regulatory Guidance & Oversight",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://lite.conedison.com/ehs/2023-sustainability-report",
+      "text": "Sustainability Report",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://www.retirees.oru.com/en",
+      "text": "Retirees",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/community-affairs/strategic-partnerships",
+      "text": "Community Partnerships",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/community-affairs/teachers-students",
+      "text": "For Teachers & Students",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/community-affairs/our-storm-recovery-plan",
+      "text": "Our Storm Recovery Plan",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/community-affairs/nj-veterans-organization-rate-program",
+      "text": "Rate Credit for NJ Veterans' Organizations",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/community-affairs/community-issues",
+      "text": "Community Issues",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/contact-us",
+      "text": "Contact Us",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/faqs/frequently-asked-questions",
+      "text": "Frequently Asked Questions",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/tips-to-lower-your-bill",
+      "text": "Tips for Lowering Your Energy Bill",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits",
+      "text": "Rebates, Incentives & Credits",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://www.myorustore.com/",
+      "text": "Energy Saving Store",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/energy-saving-landscaping",
+      "text": "Energy Saving Landscaping",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/share-energy-usage-data",
+      "text": "Request and Share Energy Data",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/small-medium-sized-businesses/project-center",
+      "text": "Project Center – Building and Service Upgrades",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits",
+      "text": "Rebates, Incentives & Credits",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/share-energy-usage-data/share-my-data",
+      "text": "Share My Data",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/small-medium-sized-businesses/project-center",
+      "text": "Project Center – Building and Service Upgrades",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/our-energy-future/electric-vehicles/new-york/commercial-ev-drivers/power-ready-program",
+      "text": "POWERREADY Electric Vehicle Program",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/small-medium-sized-businesses/project-center",
+      "text": "Project Center – Building and Service Upgrades",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits",
+      "text": "Rebates, Incentives & Credits",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/for-commercial-industrial/economic-development",
+      "text": "Economic Development",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/accounts-billing/share-energy-usage-data",
+      "text": "Request and Share Energy Data",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/our-energy-future/electric-vehicles/new-york/commercial-ev-drivers/power-ready-program",
+      "text": "POWERREADY Electric Vehicle Program",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/business-partners/become-an-energy-service-company-partner",
+      "text": "Become a Partner as an Energy Supplier",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/business-partners/access-customer-data",
+      "text": "Access Customer Data",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/business-partners/vendor-services",
+      "text": "Vendor Services",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/business-partners/transmission-planning",
+      "text": "Transmission Planning",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/business-partners/hosting-capacity",
+      "text": "Hosting Capacity and System Data",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/business-partners/business-opportunities",
+      "text": "Business Opportunities",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/financial-statement-and-notes",
+      "text": "Financial Statements and Notes",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "http://phx.corporate-ir.net/phoenix.zhtml?c=61493&p=irol-sec",
+      "text": "SEC Filings (CEI)",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "http://phx.corporate-ir.net/phoenix.zhtml?c=61493&p=irol-newsfinancial&nyo=0",
+      "text": "Financial Press Releases",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "http://phx.corporate-ir.net/phoenix.zhtml?c=61493&p=irol-stockQuote",
+      "text": "Stock Quotes",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/ny-rates-tariffs",
+      "text": "New York Rates & Tariffs",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/nj-rates-tariffs",
+      "text": "New Jersey Rates & Tariffs",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/municipalities/municipal-outage-information",
+      "text": "Municipal Outage Information",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://apps.coned.com/townScreens/townScreens/ROPLogin.aspx",
+      "text": "Road Opening Permit Electronic System",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://apps.coned.com/OR_STL/Forms/SAccess.aspx",
+      "text": "Municipal Street Light Portal",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://www.facebook.com/ORUConnect",
+      "text": "Facebook",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://x.com/ORUConnect",
+      "text": "X",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://www.linkedin.com/company/oruconnect/",
+      "text": "LinkedIn",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://www.instagram.com/oruconnect/",
+      "text": "Instagram",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/privacy-statement",
+      "text": "Privacy Statement",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://www.conedison.com/en/accessibility-policy",
+      "text": "Accessibility Policy",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://qa3-oru.vml.dev/en/terms",
+      "text": "Terms of Service",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://conedison.cloud.com/",
+      "text": "HomeNet",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    }
+  ],
+  "forms": [
+    {
+      "action": "/en/search",
+      "inputs": [
+        {
+          "type": "text",
+          "name": "search",
+          "ariaLabel": "search",
+          "hasLabel": false,
+          "placeholder": "SEARCH"
+        }
+      ]
+    },
+    {
+      "action": "#",
+      "inputs": [
+        {
+          "type": "text",
+          "name": "LoginEmail",
+          "ariaLabel": null,
+          "hasLabel": true,
+          "placeholder": ""
+        },
+        {
+          "type": "hidden",
+          "name": null,
+          "ariaLabel": null,
+          "hasLabel": false,
+          "placeholder": null
+        },
+        {
+          "type": "password",
+          "name": "LoginPassword",
+          "ariaLabel": null,
+          "hasLabel": true,
+          "placeholder": null
+        },
+        {
+          "type": "checkbox",
+          "name": "LoginRememberMe",
+          "ariaLabel": null,
+          "hasLabel": true,
+          "placeholder": null
+        }
+      ]
+    },
+    {
+      "action": "#",
+      "inputs": [
+        {
+          "type": "tel",
+          "name": "LoginMFACode",
+          "ariaLabel": null,
+          "hasLabel": true,
+          "placeholder": null
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "tag": "A",
+      "text": "English",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Account & Billing",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Services & Outages",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Save Energy & Money",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Clean Energy",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Log in or Register",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Upcoming Date(s)\n                                 ",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Upcoming Date(s)\n                                 ",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Expand all",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Q: Do I need to own the appliance?",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Q: What condition does my appliance need to be in?",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Q: Why does my appliance need to be in working con",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Q: What happens if my appliance is not eligible?",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Q: I want a new energy-efficient appliance. Where ",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Outages",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Safety",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "About Us",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Community Affairs",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Contact Us",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Renters and Homeowners",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Small & Medium Businesses",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Commercial & Industrial",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Business Partners",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Investors",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Rates & Tariffs",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Municipalities",
+      "expanded": "false"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Social",
+      "expanded": "false"
+    }
+  ],
+  "bodyTextSample": "Skip to Main Content\nContact Us\nEnglish\nAccount & Billing\nServices & Outages\nSave Energy & Money\nClean Energy\nSearch\nLog in or Register\nHome\nRebates, Incentives & Credits\n\nRecycling\n\nGet Rewarded for Recycling\n \n\nEarn $50 for each old working appliance you recycle at one of our drop-off events.\n\nDOWNLOAD PARTICIPATION FORM\nAbout Upcoming Events Get Started FAQs\nAbout\nResidential Rockland Electric customers can earn $50* for recycling old, working appliances at designated drop-off locations. Appliances will be recycled responsibly, and customers can put their rebate toward a new, more energy-efficient appliance.\n\nCustomers can drop off up to four room air conditioners and dehumidifiers per event, with a maximum of 12 units through June 20, 2027. In order to receive a rebate, qualifying appliances must:\n\n\nBe a dehumidifier or room air conditioner manufactured no later than 2019\nBe in working condition, with no exposed wiring or sharp edges, to ensure safe handling\nBACK TO TOP \nUpcoming Events\n\nUpcoming Date(s)\n\n\t\n\nLocation\n\n\t\n\nTime\n\n\n\n\nSunday, Sep 20, 2026\n\n\t\n\nThe Home Depot, 465 Route 17, Mahwah, NJ\n\n\t\n\n9:00 A.M.–12:00 P.M.\n\n\n\n\nSunday, Oct 18, 2026\n\n\t\n\nThe Home Depot, 465 Route 17, Mahwah, NJ\n\n\t\n\n9:00 A.M.–12:00 P.M.\n\nBACK TO TOP \nGet Started\nStep 1: Ensure Eligibility\nRockland Electric residential customers aged 18 or older can bring up to four eligible appliances per event (maximum 12 appliances) through June 20, 2027. Review the program’s terms and conditions to confirm your appliance is eligible.\nStep 2: Bring Your Appliance and Participation Form\nFind an upcoming event and bring your eligible appliance and a completed participation form.\nStep 3: Receive Your Reward\nFor every eligible appliance you drop off, you will receive a $50 check by mail sent to your account address approximately six weeks after the event. For more information on receiving your reward, visit the program’s terms and conditions.\nBACK TO TOP \nFAQs\nEXPAND ALL\nQ: Do I need to own the appliance?\nQ: What condition does my appliance need to be in?\nQ: Why does my appliance need to be in working condition to receive a rebate?\nQ: What happens if my appliance is not eligible?\nQ: I want a new energy-efficient appliance. Where can I purchase one?\nBACK TO TOP \n\nGet Rebates and Incentives\n\nFind rebates and incentives for new energy-efficient appliances.\n\nFIND REBATES\n\nSmart Thermostat Rebate\n\nGet an $85 rebate when you enroll your smart thermostat in the Smart Savers program.\n\nENROLL YOUR THERMOSTAT\n\nMy ORU Store\n\nExplore our online marketplace for new energy-efficient appliances.\n\nSHOP NOW\n* Customers may receive a $50 rebate for each qualifying appliance, subject to program eligibility requirements. A maximum of 12 appliances per customer may be rebated during the program period through June 20, 2027, for a maximum potential rebate of $600, which could trigger tax implications.\nOutages\nReport Outage Status\nView Outage Map\nSafety\nBeware of Scammers\nGas Safety\nElectric Safety\nElectric Vehicle Safety\nCarbon Monoxide Safety\nOur Transmission Pipeline Integrity Management Plan\nAbout Us\nCompany Information\nCareers\nDiversity at Orange & Rockland\nMedia Center\nRegulatory Guidance & Oversight\nSustainability Report\nRetirees\nCommunity Affairs\nCommunity Partnerships\nFor Teachers & Students\nOur Storm Recovery Plan\nRate Credit for NJ Veterans' Organizations\nCommunity Issues\nContact Us\nContact Us\nFrequently Asked Questions\nRenters and Homeowners\nTips for Lowering Your Energy Bill\nRebates, Incentives & Credits\nEnergy Saving Store\nEnergy Saving Landscaping\nRequest and Share Energy Data\nProject Center – Building and Service Upgrades\nSmall & Medium Businesses\nRebates, Incentives & Credits\nShare My Data\nProject Center – Building and Service Upgrades\nPOWERREADY Electric Vehicle Program\nCommercial & Industrial\nProject Center – Building and Service Upgrades\nRebates, Incentives & Credits\nEconomic Development\nRequest and Share Energy Data\nPOWERREADY Electric Vehicle Program\nBusiness Partners\nBecome a Partner as an Energy Supplier\nAccess Customer Data\nVendor Services\nTransmission Planning\nHosting Capacity and System Data\nBusiness Opportunities\nInvestors\nFinancial Statements and Notes\nSEC Filings (CEI)\nFinancial Press Releases\nStock Quotes\nRates & Tariffs\nNew York Rates & Tariffs\nNew Jersey Rates & Tariffs\nMunicipalities\nMunicipal Outage Information\nRoad Opening Permit Electronic System\nMunicipal Street Light Portal\nSocial\nFACEBOOK\nX\nLINKEDIN\nINSTAGRAM\nPrivacy Statement Accessibility Policy Terms of Service HomeNet \n\n© 2016-2025 Orange and Rockland Utilities, Inc. All Rights Reserved.",
+  "placeholderHits": [],
+  "consoleMsgs": [
+    {
+      "type": "log",
+      "text": "%c⚠️ Security Warning! ⚠️ color: red; font-size: 30px; font-weight: bold; text-shadow: 3px 3px 0px rgba(0,0,0,0.2);"
+    },
+    {
+      "type": "log",
+      "text": "%cThis is a browser feature for developers. If you were instructed to enter a code or link here, this is a scam and doing so may compromise your security. background: yellow; color: black; font-size: 14px; padding: 1px; border-radius: 5px;"
+    }
+  ],
+  "pageErrors": [],
+  "tabSequence": [
+    {
+      "tag": "A",
+      "text": "Skip to Main Content",
+      "outline": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "Contact Us",
+      "outline": "none",
+      "outlineWidth": "0px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "English",
+      "outline": "none",
+      "outlineWidth": "0px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "",
+      "outline": "none",
+      "outlineWidth": "0px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Account & Billing",
+      "outline": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Services & Outages",
+      "outline": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Save Energy & Money",
+      "outline": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Clean Energy",
+      "outline": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Search",
+      "outline": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Log in or Register",
+      "outline": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "Home",
+      "outline": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "Rebates, Incentives & Credits",
+      "outline": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "DOWNLOAD PARTICIPATION FORM",
+      "outline": "none",
+      "outlineWidth": "0px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "About",
+      "outline": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "Back to top",
+      "outline": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none"
+    }
+  ],
+  "viewportShots": [
+    {
+      "vp": "1920x1080",
+      "path": "/Users/jose.herrera/qa-runner/qa-runner/tmp_audit/shot_1920x1080.png",
+      "horizontalOverflow": false
+    },
+    {
+      "vp": "1366x768",
+      "path": "/Users/jose.herrera/qa-runner/qa-runner/tmp_audit/shot_1366x768.png",
+      "horizontalOverflow": false
+    },
+    {
+      "vp": "768x1024",
+      "path": "/Users/jose.herrera/qa-runner/qa-runner/tmp_audit/shot_768x1024.png",
+      "horizontalOverflow": false
+    },
+    {
+      "vp": "375x812",
+      "path": "/Users/jose.herrera/qa-runner/qa-runner/tmp_audit/shot_375x812.png",
+      "horizontalOverflow": false
+    }
+  ]
+}
