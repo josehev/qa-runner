@@ -1,0 +1,1734 @@
+{
+  "url": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program",
+  "finalUrl": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program",
+  "gotoErr": null,
+  "data": {
+    "title": "Earn Money With Your Home Battery | Orange & Rockland",
+    "metaDescription": "Earn rewards from your home battery in New York. Enroll eligible Tesla, FranklinWH, and SolarEdge systems through Smart Savers.",
+    "canonical": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program",
+    "ogTags": [],
+    "twitterTags": [],
+    "lang": "en",
+    "headings": [
+      {
+        "tag": "H4",
+        "text": ""
+      },
+      {
+        "tag": "H3",
+        "text": "Verify Your Identity"
+      },
+      {
+        "tag": "H5",
+        "text": "To protect your account, we need to confirm it’s you."
+      },
+      {
+        "tag": "H1",
+        "text": "Enroll Your Home Battery to Earn an Average of $180 per Summer"
+      },
+      {
+        "tag": "H2",
+        "text": "About"
+      },
+      {
+        "tag": "H2",
+        "text": "Benefits of Enrolling"
+      },
+      {
+        "tag": "H3",
+        "text": "Get Incentives"
+      },
+      {
+        "tag": "H3",
+        "text": "Improve Grid Reliability"
+      },
+      {
+        "tag": "H3",
+        "text": "Reduce Emissions"
+      },
+      {
+        "tag": "H2",
+        "text": "Get Started"
+      },
+      {
+        "tag": "H3",
+        "text": "Step 1: Check Eligibility"
+      },
+      {
+        "tag": "H3",
+        "text": "Step 2: Enroll Your Battery"
+      },
+      {
+        "tag": "H3",
+        "text": "Step 3: Receive Your Reward"
+      },
+      {
+        "tag": "H2",
+        "text": "Eligible Batteries"
+      },
+      {
+        "tag": "H2",
+        "text": "Battery Installers"
+      },
+      {
+        "tag": "H2",
+        "text": "FAQs"
+      },
+      {
+        "tag": "H2",
+        "text": "Outages"
+      },
+      {
+        "tag": "H2",
+        "text": "Safety"
+      },
+      {
+        "tag": "H2",
+        "text": "About Us"
+      },
+      {
+        "tag": "H2",
+        "text": "Community Affairs"
+      },
+      {
+        "tag": "H2",
+        "text": "Contact Us"
+      },
+      {
+        "tag": "H2",
+        "text": "Renters and Homeowners"
+      },
+      {
+        "tag": "H2",
+        "text": "Small & Medium Businesses"
+      },
+      {
+        "tag": "H2",
+        "text": "Commercial & Industrial"
+      },
+      {
+        "tag": "H2",
+        "text": "Business Partners"
+      },
+      {
+        "tag": "H2",
+        "text": "Investors"
+      },
+      {
+        "tag": "H2",
+        "text": "Rates & Tariffs"
+      },
+      {
+        "tag": "H2",
+        "text": "Municipalities"
+      },
+      {
+        "tag": "H2",
+        "text": "Social"
+      }
+    ],
+    "landmarks": {
+      "header": 1,
+      "nav": 2,
+      "main": 0,
+      "footer": 1,
+      "banner": 1,
+      "navigationRole": 0,
+      "mainRole": 0,
+      "contentinfo": 0
+    },
+    "images": [
+      {
+        "src": "https://dev10.oru.com/images/ajax-loader-oru.gif",
+        "alt": "ajax loader animation",
+        "loading": null,
+        "naturalWidth": 150,
+        "naturalHeight": 133,
+        "displayWidth": 150,
+        "displayHeight": 133
+      },
+      {
+        "src": "https://dev10.oru.com/images/logo-oru.svg",
+        "alt": "Orange & Rockland logo",
+        "loading": null,
+        "naturalWidth": 300,
+        "naturalHeight": 42,
+        "displayWidth": 250,
+        "displayHeight": 36
+      },
+      {
+        "src": "https://dev10.oru.com/images/logo-oru.svg",
+        "alt": "Orange & Rockland logo",
+        "loading": null,
+        "naturalWidth": 300,
+        "naturalHeight": 42,
+        "displayWidth": 250,
+        "displayHeight": 36
+      },
+      {
+        "src": "https://dev10.oru.com/images/ajax-loader-oru.gif",
+        "alt": "ajax loader animation",
+        "loading": null,
+        "naturalWidth": 150,
+        "naturalHeight": 133,
+        "displayWidth": 150,
+        "displayHeight": 133
+      },
+      {
+        "src": "https://dev10.oru.com/images/logo-oru.svg",
+        "alt": "Orange & Rockland logo",
+        "loading": null,
+        "naturalWidth": 300,
+        "naturalHeight": 42,
+        "displayWidth": 300,
+        "displayHeight": 42
+      },
+      {
+        "src": "https://dev10.oru.com/images/ajax-loader-oru.gif",
+        "alt": "ajax loader animation",
+        "loading": null,
+        "naturalWidth": 150,
+        "naturalHeight": 133,
+        "displayWidth": 150,
+        "displayHeight": 133
+      },
+      {
+        "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/hero.png?rev=e8f2b6a1b43d42748e8f2593a1f86210",
+        "alt": "An image of a wall-mounted home battery installed on the exterior of a house.",
+        "loading": null,
+        "naturalWidth": 850,
+        "naturalHeight": 478,
+        "displayWidth": 850,
+        "displayHeight": 478
+      },
+      {
+        "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/get-incentives.png?rev=f204e8ebfab9443ca31adc3334dee6c5",
+        "alt": "An illustration of a piggy bank, checklist, and dollar symbol representing incentives and savings.",
+        "loading": null,
+        "naturalWidth": 260,
+        "naturalHeight": 161,
+        "displayWidth": 260,
+        "displayHeight": 161
+      },
+      {
+        "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/improve-grid-reliability.png?rev=32a38132ed51462a8bc0f1922cb66432",
+        "alt": "An illustration of an electric transmission tower representing grid reliability.",
+        "loading": null,
+        "naturalWidth": 260,
+        "naturalHeight": 161,
+        "displayWidth": 260,
+        "displayHeight": 161
+      },
+      {
+        "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/reduce-emissions.png?rev=b8c68608ea394a6c8f8044c52da1e08b",
+        "alt": "An illustration of solar panels and an electric transmission tower representing cleaner energy and reduced emissions.",
+        "loading": null,
+        "naturalWidth": 260,
+        "naturalHeight": 161,
+        "displayWidth": 260,
+        "displayHeight": 161
+      },
+      {
+        "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/step-1.png?rev=d4016266a2e84f93b86990c3d63c7733",
+        "alt": "An illustration of documents with a checkmark representing battery eligibility.",
+        "loading": null,
+        "naturalWidth": 260,
+        "naturalHeight": 161,
+        "displayWidth": 260,
+        "displayHeight": 161
+      },
+      {
+        "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/step-2.png?rev=6f3f90c520c64fdbba0d40410dc80781",
+        "alt": "An illustration of a laptop displaying an enrollment form with a checkmark.",
+        "loading": null,
+        "naturalWidth": 260,
+        "naturalHeight": 161,
+        "displayWidth": 260,
+        "displayHeight": 161
+      },
+      {
+        "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/step-3.png?rev=ed9fa839526e44079d06c1946891f745",
+        "alt": "An illustration of a handshake and a dollar symbol representing customer rewards.",
+        "loading": null,
+        "naturalWidth": 260,
+        "naturalHeight": 161,
+        "displayWidth": 260,
+        "displayHeight": 161
+      }
+    ],
+    "links": [
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#mainContent",
+        "text": "Skip to Main Content",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://www.google.com/chrome/downloads/",
+        "text": "Chrome",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://www.mozilla.org/en-US/firefox/new/",
+        "text": "Firefox",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://www.microsoft.com/en-us/edge",
+        "text": "Edge",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://support.apple.com/downloads/safari",
+        "text": "Safari",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://dev10.oru.com/en/contact-us",
+        "text": "Contact Us",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#",
+        "text": "English",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/",
+        "text": "",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/my-account",
+        "text": "My Account",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/my-account/pay-my-bill",
+        "text": "Pay Bill",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/my-account/bill-history-assistance",
+        "text": "Bill History & Assistance",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/my-account/energy-use",
+        "text": "Energy Use",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/my-account/manage-my-account",
+        "text": "Manage My Account",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/how-to-read-your-meter",
+        "text": "How to Submit a Meter Reading",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/services-and-outages/service-management-page",
+        "text": "Start, Stop Your Service",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/services-and-outages/report-track-service-issue",
+        "text": "Report & Track Service Issue",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/services-and-outages/claim-form",
+        "text": "File a Claim",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/services-and-outages/preventing-recovering-from-outages",
+        "text": "Preventing & Recovering From Outages",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/contact-us",
+        "text": "Contact Us",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/tips-to-lower-your-bill",
+        "text": "Tips for Lowering Your Energy Bill",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/savings-hub",
+        "text": "Save with Rebates & Incentives",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/my-oru-store",
+        "text": "Energy Saving Store",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/estimate-your-energy-usage",
+        "text": "Estimate Your Energy Use",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/shop-for-energy-suppliers",
+        "text": "Shop for Energy Suppliers",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/using-private-generation-energy-sources",
+        "text": "Using Private Generation Energy Sources",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/our-energy-future/our-energy-vision/our-energy-future-commitment",
+        "text": "Our Clean Energy Commitment",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/our-energy-future/our-energy-vision",
+        "text": "Our Energy Vision",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/save-with-clean-heating-and-cooling-technology",
+        "text": "Clean Heating and Cooling",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/our-energy-future/electric-vehicles",
+        "text": "Electric Vehicles",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#",
+        "text": "Login or Register",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/contact-us",
+        "text": "Contact Us",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#",
+        "text": "English",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/my-account",
+        "text": "My Account",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/my-account/pay-my-bill",
+        "text": "Pay Bill",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/my-account/bill-history-assistance",
+        "text": "Bill History & Assistance",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/my-account/energy-use",
+        "text": "Energy Use",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/my-account/manage-my-account",
+        "text": "Manage My Account",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/how-to-read-your-meter",
+        "text": "How to Submit a Meter Reading",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/services-and-outages/service-management-page",
+        "text": "Start, Stop Your Service",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/services-and-outages/report-track-service-issue",
+        "text": "Report & Track Service Issue",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/services-and-outages/claim-form",
+        "text": "File a Claim",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/services-and-outages/preventing-recovering-from-outages",
+        "text": "Preventing & Recovering From Outages",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/contact-us",
+        "text": "Contact Us",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/tips-to-lower-your-bill",
+        "text": "Tips for Lowering Your Energy Bill",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/savings-hub",
+        "text": "Save with Rebates & Incentives",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/my-oru-store",
+        "text": "Energy Saving Store",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/estimate-your-energy-usage",
+        "text": "Estimate Your Energy Use",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/shop-for-energy-suppliers",
+        "text": "Shop for Energy Suppliers",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/using-private-generation-energy-sources",
+        "text": "Using Private Generation Energy Sources",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/our-energy-future/our-energy-vision/our-energy-future-commitment",
+        "text": "Our Clean Energy Commitment",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/our-energy-future/our-energy-vision",
+        "text": "Our Energy Vision",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/save-with-clean-heating-and-cooling-technology",
+        "text": "Clean Heating and Cooling",
+        "target": "",
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/our-energy-future/electric-vehicles",
+        "text": "Electric Vehicles",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/small-medium-sized-businesses/project-center",
+        "text": "",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/about-us/careers",
+        "text": "",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/about-us/media-center",
+        "text": "",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/register/pre-register",
+        "text": "Register",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/register/reset-password",
+        "text": "Reset my password",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/",
+        "text": "Home",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits",
+        "text": "Rebates, Incentives & Credits",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits",
+        "text": "Rebates, Incentives & Credits",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://greatergrid.com/enroll/programs/batteries/oru-battery/",
+        "text": "ENROLL NOW",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#anchorNavigationID",
+        "text": "BACK TO TOP",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#anchorNavigationID",
+        "text": "BACK TO TOP",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://greatergrid.com/enroll/programs/batteries/oru-battery/",
+        "text": "ENROLL NOW",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#anchorNavigationID",
+        "text": "BACK TO TOP",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://www.tesla.com/support/energy/powerwall/order/order-powerwall",
+        "text": "Tesla",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://www.franklinwh.com/get-franklinwh/",
+        "text": "FranklinWH",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://www.solaredge.com/us/installers/to-order",
+        "text": "SolarEdge",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://shop.sol-ark.com/",
+        "text": "Sol–Ark",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://enphase.com/store/storage",
+        "text": "Enphase",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#anchorNavigationID",
+        "text": "BACK TO TOP",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://www.apexenergytek.com/contact-us",
+        "text": "Apex Energy Tek",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://empiresolarny.com/start-saving/",
+        "text": "Empire Solar",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://thenewutility.com/tesla-solar-batteries-new-york/",
+        "text": "Infinity Solar",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://www.lighthousesolarny.com/contact-us/",
+        "text": "Lighthouse Solar",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://powerlutions.com/contact-us/",
+        "text": "Powerlutions",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://www.solaralchemypv.com/contact-us.html",
+        "text": "Solar Alchemy",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://www.sunrun.com/solar-battery-storage",
+        "text": "Sunrun",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://www.trinitysolar.com/about-us/contact-us",
+        "text": "Trinity Solar",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://tristatesolarservices.com/contact-us/",
+        "text": "Tri State Solar",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#anchorNavigationID",
+        "text": "BACK TO TOP",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "mailto:oru@energyhub.com",
+        "text": "",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#anchorNavigationID",
+        "text": "BACK TO TOP",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/thermostat-rebate",
+        "text": "Smart Thermostat Rebates\n\nGet an $85 rebate when you enroll your smart thermosta",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/smart-usage-rewards",
+        "text": "Smart Usage Rewards\n\nDon't have a home battery? You can still save energy during",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "mailto:oru@energyhub.com",
+        "text": "Contact Us\n\nQuestions?\n\nEMAIL US",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/services-and-outages/report-track-service-issue/check-outage-status",
+        "text": "Report Outage Status",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://outagemap.oru.com/external/default.html",
+        "text": "View Outage Map",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/home-energy-safety/beware-of-scammers",
+        "text": "Beware of Scammers",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/home-energy-safety/gas-safety",
+        "text": "Gas Safety",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/home-energy-safety/electric-safety",
+        "text": "Electric Safety",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/home-energy-safety/electric-vehicle-safety",
+        "text": "Electric Vehicle Safety",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/home-energy-safety/carbon-monoxide-safety",
+        "text": "Carbon Monoxide Safety",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/home-energy-safety/integrity-management",
+        "text": "Our Transmission Pipeline Integrity Management Plan",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/about-us/company-information",
+        "text": "Company Information",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/about-us/careers",
+        "text": "Careers",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/about-us/diversity-at-orange-rockland",
+        "text": "Diversity at Orange & Rockland",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/about-us/media-center",
+        "text": "Media Center",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/about-us/regulatory-guidance-and-oversight",
+        "text": "Regulatory Guidance & Oversight",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://lite.conedison.com/ehs/2023-sustainability-report",
+        "text": "Sustainability Report",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://www.retirees.oru.com/en",
+        "text": "Retirees",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/community-affairs/partnerships",
+        "text": "Community Partnerships",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/community-affairs/teachers-students",
+        "text": "For Teachers & Students",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/community-affairs/our-storm-recovery-plan",
+        "text": "Our Storm Recovery Plan",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/community-affairs/nj-veterans-organization-rate-program",
+        "text": "Rate Credit for NJ Veterans' Organizations",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/community-affairs/community-issues",
+        "text": "Community Issues",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/contact-us",
+        "text": "Contact Us",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/faqs/frequently-asked-questions",
+        "text": "Frequently Asked Questions",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/tips-to-lower-your-bill",
+        "text": "Tips for Lowering Your Energy Bill",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits",
+        "text": "Rebates, Incentives & Credits",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://www.myorustore.com/",
+        "text": "Energy Saving Store",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/energy-saving-landscaping",
+        "text": "Energy Saving Landscaping",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/share-energy-usage-data",
+        "text": "Request and Share Energy Data",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/small-medium-sized-businesses/project-center",
+        "text": "Project Center - Building and Upgrade Services",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits",
+        "text": "Rebates, Incentives & Credits",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/share-energy-usage-data/share-my-data",
+        "text": "Share My Data",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/small-medium-sized-businesses/project-center",
+        "text": "Project Center - Building and Upgrade Services",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/our-energy-future/electric-vehicles/new-york/commercial-ev-drivers/power-ready-program",
+        "text": "POWERREADY Electric Vehicle Program",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/small-medium-sized-businesses/project-center",
+        "text": "Project Center - Building and Upgrade Services",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits",
+        "text": "Rebates, Incentives & Credits",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/for-commercial-industrial/economic-development",
+        "text": "Economic Development",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/accounts-billing/share-energy-usage-data",
+        "text": "Request and Share Energy Data",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/our-energy-future/electric-vehicles/new-york/commercial-ev-drivers/power-ready-program",
+        "text": "POWERREADY Electric Vehicle Program",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/business-partners/become-an-energy-service-company-partner",
+        "text": "Become a Partner as an Energy Supplier",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/business-partners/access-customer-data",
+        "text": "Access Customer Data",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/business-partners/vendor-services",
+        "text": "Vendor Services",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/business-partners/transmission-planning",
+        "text": "Transmission Planning",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/business-partners/hosting-capacity",
+        "text": "Hosting Capacity and System Data",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/business-partners/business-opportunities",
+        "text": "Business Opportunities",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/financial-statement-and-notes",
+        "text": "Financial Statements and Notes",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "http://phx.corporate-ir.net/phoenix.zhtml?c=61493&p=irol-sec",
+        "text": "SEC Filings (CEI)",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "http://phx.corporate-ir.net/phoenix.zhtml?c=61493&p=irol-newsfinancial&nyo=0",
+        "text": "Financial Press Releases",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "http://phx.corporate-ir.net/phoenix.zhtml?c=61493&p=irol-stockQuote",
+        "text": "Stock Quotes",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/ny-rates-tariffs",
+        "text": "New York Rates & Tariffs",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/nj-rates-tariffs",
+        "text": "New Jersey Rates & Tariffs",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/municipalities/municipal-outage-information",
+        "text": "Municipal Outage Information",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://apps.coned.com/townScreens/townScreens/ROPLogin.aspx",
+        "text": "Road Opening Permit Electronic System",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://apps.coned.com/OR_STL/Forms/SAccess.aspx",
+        "text": "Municipal Street Light Portal",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://www.facebook.com/ORUConnect",
+        "text": "FACEBOOK",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://x.com/ORUConnect",
+        "text": "X",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://www.linkedin.com/company/oruconnect/",
+        "text": "LINKEDIN",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://www.instagram.com/oruconnect/",
+        "text": "INSTAGRAM",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://dev10.oru.com/en/privacy-statement",
+        "text": "Orange & Rockland Privacy Policy",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://www.conedison.com/en/accessibility-policy",
+        "text": "Accessibility Policy",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://dev10.oru.com/en/terms",
+        "text": "Terms of Service",
+        "target": null,
+        "rel": null
+      },
+      {
+        "href": "https://conedison.cloud.com/",
+        "text": "HomeNet",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "href": "https://dev10.oru.com/en/privacy-statement",
+        "text": "Learn more",
+        "target": null,
+        "rel": null
+      }
+    ],
+    "forms": [
+      {
+        "id": "",
+        "action": "https://dev10.oru.com/en/search",
+        "inputs": [
+          {
+            "type": "text",
+            "name": "search",
+            "id": "searchId",
+            "hasLabel": false,
+            "ariaLabel": "search",
+            "ariaLabelledby": null,
+            "required": false,
+            "placeholder": "SEARCH"
+          }
+        ]
+      },
+      {
+        "id": "",
+        "action": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#",
+        "inputs": [
+          {
+            "type": "text",
+            "name": "LoginEmail",
+            "id": "modal-login-email",
+            "hasLabel": true,
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "type": "hidden",
+            "name": "",
+            "id": "",
+            "hasLabel": false,
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "required": false,
+            "placeholder": null
+          },
+          {
+            "type": "password",
+            "name": "LoginPassword",
+            "id": "modal-login-password",
+            "hasLabel": true,
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "required": true,
+            "placeholder": null
+          },
+          {
+            "type": "checkbox",
+            "name": "LoginRememberMe",
+            "id": "modal-login-remember-me",
+            "hasLabel": true,
+            "ariaLabel": null,
+            "ariaLabelledby": "92d63b7f-2b0f-4053-bb0e-7f04cd87765e",
+            "required": false,
+            "placeholder": null
+          }
+        ]
+      },
+      {
+        "id": "",
+        "action": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program#",
+        "inputs": [
+          {
+            "type": "tel",
+            "name": "LoginMFACode",
+            "id": "form-login-mfa-code",
+            "hasLabel": true,
+            "ariaLabel": null,
+            "ariaLabelledby": null,
+            "required": true,
+            "placeholder": null
+          }
+        ]
+      }
+    ],
+    "buttons": [
+      {
+        "text": "English",
+        "ariaLabel": null,
+        "ariaExpanded": "false"
+      },
+      {
+        "text": "",
+        "ariaLabel": "login",
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "",
+        "ariaLabel": "search",
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "",
+        "ariaLabel": "toggle menu",
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Account & Billing",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Services & Outages",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Save Energy & Money",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Clean Energy",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Search",
+        "ariaLabel": "Search",
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Log in or Register",
+        "ariaLabel": "Log in or Register",
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Account & Billing",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Services & Outages",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Save Energy & Money",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Clean Energy",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Account & Billing",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Services & Outages",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Save Energy & Money",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Clean Energy",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "English",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "",
+        "ariaLabel": "Close",
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "",
+        "ariaLabel": "search",
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "",
+        "ariaLabel": "close",
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Show",
+        "ariaLabel": "Show password",
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Log In",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": true
+      },
+      {
+        "text": "Request New Code",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Submit",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": true
+      },
+      {
+        "text": "About",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Benefits of Enrolling",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Get Started",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Eligible Batteries",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "Battery Installers",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "FAQs",
+        "ariaLabel": null,
+        "ariaExpanded": null,
+        "disabled": false
+      },
+      {
+        "text": "EXPAND ALL",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Q: How much can I earn through the Smart Savers Battery Prog",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Q: What happens to my battery during a Smart Savers event?",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Q: Can I opt out of an event?",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Outages",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Safety",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "About Us",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Community Affairs",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Contact Us",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Renters and Homeowners",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Small & Medium Businesses",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Commercial & Industrial",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Business Partners",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Investors",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Rates & Tariffs",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Municipalities",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "Social",
+        "ariaLabel": null,
+        "ariaExpanded": "false",
+        "disabled": false
+      },
+      {
+        "text": "",
+        "ariaLabel": "Close",
+        "ariaExpanded": null,
+        "disabled": false
+      }
+    ],
+    "bodyText": "Skip to Main Content\nContact Us\nEnglish\nAccount & Billing\nServices & Outages\nSave Energy & Money\nClean Energy\nSearch\nLog in or Register\nHome\nRebates, Incentives & Credits\n\nBring Your Own Battery\n\nEnroll Your Home Battery to Earn an Average of $180 per Summer\n \n\nSee how to earn rewards by enrolling your battery in the Smart Savers program.\n\nENROLL NOW\nAbout Benefits of Enrolling Get Started Eligible Batteries Battery Installers FAQs\nAbout\nSmart Savers helps reduce strain on the electric grid by allowing us to use a small portion of your battery’s stored energy during hot summer periods of high electricity demand. Eligible residential customers in New York can earn $50 for every average kW Orange & Rockland uses from your battery when you enroll in Smart Savers.\n\nThese adjustments may occur up to 15 times between May 1 and September 30 and last no more than four hours on weekdays from 11 a.m. to 11 p.m.\n\nTo be eligible, you must:\n\n\nBe an Orange & Rockland residential customer.\nOwn an eligible home battery with a minimum capacity of 5 kWh.\nBe willing to allow Orange & Rockland to use a portion of your home’s stored energy during peak demand.\nBACK TO TOP \nBenefits of Enrolling\nGet Incentives\nPut your battery to work when electricity demand is highest and earn an average of $180 per summer, while maintaining stored energy for your own use.\nImprove Grid Reliability\nEnergy will be withdrawn from your battery during peak demand periods to reduce stress on the grid and ensure a safe, reliable power supply.\nReduce Emissions\nUsing stored battery energy when electricity demand is highest can help reduce dependence on more carbon-intensive sources of power generation.\nBACK TO TOP \nGet Started\nStep 1: Check Eligibility\nCustomers can enroll any eligible home battery in the Smart Savers program. If you don’t have an eligible battery, you can purchase one from an eligible manufacturer.\nStep 2: Enroll Your Battery\nEach battery manufacturer has a different enrollment process. Find out how to enroll your battery on our enrollment page. You can also enroll through a participating contractor.\nENROLL NOW\nStep 3: Receive Your Reward\nAfter September 30 each year, Orange & Rockland will email a $50 virtual prepaid gift card for every kW we withdraw to the address on file. Customers who lease or finance their battery will have rewards sent directly to their battery provider.\nBACK TO TOP \nEligible Batteries\nIf you don’t have a home battery system, you can purchase one from an eligible manufacturer or work with a participating contractor who can help install and enroll your battery:\n\n\nTesla\nFranklinWH\nSolarEdge\nSol–Ark\nEnphase\nBACK TO TOP \nBattery Installers\nThe following installers have experience installing residential batteries in the Orange & Rockland service territory. If you lease or finance your battery, your installer or battery provider may receive program incentives on your behalf as part of your agreement.\n\n\nApex Energy Tek\nEmpire Solar\nInfinity Solar\nLighthouse Solar\nPowerlutions\nSolar Alchemy\nSunrun\nTrinity Solar\nTri State Solar\nBACK TO TOP \nFAQs\nEXPAND ALL\nQ: How much can I earn through the Smart Savers Battery Program?\nQ: What happens to my battery during a Smart Savers event?\nQ: Can I opt out of an event?\nBACK TO TOP \n\nSmart Thermostat Rebates\n\nGet an $85 rebate when you enroll your smart thermostat.\n\nLEARN MORE\n\nSmart Usage Rewards\n\nDon't have a home battery? You can still save energy during the summer and earn money.\n\nFIND REWARDS\n\nContact Us\n\nQuestions?\n\nEMAIL US\nOutages\nReport Outage Status\nView Outage Map\nSafety\nBeware of Scammers\nGas Safety\nElectric Safety\nElectric Vehicle Safety\nCarbon Monoxide Safety\nOur Transmission Pipeline Integrity Management Plan\nAbout Us\nCompany Information\nCareers\nDiversity at Orange & Rockland\nMedia Center\nRegulatory Guidance & Oversight\nSustainability Report\nRetirees\nCommunity Affairs\nCommunity Partnerships\nFor Teachers & Students\nOur Storm Recovery Plan\nRate Credit for NJ Veterans' Organizations\nCommunity Issues\nContact Us\nContact Us\nFrequently Asked Questions\nRenters and Homeowners\nTips for Lowering Your Energy Bill\nRebates, Incentives & Credits\nEnergy Saving Store\nEnergy Saving Landscaping\nRequest and Share Energy Data\nProject Center - Building and Upgrade Services\nSmall & Medium Businesses\nRebates, Incentives & Credits\nShare My Data\nProject Center - Building and Upgrade Services\nPOWERREADY Electric Vehicle Program\nCommercial & Industrial\nProject Center - Building and Upgrade Services\nRebates, Incentives & Credits\nEconomic Development\nRequest and Share Energy Data\nPOWERREADY Electric Vehicle Program\nBusiness Partners\nBecome a Partner as an Energy Supplier\nAccess Customer Data\nVendor Services\nTransmission Planning\nHosting Capacity and System Data\nBusiness Opportunities\nInvestors\nFinancial Statements and Notes\nSEC Filings (CEI)\nFinancial Press Releases\nStock Quotes\nRates & Tariffs\nNew York Rates & Tariffs\nNew Jersey Rates & Tariffs\nMunicipalities\nMunicipal Outage Information\nRoad Openi",
+    "htmlLength": 137775,
+    "accordions": 23,
+    "placeholderCheck": {
+      "loremIpsum": false,
+      "todoMarkers": false,
+      "curlyBraces": false
+    }
+  },
+  "darkModeToggleCount": 0,
+  "focusResults": [
+    {
+      "tag": "A",
+      "text": "Skip to Main Content",
+      "href": "#mainContent",
+      "outlineStyle": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "text": "Contact Us",
+      "href": "/en/contact-us",
+      "outlineStyle": "none",
+      "outlineWidth": "0px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "text": "English",
+      "href": "#",
+      "outlineStyle": "none",
+      "outlineWidth": "0px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "text": "",
+      "href": "/en/",
+      "outlineStyle": "none",
+      "outlineWidth": "0px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Account & Billing",
+      "href": null,
+      "outlineStyle": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Services & Outages",
+      "href": null,
+      "outlineStyle": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Save Energy & Money",
+      "href": null,
+      "outlineStyle": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Clean Energy",
+      "href": null,
+      "outlineStyle": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Search",
+      "href": null,
+      "outlineStyle": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Log in or Register",
+      "href": null,
+      "outlineStyle": "none",
+      "outlineWidth": "3px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "text": "Home",
+      "href": "/en/",
+      "outlineStyle": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "text": "Rebates, Incentives & Credits",
+      "href": "/en/save-money/rebates-incentives-credits",
+      "outlineStyle": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "text": "ENROLL NOW",
+      "href": "https://greatergrid.com/enroll/programs/batteries/oru-battery/",
+      "outlineStyle": "none",
+      "outlineWidth": "0px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "About",
+      "href": null,
+      "outlineStyle": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "text": "BACK TO TOP",
+      "href": "#anchorNavigationID",
+      "outlineStyle": "solid",
+      "outlineWidth": "2px",
+      "boxShadow": "none",
+      "visible": true
+    }
+  ],
+  "mobileOverflow": {
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflowingElements": [
+      "DIV.maid-tracking-banner.js-maid-tracking-banner.js-module.maid-tracking-banner--oru"
+    ]
+  },
+  "consoleMsgs": [
+    {
+      "type": "log",
+      "text": "%c⚠️ Security Warning! ⚠️ color: red; font-size: 30px; font-weight: bold; text-shadow: 3px 3px 0px rgba(0,0,0,0.2);"
+    },
+    {
+      "type": "log",
+      "text": "%cThis is a browser feature for developers. If you were instructed to enter a code or link here, this is a scam and doing so may compromise your security. background: yellow; color: black; font-size: 14px; padding: 1px; border-radius: 5px;"
+    }
+  ],
+  "pageErrors": [],
+  "failedRequests": [
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-5KLGEFQXK0&gtm=45je6a21v889672784z872669400za20gzb72669400zd72669400xf1&_p=1791301009294&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=1141978309.1791301010&frm=0&ngs=1&pscdl=noapi&rcb=5&sr=1920x1080&uaa=arm&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=macOS&uapv=26.7.1&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938468~118012008~118897920~118897930~120213116~120385422~120469145~120469153~121046263~121046271~121125486~121280969&sid=1791301010&sct=1&seg=0&dl=https%3A%2F%2Fdev10.oru.com%2Fen%2Fsave-money%2Frebates-incentives-credits%2Fny%2Fresidential%2Fbattery-program&dt=Earn%20Money%20With%20Your%20Home%20Battery%20%7C%20Orange%20%26%20Rockland&en=page_view&_fv=1&_nsi=1&_ss=1&ep.Account_ID=&ep.Logged_In=False&ep.User_ID=&ep.Site_Name=CECONY-DEV&ep.PR_Title=battery-program&tfd=4932",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-5KLGEFQXK0&gtm=45je6a21v889672784z872669400za20gzb72669400zd72669400xf1&_p=1791301009294&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAACAAQ&cid=1141978309.1791301010&frm=0&ngs=1&pscdl=noapi&rcb=5&sr=1920x1080&uaa=arm&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=macOS&uapv=26.7.1&uaw=0&ul=en-us&_s=2&tag_exp=115938465~115938468~118012008~118897920~118897930~120213116~120385422~120469145~120469153~121046263~121046271~121125486~121280969&sid=1791301010&sct=1&seg=1&dl=https%3A%2F%2Fdev10.oru.com%2Fen%2Fsave-money%2Frebates-incentives-credits%2Fny%2Fresidential%2Fbattery-program&dt=Earn%20Money%20With%20Your%20Home%20Battery%20%7C%20Orange%20%26%20Rockland&en=page_view&ep.Account_ID=&ep.Logged_In=False&ep.User_ID=&ep.Site_Name=CECONY-DEV&_et=2&tfd=9936",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/get-incentives.png?rev=f204e8ebfab9443ca31adc3334dee6c5&la=en&h=161&w=260&hash=CE1CB40FD7E45E4AE424DD1E083235D8",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/improve-grid-reliability.png?rev=32a38132ed51462a8bc0f1922cb66432&la=en&h=161&w=260&hash=C6EF92146DACD8183199270390709675",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/reduce-emissions.png?rev=b8c68608ea394a6c8f8044c52da1e08b&la=en&h=161&w=260&hash=0BDE05E318A4BE96AB57586C9465E01A",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/step-1.png?rev=d4016266a2e84f93b86990c3d63c7733&la=en&h=161&w=260&hash=C318FBDC87416F4C33BCDC564FF0CDA7",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/step-2.png?rev=6f3f90c520c64fdbba0d40410dc80781&la=en&h=161&w=260&hash=42A6C5873886C7607CFD50FFD7AF57A9",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/ny/residential/battery-program/step-3.png?rev=ed9fa839526e44079d06c1946891f745&la=en&h=161&w=260&hash=A54956FA5BBFA25A8B9924A587082C1D",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-5KLGEFQXK0&gtm=45je6a21v889672784z872669400za20gzb72669400zd72669400xf1&_p=1791301009294&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&cid=1141978309.1791301010&frm=0&ngs=1&pscdl=noapi&rcb=5&sr=1920x1080&uaa=arm&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=macOS&uapv=26.7.1&uaw=0&ul=en-us&_s=3&tag_exp=115938465~115938468~118012008~118897920~118897930~120213116~120385422~120469145~120469153~121046263~121046271~121125486~121280969&sid=1791301010&sct=1&seg=1&dl=https%3A%2F%2Fdev10.oru.com%2Fen%2Fsave-money%2Frebates-incentives-credits%2Fny%2Fresidential%2Fbattery-program&dt=Earn%20Money%20With%20Your%20Home%20Battery%20%7C%20Orange%20%26%20Rockland&en=scroll&ep.Account_ID=&ep.Logged_In=False&ep.User_ID=&ep.Site_Name=CECONY-DEV&epn.percent_scrolled=20&_et=7825&tfd=14722",
+      "failure": "net::ERR_ABORTED"
+    }
+  ],
+  "nonOkResponses": []
+}

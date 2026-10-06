@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QA & Accessibility Audit Report — ORU Battery Program Page</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Arial, sans-serif; max-width: 980px; margin: 40px auto; padding: 0 20px; color: #1a1a1a; line-height: 1.5; }
+  h1 { font-size: 26px; border-bottom: 3px solid #004557; padding-bottom: 10px; }
+  h2 { font-size: 20px; color: #004557; margin-top: 40px; border-bottom: 1px solid #ccc; padding-bottom: 6px; }
+  h3 { font-size: 16px; margin-top: 24px; }
+  .meta { background: #f4f6f7; padding: 12px 16px; border-radius: 6px; font-size: 14px; margin-bottom: 20px; }
+  .summary-table { width: 100%; border-collapse: collapse; margin: 16px 0 30px; font-size: 14px; }
+  .summary-table th, .summary-table td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; }
+  .summary-table th { background: #004557; color: #fff; }
+  .pass { color: #0a7a2f; font-weight: 600; }
+  .fail { color: #c21807; font-weight: 600; }
+  .partial { color: #b8860b; font-weight: 600; }
+  .nt { color: #666; font-weight: 600; }
+  ul.checklist { list-style: none; padding-left: 0; }
+  ul.checklist li { margin-bottom: 14px; padding: 10px 14px; border-left: 4px solid #ccc; background: #fafafa; border-radius: 0 4px 4px 0; }
+  ul.checklist li.pass-item { border-left-color: #0a7a2f; }
+  ul.checklist li.fail-item { border-left-color: #c21807; }
+  ul.checklist li.partial-item { border-left-color: #b8860b; }
+  ul.checklist li.nt-item { border-left-color: #999; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-right: 8px; color: #fff; }
+  .tag.pass { background: #0a7a2f; color: #fff; }
+  .tag.fail { background: #c21807; color: #fff; }
+  .tag.partial { background: #b8860b; color: #fff; }
+  .tag.nt { background: #777; color: #fff; }
+  .criteria { font-size: 13px; color: #444; margin-top: 6px; }
+  .criteria b { color: #222; }
+  code { background: #eee; padding: 1px 5px; border-radius: 3px; font-size: 12.5px; }
+  .repro { font-size: 13px; margin-top: 6px; background: #fff3f3; border: 1px solid #f3cfcf; padding: 6px 10px; border-radius: 4px; }
+  .note { font-size: 13px; margin-top: 6px; background: #fff8e6; border: 1px solid #f0e0a0; padding: 6px 10px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<h1>QA &amp; Accessibility Audit Report</h1>
+<div class="meta">
+  <b>URL Tested:</b> https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program<br>
+  <b>Method:</b> Live browser testing (Chromium/Playwright) — DOM inspection, computed-style contrast analysis, console log capture, keyboard navigation, viewport resizing (1920/1366/768/375px), link/image HTTP verification, form &amp; interaction testing.<br>
+  <b>Date:</b> 2026-10-06
+</div>
+
+<h2>Executive Summary</h2>
+<table class="summary-table">
+<tr><th>Category</th><th>Result</th><th>Key Issues</th></tr>
+<tr><td>Accessibility (WCAG 2.1 AA)</td><td class="fail">FAIL</td><td>Missing <code>&lt;main&gt;</code> landmark, invisible focus indicators on nav, color contrast failure, inaccessible form error messaging, Escape key doesn't close login panel</td></tr>
+<tr><td>Design, UI &amp; Responsive</td><td class="pass">PASS</td><td>No real issues; apparent header overlap was a screenshot-stitching artifact, not a rendering bug</td></tr>
+<tr><td>Links, Media &amp; Assets</td><td class="partial">PARTIAL</td><td>5 third-party links blocked automated test client (needs manual confirmation); unoptimized ~960KB hero image; no lazy loading</td></tr>
+<tr><td>JavaScript &amp; Console Health</td><td class="pass">PASS</td><td>Zero errors/exceptions; one invisible 0×0 duplicate search button found</td></tr>
+<tr><td>General Functionality &amp; Edge Cases</td><td class="pass">PASS</td><td>XSS/SQLi inputs safely encoded/handled; search, back/forward, reload all stable</td></tr>
+<tr><td>Content, Copy &amp; Grammar</td><td class="pass">PASS</td><td>No typos, no placeholder content found</td></tr>
+<tr><td>Frontend Best Practices</td><td class="partial">PARTIAL</td><td>Missing Open Graph/Twitter Card tags; missing <code>&lt;main&gt;</code> element (overlaps with a11y finding)</td></tr>
+</table>
+
+<h2>1. Accessibility (WCAG 2.1 / 2.0 AA Compliance)</h2>
+<ul class="checklist">
+
+<li class="fail-item">
+<span class="tag fail">FAIL</span><b>Keyboard focus indicators — top navigation &amp; Contact Us link</b>
+<div class="criteria"><b>How to test:</b> Tab through all interactive elements; diff computed <code>outline</code>/<code>box-shadow</code>/<code>border</code> before vs. after focus. <b>Criteria:</b> every focusable element must show a visible focus indicator (WCAG 2.4.7).</div>
+<div class="repro"><b>Repro:</b> Load page → press Tab repeatedly to reach "Contact Us" or any top-nav button (Account &amp; Billing, Services &amp; Outages, Save Energy &amp; Money, Clean Energy, Search, Log in or Register) → observe <code>outline-style: none</code> in both focused and unfocused states — no visible indicator at all.</div>
+</li>
+
+<li class="fail-item">
+<span class="tag fail">FAIL</span><b>Escape key does not close "Log in or Register" panel</b>
+<div class="criteria"><b>How to test:</b> Open a dismissible panel/modal via keyboard or click, then press Escape. <b>Criteria:</b> Escape should close dismissible UI (WCAG 2.1.2 — no keyboard trap / common expectation).</div>
+<div class="repro"><b>Repro:</b> Click "Log in or Register" → press Escape → <code>aria-expanded</code> stays <code>"true"</code>, panel remains open. Clicking outside the panel also fails to close it; only re-clicking the toggle works.</div>
+</li>
+
+<li class="fail-item">
+<span class="tag fail">FAIL</span><b>Missing <code>&lt;main&gt;</code> landmark</b>
+<div class="criteria"><b>How to test:</b> Inspect DOM / accessibility tree for a <code>&lt;main&gt;</code> element or <code>role="main"</code>. <b>Criteria:</b> page must expose exactly one main landmark so screen reader users can jump to primary content (WCAG 1.3.1 / 2.4.1).</div>
+<div class="repro"><b>Repro:</b> View page source — zero <code>&lt;main&gt;</code> tags and zero <code>role="main"</code> attributes. The "Skip to Main Content" link targets <code>id="mainContent"</code>, which is a plain <code>&lt;div&gt;</code>, not a semantic landmark.</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Image alt text</b>
+<div class="criteria"><b>How to test:</b> Inspect all <code>&lt;img&gt;</code> tags for non-null, descriptive <code>alt</code> attributes.</div>
+<div class="criteria">All 13 images carry descriptive alt text (e.g., "An illustration of a piggy bank, checklist, and dollar symbol representing incentives and savings.").</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Heading hierarchy &amp; landmark structure (header/nav/footer)</b>
+<div class="criteria">Single <code>&lt;h1&gt;</code> confirmed ("Enroll Your Home Battery to Earn an Average of $180 per Summer"); logical H1→H2→H3 descent; <code>&lt;header&gt;</code>, two <code>&lt;nav&gt;</code>, and <code>&lt;footer&gt;</code> elements present.</div>
+</li>
+
+<li class="fail-item">
+<span class="tag fail">FAIL</span><b>Color contrast — "Benefits of Enrolling" / "Get Started" card captions</b>
+<div class="criteria"><b>How to test:</b> Sample computed <code>color</code> vs. <code>background-color</code> on rendered text; calculate WCAG contrast ratio. <b>Criteria:</b> ≥4.5:1 for normal text, ≥3:1 for large (18pt+/14pt bold+) text.</div>
+<div class="repro"><b>Repro:</b> Inspect "Get Incentives", "Improve Grid Reliability", "Reduce Emissions", and "Step 1: Check Eligibility" captions — <code>color: rgb(89,89,89)</code> on <code>background: rgb(183,183,183)</code>, 18px non-bold. Measured ratio = <b>3.49:1</b>, below the 4.5:1 requirement.</div>
+<div class="note">All other sampled text (headings 14.35:1, body copy 14.35:1, error text 4.60:1, links 10.56:1) passes.</div>
+</li>
+
+<li class="partial-item">
+<span class="tag partial">PARTIAL</span><b>Form field labeling &amp; accessible error messaging</b>
+<div class="criteria"><b>How to test:</b> Confirm every input has a programmatic label (<code>&lt;label&gt;</code>/<code>aria-label</code>); trigger a validation error and confirm it's announced via <code>role="alert"</code>/<code>aria-live</code>, not color alone.</div>
+<div class="criteria pass">PASS: Search field has <code>aria-label="search"</code>; login modal fields (email, password, MFA code, remember-me) all have associated <code>&lt;label&gt;</code> elements.</div>
+<div class="repro"><b>FAIL — error not announced:</b> Open "Log in or Register" → enter <code>test@test.com</code> / <code>wrongpassword123</code> → submit → error text appears ("Please call us at 1-877-434-4100...") inside a <code>&lt;div class="login login--oru...">&lt;/div&gt;</code> with no <code>role="alert"</code> or <code>aria-live</code> attribute — screen reader users are not notified.</div>
+</li>
+
+</ul>
+
+<h2>2. Design, UI &amp; Responsive Viewports</h2>
+<ul class="checklist">
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Cross-device viewport testing (1920 / 1366 / 768 / 375px)</b>
+<div class="criteria"><b>How to test:</b> Resize viewport to each breakpoint and visually/programmatically check layout. <b>Criteria:</b> no overlap, no broken alignment, consistent padding/typography, no unintended horizontal scroll.</div>
+<div class="criteria">No overlapping content or broken alignment at any breakpoint; cards reflow correctly (3-column → stacked on mobile); content max-width respected at 1920px (not stretched edge-to-edge); confirmed no horizontal overflow at 375px (<code>scrollWidth === clientWidth</code> = 375).</div>
+</li>
+
+<li class="nt-item">
+<span class="tag nt">NOTED</span><b>Sticky header appeared to overlap hero/About section in full-page screenshots</b>
+<div class="criteria">Investigated further — this is a <b>screenshot-stitching artifact</b> of capturing a sticky header across multiple scrolled segments, not a real rendering bug. Confirmed clean when captured as a single non-stitched viewport screenshot.</div>
+</li>
+
+<li class="nt-item">
+<span class="tag nt">NOT APPLICABLE</span><b>Dark mode / light mode consistency</b>
+<div class="criteria">No dark/light mode toggle exists on this page (searched for theme-toggle classes/aria-labels, zero matches). Not applicable.</div>
+</li>
+
+</ul>
+
+<h2>3. Links, Media &amp; Asset Integrity</h2>
+<ul class="checklist">
+
+<li class="partial-item">
+<span class="tag partial">NEEDS MANUAL RE-CHECK</span><b>Full URL sweep (101 unique links tested)</b>
+<div class="criteria"><b>How to test:</b> Extract all internal/external/footer/legal links; verify via HTTP request and real browser navigation. <b>Criteria:</b> zero broken links / 404s.</div>
+<div class="criteria">90 of 101 links returned 200 immediately. After retesting with real browser headers, several initial 403s resolved fine (microsoft.com/en-us/edge, enphase.com/store/storage, empiresolarny.com, tristatesolarservices.com).</div>
+<div class="repro"><b>Still blocked by third-party bot/WAF protection even under real Chromium (recommend manual human verification, not necessarily broken for real users):</b>
+<ul>
+<li><code>https://www.tesla.com/support/energy/powerwall/order/order-powerwall</code> → 403</li>
+<li><code>https://www.solaredge.com/us/installers/to-order</code> → 403</li>
+<li><code>https://www.lighthousesolarny.com/contact-us/</code> → 403</li>
+<li><code>http://phx.corporate-ir.net/phoenix.zhtml?c=61493&amp;p=irol-stockQuote</code> (+2 related corporate-ir.net URLs) → timeout/403</li>
+</ul>
+<code>mailto:oru@energyhub.com</code> is not HTTP-testable (expected, not a failure).</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Image rendering integrity</b>
+<div class="criteria"><b>How to test:</b> Confirm every <code>&lt;img&gt;</code> has non-zero <code>naturalWidth</code>/<code>naturalHeight</code> and matches its display dimensions (no stretching/distortion).</div>
+<div class="criteria">All 13 images loaded successfully with no 0×0 dimensions and no stretching/distortion observed.</div>
+</li>
+
+<li class="fail-item">
+<span class="tag fail">FAIL</span><b>Image optimization — hero image</b>
+<div class="criteria"><b>How to test:</b> Check file size/format vs. rendered display size; confirm WebP/SVG usage where appropriate and presence of lazy-loading attributes.</div>
+<div class="repro"><b>Finding:</b> <code>hero.png</code> is ~960KB for an 850×478 display size (non-WebP PNG) — significantly unoptimized. The six smaller illustration icons (~7KB each) are fine. <b>No <code>loading="lazy"</code> attribute is present on any image on the page.</b></div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>External link security attributes</b>
+<div class="criteria"><b>How to test:</b> Check every <code>target="_blank"</code> link for <code>rel="noopener"</code>/<code>noreferrer"</code>.</div>
+<div class="criteria">Zero of the 35 external links are missing <code>rel="noopener"</code>.</div>
+</li>
+
+<li class="nt-item">
+<span class="tag nt">NOTED (not a failure)</span><b>UX inconsistency: some external links open in same tab</b>
+<div class="criteria">10 external links (Outage Map, Sustainability Report, Retirees, Energy Saving Store, SEC filings, etc.) don't use <code>target="_blank"</code>, unlike other external links on the page. Recommend standardizing for UX consistency.</div>
+</li>
+
+</ul>
+
+<h2>4. JavaScript Functionality &amp; Console Health</h2>
+<ul class="checklist">
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Zero unhandled console errors/warnings</b>
+<div class="criteria"><b>How to test:</b> Capture console output and uncaught exceptions during load, reload, resize, and interaction.</div>
+<div class="criteria">Only 2 benign <code>console.log</code> messages captured (Google's standard anti-self-XSS "⚠️ Security Warning" banner). Zero uncaught JS exceptions (<code>page.on('pageerror')</code>) across load, resize, reload, interaction.</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Accordions, toggles, and expand/collapse controls</b>
+<div class="criteria"><b>How to test:</b> Click each accordion/toggle and confirm <code>aria-expanded</code> flips and content is revealed.</div>
+<div class="criteria">FAQ items and About/Benefits/Get Started/Eligible Batteries/Battery Installers sections toggle correctly (<code>aria-expanded</code> false→true confirmed on 3 FAQ items + login panel). "EXPAND ALL"/"COLLAPSE ALL" FAQ control works correctly.</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Form handling (login)</b>
+<div class="criteria"><b>How to test:</b> Confirm submit button disabled/enabled states, and error/success feedback render on submit.</div>
+<div class="criteria">"Log In" button is disabled until required fields are populated; becomes enabled once filled; error message renders on bad credentials (though not screen-reader accessible — see Accessibility §1).</div>
+</li>
+
+<li class="nt-item">
+<span class="tag nt">MINOR FINDING</span><b>Duplicate invisible search button in DOM</b>
+<div class="criteria"><b>How to test:</b> Query all elements matching the same aria-label and check bounding rects.</div>
+<div class="repro">3 DOM elements match <code>button[aria-label="search" i]</code>; one has a <code>0×0</code> bounding rect despite <code>display: flex; visibility: visible; opacity: 1</code> — technically focusable/in the accessibility tree but functionally invisible and unclickable. Likely a leftover duplicate from a responsive breakpoint not properly hidden.</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Network request health</b>
+<div class="criteria">Some <code>requestfailed</code>/<code>net::ERR_ABORTED</code> events fired for image/GA requests, but cross-checked against final rendered images — all had valid non-zero dimensions, confirming these were harmless aborted retries/duplicate requests, not actual broken images.</div>
+</li>
+
+</ul>
+
+<h2>5. General Core Functionality &amp; Edge Cases</h2>
+<ul class="checklist">
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Search functionality</b>
+<div class="criteria"><b>How to test:</b> Submit a query and confirm navigation/redirect behaves correctly.</div>
+<div class="criteria">Submitting "battery program" redirects to <code>/en/search?search=battery%20program</code>; title updates to "Search | Orange &amp; Rockland" correctly.</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>SQL injection / XSS input handling (search + login fields)</b>
+<div class="criteria"><b>How to test:</b> Submit <code>' OR 1=1 --</code>, <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>, emoji, and very long strings into input fields; confirm safe handling (no execution, proper encoding).</div>
+<div class="criteria"><code>' OR 1=1 --</code> accepted as literal text, no error. <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> submitted via URL is HTML-escaped in the raw response (<code>&amp;lt;script&amp;gt;...</code>) — no XSS reflection. Emoji (😀🔋💰) accepted without error. Search input capped at 100 characters (2000-char string truncated). Login modal fields accepted all of the above (SQLi, XSS, emoji, 500-char string) as inert text without crashing or executing anything.</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Browser back/forward/reload state handling</b>
+<div class="criteria"><b>How to test:</b> Navigate via breadcrumb, use back/forward, then reload; confirm URL/title update correctly with no errors at each step.</div>
+<div class="criteria">All URLs and titles updated correctly at each step; zero console/page errors throughout.</div>
+</li>
+
+</ul>
+
+<h2>6. Content, Copy &amp; Grammar</h2>
+<ul class="checklist">
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Proofreading (grammar, spelling, formatting)</b>
+<div class="criteria"><b>How to test:</b> Read full visible body copy (hero, About, Benefits, Get Started, Eligible Batteries, Installers, FAQs, footer).</div>
+<div class="criteria">No typos or grammar errors found; formatting and tone are consistent throughout.</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Microcopy (button labels, error text)</b>
+<div class="criteria">Button labels ("ENROLL NOW", "LEARN MORE", "FIND REWARDS", "EMAIL US") are clear and consistent in style.</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>No leftover placeholder/dummy content</b>
+<div class="criteria"><b>How to test:</b> Programmatically search rendered HTML for "lorem ipsum", "TODO", <code>{curly_brace}</code> tokens.</div>
+<div class="criteria">Zero matches found for any of the above patterns.</div>
+</li>
+
+</ul>
+
+<h2>7. Frontend &amp; Coding Best Practices</h2>
+<ul class="checklist">
+
+<li class="partial-item">
+<span class="tag partial">PARTIAL</span><b>Semantic HTML structure</b>
+<div class="criteria"><b>Criteria:</b> presence of <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, single <code>&lt;h1&gt;</code>, logical heading order.</div>
+<div class="criteria">PASS: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code> (×2), <code>&lt;footer&gt;</code>, single <code>&lt;h1&gt;</code>, logical H2→H3 descent.</div>
+<div class="repro"><b>FAIL:</b> <code>&lt;main&gt;</code> element is completely absent (duplicate of Accessibility §1 finding — see there for repro).</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>SEO metadata — title &amp; meta description</b>
+<div class="criteria"><code>&lt;title&gt;</code>: "Earn Money With Your Home Battery | Orange &amp; Rockland" — present, descriptive.<br><code>&lt;meta name="description"&gt;</code>: "Earn rewards from your home battery in New York. Enroll eligible Tesla, FranklinWH, and SolarEdge systems through Smart Savers." — present.</div>
+</li>
+
+<li class="fail-item">
+<span class="tag fail">FAIL</span><b>Open Graph / Twitter Card metadata</b>
+<div class="criteria"><b>How to test:</b> Grep raw HTML source for <code>og:</code> and <code>twitter:</code> meta tags.</div>
+<div class="repro"><b>Finding:</b> Completely absent — zero <code>og:title</code>, <code>og:description</code>, <code>og:image</code>, or <code>twitter:card</code> tags. Social platform link previews (Facebook, LinkedIn, Slack, etc.) will show no rich preview for this page.</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>HTTPS enforcement &amp; security headers</b>
+<div class="criteria">Confirmed HTTP/2 200 over TLS; <code>Content-Security-Policy</code>, <code>Referrer-Policy: strict-origin</code>, and <code>Permissions-Policy</code> headers all present.</div>
+</li>
+
+<li class="pass-item">
+<span class="tag pass">PASS</span><b>Safe external link attributes</b>
+<div class="criteria">All 35 external links using <code>target="_blank"</code> correctly include <code>rel="noopener"</code> — zero violations.</div>
+</li>
+
+</ul>
+
+<h2>Prioritized Recommendations</h2>
+<ol>
+<li><b>High:</b> Add a <code>&lt;main&gt;</code> landmark wrapping primary content (fixes both the a11y landmark gap and the semantic-HTML gap in one change).</li>
+<li><b>High:</b> Restore visible keyboard focus indicators on all top-navigation items and the "Contact Us" link.</li>
+<li><b>High:</b> Make login error messages accessible via <code>role="alert"</code> or <code>aria-live="assertive"</code>.</li>
+<li><b>Medium:</b> Fix the 3.49:1 contrast failure on "Benefits of Enrolling"/"Get Started" card captions — darken text or lighten/darken the card background to reach 4.5:1.</li>
+<li><b>Medium:</b> Allow Escape key (and outside-click) to close the "Log in or Register" panel.</li>
+<li><b>Medium:</b> Optimize <code>hero.png</code> (convert to WebP, add <code>loading="lazy"</code> site-wide where appropriate).</li>
+<li><b>Medium:</b> Add Open Graph and Twitter Card meta tags for social sharing previews.</li>
+<li><b>Low:</b> Remove/hide the orphaned 0×0 duplicate search button in the DOM.</li>
+<li><b>Low:</b> Standardize <code>target="_blank"</code> usage across all external links for consistency.</li>
+<li><b>Manual follow-up:</b> Manually click-verify the 5 third-party links that blocked the automated test client (Tesla, SolarEdge, Lighthouse Solar, corporate-ir.net) in a real browser session.</li>
+</ol>
+
+</body>
+</html>
