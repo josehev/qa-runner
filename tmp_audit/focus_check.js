@@ -1,5 +1,6 @@
 const { chromium } = require('playwright');
 const URL = 'https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling';
+const { file: artifactPath } = require('../artifacts').createArtifactRun(URL);
 
 (async () => {
   const browser = await chromium.launch();
@@ -27,7 +28,7 @@ const URL = 'https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj
       };
     });
     results.push(style);
-    await page.screenshot({ path: `/Users/jose.herrera/qa-runner/qa-runner/tmp_audit/focus_${i}.png` });
+    await page.screenshot({ path: artifactPath(`focus_${i}.png`) });
   }
   console.log(JSON.stringify(results, null, 2));
   await browser.close();

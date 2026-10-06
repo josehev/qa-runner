@@ -1,5 +1,6 @@
 const { chromium } = require('playwright');
 const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program";
+const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
 (async () => {
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 768, height: 1024 } });
@@ -20,6 +21,6 @@ const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/r
   // scroll down and screenshot viewport only (not fullpage) to see real overlap
   await page.mouse.wheel(0, 600);
   await page.waitForTimeout(500);
-  await page.screenshot({ path: 'sticky_viewport_768.png' });
+  await page.screenshot({ path: artifactPath('sticky_viewport_768.png') });
   await browser.close();
 })();

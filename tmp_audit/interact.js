@@ -1,5 +1,6 @@
 const { chromium } = require('playwright');
 const URL = 'https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling';
+const { file: artifactPath } = require('../artifacts').createArtifactRun(URL);
 
 (async () => {
   const browser = await chromium.launch();
@@ -70,7 +71,7 @@ const URL = 'https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj
   if (hamburgerCount) {
     await hamburger.click();
     await page.waitForTimeout(500);
-    await page.screenshot({ path: 'tmp_audit/mobile_menu_open.png' });
+    await page.screenshot({ path: artifactPath('mobile_menu_open.png') });
   }
 
   console.log('--- console messages during interaction ---');

@@ -2,6 +2,7 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 
 const URL = 'https://dev10.oru.com/en/save-money/rebates-incentives-credits/myheat';
+const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
 
 (async () => {
   const results = {};
@@ -103,10 +104,10 @@ const URL = 'https://dev10.oru.com/en/save-money/rebates-incentives-credits/myhe
 
   // Full HTML for manual grep
   const html = await page.content();
-  fs.writeFileSync('./qa-reports/myheat_page.html', html);
+  fs.writeFileSync(artifactPath('myheat_page.html'), html);
 
   // Screenshot at 1920
-  await page.screenshot({ path: './qa-reports/myheat_1920.png', fullPage: true });
+  await page.screenshot({ path: artifactPath('myheat_1920.png'), fullPage: true });
 
   await context.close();
 
@@ -115,7 +116,7 @@ const URL = 'https://dev10.oru.com/en/save-money/rebates-incentives-credits/myhe
     const ctx = await browser.newContext({ viewport: vw });
     const p = await ctx.newPage();
     await p.goto(URL, { waitUntil: 'networkidle', timeout: 60000 }).catch(()=>{});
-    await p.screenshot({ path: `./qa-reports/myheat_${name}.png`, fullPage: true });
+    await p.screenshot({ path: artifactPath(`myheat_${name}.png`), fullPage: true });
     await ctx.close();
   }
 
@@ -124,7 +125,7 @@ const URL = 'https://dev10.oru.com/en/save-money/rebates-incentives-credits/myhe
   results.failedRequests = failedRequests;
   results.responseStatuses = responses.filter(r => r.status >= 400);
 
-  fs.writeFileSync('./qa-reports/myheat_results.json', JSON.stringify(results, null, 2));
+  fs.writeFileSync(artifactPath('myheat_results.json'), JSON.stringify(results, null, 2));
   console.log('DONE');
 
   await browser.close();

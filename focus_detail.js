@@ -1,5 +1,6 @@
 const { chromium } = require('playwright');
 const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program";
+const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
 (async () => {
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
@@ -29,6 +30,6 @@ const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/r
     console.log(' AFTER (focused):', JSON.stringify(after));
     console.log(' CHANGED:', JSON.stringify(before) !== JSON.stringify(after));
   }
-  await page.screenshot({ path: 'focus_contact_test.png' });
+  await page.screenshot({ path: artifactPath('focus_contact_test.png') });
   await browser.close();
 })();

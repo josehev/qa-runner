@@ -3,6 +3,9 @@
 // Usage from the CLI:  node browser-check.js <url> [--screenshot <file.png>]
 // The CLI writes progress lines to stderr and the final JSON result to stdout.
 
+const fs = require("fs");
+const { createArtifactRun } = require("./artifacts");
+
 const NAVIGATION_TIMEOUT = 15000;
 const MAX_SAMPLES = 20;
 
@@ -19,7 +22,7 @@ function validateUrl(url) {
   return parsed.href;
 }
 
-async function runBrowserCheck(url, { screenshotPath, timeout = NAVIGATION_TIMEOUT, onProgress = () => {} } = {}) {
+async function runBrowserCheck(url, { screenshotPath, artifactDirectory, timeout = NAVIGATION_TIMEOUT, onProgress = () => {} } = {}) {
   const startedAt = new Date();
   const result = {
     url,
@@ -40,6 +43,9 @@ async function runBrowserCheck(url, { screenshotPath, timeout = NAVIGATION_TIMEO
   let browser;
   try {
     result.url = validateUrl(url);
+    if (screenshotPath) {
+      screenshotPath = createArtifactRun(result.url, artifactDirectory).file(screenshotPath);
+    }
 
     let chromium;
     try {
@@ -163,8 +169,27 @@ if (require.main === module) {
   const [url = "", ...rest] = process.argv.slice(2);
   const shotIndex = rest.indexOf("--screenshot");
   const screenshotPath = shotIndex !== -1 ? rest[shotIndex + 1] : undefined;
+  let log = "";
+  const onProgress = (msg) => { log += `${msg}\n`; process.stderr.write(`${msg}\n`); };
 
-  runBrowserCheck(url, { screenshotPath, onProgress: (msg) => process.stderr.write(`${msg}\n`) })
+  Promise.resolve().then(() => {
+    let validUrl;
+    try {
+      validUrl = validateUrl(url);
+    } catch {
+      return runBrowserCheck(url, { screenshotPath, onProgress });
+    }
+    const run = createArtifactRun(validUrl);
+    return runBrowserCheck(url, {
+      screenshotPath, artifactDirectory: run.directory, onProgress,
+    }).then((result) => {
+      fs.writeFileSync(run.file("browser-check.json"), JSON.stringify(result, null, 2));
+      fs.writeFileSync(run.file("browser-check.log"), log);
+      fs.writeFileSync(run.file("browser-check.md"),
+        `# Browser Check\nURL: ${url}\n\n${toMarkdown(result, result.screenshot ? run.publicPath(screenshotPath) : null)}\n`);
+      return result;
+    });
+  })
     .then((result) => {
       process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
       process.exitCode = result.passed ? 0 : 1;

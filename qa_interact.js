@@ -1,6 +1,7 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
 const URL = 'https://dev10.oru.com/en/save-money/rebates-incentives-credits/myheat';
+const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
 
 (async () => {
   const browser = await chromium.launch();
@@ -101,7 +102,7 @@ const URL = 'https://dev10.oru.com/en/save-money/rebates-incentives-credits/myhe
       return nav ? getComputedStyle(nav).display !== 'none' : null;
     });
     out.mobileMenu = { clicked: true, menuVisibleAfterClick: menuVisible };
-    await p2.screenshot({ path: './qa-reports/mobile_menu_open.png' });
+    await p2.screenshot({ path: artifactPath('mobile_menu_open.png') });
   } else {
     out.mobileMenu = 'toggle button not found';
   }
@@ -120,7 +121,7 @@ const URL = 'https://dev10.oru.com/en/save-money/rebates-incentives-credits/myhe
   out.reloadUrl = p3.url();
   await ctx3.close();
 
-  fs.writeFileSync('./qa-reports/qa_interact_results.json', JSON.stringify(out, null, 2));
+  fs.writeFileSync(artifactPath('qa_interact_results.json'), JSON.stringify(out, null, 2));
   console.log('DONE');
   await browser.close();
 })();
