@@ -1,0 +1,420 @@
+{
+  "version": 1,
+  "artifacts": [
+    {
+      "source": "battery_1366.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-battery/battery_1366.png",
+      "sha256": "2145cfb9cda7e99a0661f93aadd4320a3a1b549334ae8196d54848d2703a571e"
+    },
+    {
+      "source": "battery_1920.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-battery/battery_1920.png",
+      "sha256": "3a6808eb485b32adf52101f31f3e11bdb2a00e2aa448b8fcf883c30b150b54db"
+    },
+    {
+      "source": "battery_375.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-battery/battery_375.png",
+      "sha256": "162d57c0f0072a40922dce1e59fc40d5032bdc987ffc99c51ca84ff4bd36ca66"
+    },
+    {
+      "source": "battery_768.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-battery/battery_768.png",
+      "sha256": "2e6a78418332f94a71008c8f3d5f586bc63937b21a508566c5c4664b12494633"
+    },
+    {
+      "source": "battery_audit_err.log",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-battery/battery_audit_err.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "battery_audit_output.json",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-battery/battery_audit_output.json",
+      "sha256": "233cf944e8351e91969d1b9a611b2fd3c519911b4dc708168a01cf04883c765a"
+    },
+    {
+      "source": "clean_1366.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-root-clean/clean_1366.png",
+      "sha256": "c1f2865e0a3fdc9b86b9b327584c3c689a2142a6e487a463e8dc86eed5eab42e"
+    },
+    {
+      "source": "clean_1920.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-root-clean/clean_1920.png",
+      "sha256": "8e07110e3fa627745c845b9a20674284566419bf27b14032343c4994d3ffe73e"
+    },
+    {
+      "source": "clean_375.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-root-clean/clean_375.png",
+      "sha256": "5a900460275fd55e04fd79f891057406a5858e2ee2af9c55dbb1df7489f909da"
+    },
+    {
+      "source": "clean_768.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-root-clean/clean_768.png",
+      "sha256": "e1b2d9f4736136a34383037f863f240d2c218c94197122eead502a69bb8c96b4"
+    },
+    {
+      "source": "crop_768_mid.png",
+      "destination": "unknown-page/legacy-root-unattributed/crop_768_mid.png",
+      "sha256": "4efc84cbe63702266f0b0ca7cacc2af71fc5980c06972d5d5e344f9e53ca892d"
+    },
+    {
+      "source": "crop_768_top.png",
+      "destination": "unknown-page/legacy-root-unattributed/crop_768_top.png",
+      "sha256": "de4771f4b32c18e5de58440c6eea9290e3f4c6c4652d93e3e7c421d571b84bc9"
+    },
+    {
+      "source": "faq_focus.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-root-audit/faq_focus.png",
+      "sha256": "173cdd85c139c764e42b2a91d1697d8cc1c37751125b089ef0609b984b6ba9e1"
+    },
+    {
+      "source": "focus_contact_test.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-focus_contact_test/focus_contact_test.png",
+      "sha256": "676677aee5423327758b298a17db2af4c7c010591e5b406e2c2f6374e3fc62e1"
+    },
+    {
+      "source": "interact_result.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-interact_result/interact_result.png",
+      "sha256": "7b6f8de8351d65a46c079c6a8da4b78c7c7dc0bc2eef7296128f403421494ded"
+    },
+    {
+      "source": "link_status.txt",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-battery-links/link_status.txt",
+      "sha256": "22d0588f75d40252d54c47d7283b7e1d5e34a6d16acbe20933b9bad011c85b86"
+    },
+    {
+      "source": "link_status2.txt",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-battery-links/link_status2.txt",
+      "sha256": "9f127860d79234ca0dde99aedd6c0a3059ad7d635b533971fc40d4162ec3a4b0"
+    },
+    {
+      "source": "links_to_check.txt",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-root-myheat/links_to_check.txt",
+      "sha256": "61ade6bcaddbf707b68997bb233464132aa92393ef83c70c5b17a154a5a9d1d5"
+    },
+    {
+      "source": "login_modal_test.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-login_modal_test/login_modal_test.png",
+      "sha256": "2d50f5a55151628d0b103a39c0e371d80ed2dce0d546962dd11f94d872a73c66"
+    },
+    {
+      "source": "page_text.txt",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-root-myheat/page_text.txt",
+      "sha256": "1575cd98a5b6c48d961d1737bcc737fd81be49b2316701e903b6b1d0a4d033d8"
+    },
+    {
+      "source": "qa-reports/axe_results.json",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-qa-reports-myheat/axe_results.json",
+      "sha256": "831ed7d506d482aecace5551bf533bbe0db5f9c0994eef5c762e6d21f71f85c7"
+    },
+    {
+      "source": "qa-reports/battery-program-qa-report.html",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-qa-reports-battery/battery-program-qa-report.html",
+      "sha256": "610e661a66138806c03379223f728ce0c2d4dae4a9c32d424f69bc87971d86de"
+    },
+    {
+      "source": "qa-reports/mobile_menu_open.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-qa-reports-myheat/mobile_menu_open.png",
+      "sha256": "b4e40ad084b310d3f507b5b9b31be06286db8d6a200a11f2a3ec67c2bcb79423"
+    },
+    {
+      "source": "qa-reports/myheat_1366.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-qa-reports-myheat/myheat_1366.png",
+      "sha256": "0d73a89fa0320e3ef819af044be3407a51bc181ed4def777878c656ca7692fb8"
+    },
+    {
+      "source": "qa-reports/myheat_1920.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-qa-reports-myheat/myheat_1920.png",
+      "sha256": "93849ee1772aa9fa6fb2bbecb5abf21175760e45ad500a2ac7fc4729d4ee4576"
+    },
+    {
+      "source": "qa-reports/myheat_375.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-qa-reports-myheat/myheat_375.png",
+      "sha256": "43d13c84ffbda24224c394e9e53dc86fedca7a25c4a97f8a68eda375d38baf5e"
+    },
+    {
+      "source": "qa-reports/myheat_768.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-qa-reports-myheat/myheat_768.png",
+      "sha256": "208f49fa07e8f3c3f90c3ad36f21358a6d0cf68587719ed5d27bf0fc84d2cb50"
+    },
+    {
+      "source": "qa-reports/myheat_page.html",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-qa-reports-myheat/myheat_page.html",
+      "sha256": "ee61a80ea2e2cef78efa7633ce9c249ebad98b70c58801db2e3f7e0264b1fe96"
+    },
+    {
+      "source": "qa-reports/myheat_results.json",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-qa-reports-myheat/myheat_results.json",
+      "sha256": "49dfa02b7fe89966a370a7ad74228113242f91ffd128843703e4c85ff11ecd28"
+    },
+    {
+      "source": "qa-reports/oru-recycling-qa-report.html",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-qa-reports-recycling/oru-recycling-qa-report.html",
+      "sha256": "70fc9fb973adb0ee8441e0243f4b0bda093b44bb08e4e29f80ccdae654e0c9bc"
+    },
+    {
+      "source": "qa-reports/qa_interact_results.json",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-qa-reports-myheat/qa_interact_results.json",
+      "sha256": "6d407539a8a5a70207ff3ca253d64d9be1e8ed0504ff1d9130c7f56f3c2581de"
+    },
+    {
+      "source": "results/1790887236365-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-myheat-9bdb91e9cb57/legacy-1790887236365/1790887236365-smoke.md",
+      "sha256": "aca8eeb63d1a0026d0bf13021bfe3f2372d1e0f20ef256ba22ac9cf1118f7135"
+    },
+    {
+      "source": "results/1790887328774-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-myheat-9bdb91e9cb57/legacy-1790887328774/1790887328774-smoke.md",
+      "sha256": "7f3caf8459dd141d232aaf5613627ece470dd0deede5f1f23f097a31ffcd2209"
+    },
+    {
+      "source": "results/1790887388195-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-myheat-9bdb91e9cb57/legacy-1790887388195/1790887388195-smoke.md",
+      "sha256": "9c6d8f06e17f36bef2e81cc2af2625148da711f2079d47d78f5e9b5c5c28d55b"
+    },
+    {
+      "source": "results/1790888306970-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-myheat-9bdb91e9cb57/legacy-1790888306970/1790888306970-smoke.md",
+      "sha256": "92abbd62fd9dd1f3b694b4c2c7f13b4f9f33a004d51143ddae7023605842d92d"
+    },
+    {
+      "source": "results/1790888668083-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-myheat-9bdb91e9cb57/legacy-1790888668083/1790888668083-smoke.md",
+      "sha256": "570e488307efe4cfee95425b57a27312fa4dbd4b30e76aa7b1ef98975392de8b"
+    },
+    {
+      "source": "results/1790891591427-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-1790891591427/1790891591427-smoke.md",
+      "sha256": "f1117c82aac58308a12d562df1c88c9df65f93cb2eaa253d2d47717113bf3534"
+    },
+    {
+      "source": "results/1790892911669-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-homeboost-fbcea2fbe596/legacy-1790892911669/1790892911669-smoke.md",
+      "sha256": "0cbc1acd4e63465e8cbcaeef1672ca6eba5e1f5c561614045e0380f08d45ca53"
+    },
+    {
+      "source": "results/1790894377414-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-homeboost-fbcea2fbe596/legacy-1790894377414/1790894377414-smoke.md",
+      "sha256": "85861dd74f84aadeec6811ee0697a401d7787bb24bdda8edb8f5678217cd84af"
+    },
+    {
+      "source": "results/1790897322141-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-homeboost-fbcea2fbe596/legacy-1790897322141/1790897322141-smoke.md",
+      "sha256": "f612031655b4cd292d139638ce09c125a91c805b78c27bed1b6896697f1d9e9c"
+    },
+    {
+      "source": "results/1790897543353-browser-check.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-homeboost-fbcea2fbe596/legacy-1790897543353/1790897543353-browser-check.md",
+      "sha256": "a566d6ebeb267b382df9714ba7f496d0e75eb6752790880b61e446d88b674341"
+    },
+    {
+      "source": "results/1790898514644-browser-check.json",
+      "destination": "qa3-oru-vml-dev-en-save-money-homeboost-fbcea2fbe596/legacy-1790898514644/1790898514644-browser-check.json",
+      "sha256": "baf14d7391174899481f7d121ea0003b8b1400be4af3ee98f01e73bac8d80eb7"
+    },
+    {
+      "source": "results/1790898514644-browser-check.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-homeboost-fbcea2fbe596/legacy-1790898514644/1790898514644-browser-check.md",
+      "sha256": "d755a165668b2b8c4ed18d024e62d7111d1ce8ce77ed46858d36939f2477dd0e"
+    },
+    {
+      "source": "results/1790898514644-browser-check.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-homeboost-fbcea2fbe596/legacy-1790898514644/1790898514644-browser-check.png",
+      "sha256": "18f3acffc742340fd0be0f164f9aeda8b86c72c505986fefc3cf236a5022d8bd"
+    },
+    {
+      "source": "results/1791223272013-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-1791223272013/1791223272013-smoke.md",
+      "sha256": "f08e4f0e75b127f7adfce7c1097a6d9b48c346bceaf791f1e575a7e39a1f96c0"
+    },
+    {
+      "source": "results/1791223758028-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-1791223758028/1791223758028-smoke.md",
+      "sha256": "2040aadee2077fc46667fe8ddeb6e494215b14f9d4ca5fbc11b2860097eab19b"
+    },
+    {
+      "source": "results/1791228308080-smoke.md",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-1791228308080/1791228308080-smoke.md",
+      "sha256": "149f6f0cf1b597375f15c186f527f9c795451028f20c747e4ecb941a6a827dec"
+    },
+    {
+      "source": "results/1791255699927-smoke.md",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-1791255699927/1791255699927-smoke.md",
+      "sha256": "194dfd2b53f3d8f798c16d8da52138d5cb2c577288234a8a843517969e8a2da2"
+    },
+    {
+      "source": "results/1791257446373-smoke.md",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-myheat-56d8e7045fb1/legacy-1791257446373/1791257446373-smoke.md",
+      "sha256": "a98d4c3140d70cc2172d18c70f00ff502cea06e99b27cd1b52326be3074864e1"
+    },
+    {
+      "source": "results/1791301825308-smoke.md",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-1791301825308/1791301825308-smoke.md",
+      "sha256": "688da7542b9c6bc3f8ea69c72bbef1144c9d426543de1a7045066a765364877d"
+    },
+    {
+      "source": "screenshot_1366.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-root-audit/screenshot_1366.png",
+      "sha256": "17e9a2c80dbe7bd78f671ca6c68844dfc4e3a2074844497936c58f37335c734b"
+    },
+    {
+      "source": "screenshot_1920.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-root-audit/screenshot_1920.png",
+      "sha256": "5dc3676d42e34810c284c9179e46609978411edf6cd22cf390c45669c07b04c2"
+    },
+    {
+      "source": "screenshot_375.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-root-audit/screenshot_375.png",
+      "sha256": "d9800b2f064dd5c756cd420d44c653628e979b8f749c14a7205143ff425b6d5c"
+    },
+    {
+      "source": "screenshot_768.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-496cdf426aa2/legacy-root-audit/screenshot_768.png",
+      "sha256": "cf5aaaf604c8a8538b5d46569f56f0d1a83fec6e60e77f72adbc8fe532a18c61"
+    },
+    {
+      "source": "screenshot_full.png",
+      "destination": "unknown-page/legacy-root-unattributed/screenshot_full.png",
+      "sha256": "f21c7c009cf33a73bb5744e4a1cb25f45c2b873eca606acb614ad9ddb0b8502a"
+    },
+    {
+      "source": "search_result.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-search_result/search_result.png",
+      "sha256": "dfec2222b4a5ac3d26e7115e786b97048b5818224613a10c0934d294381a28c2"
+    },
+    {
+      "source": "search_result2.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-search_result2/search_result2.png",
+      "sha256": "32d2a7c9354d07793b2293eeb31609690de51c32bb25bbc46cf241d36d748b94"
+    },
+    {
+      "source": "sticky_viewport_768.png",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-sticky_viewport_768/sticky_viewport_768.png",
+      "sha256": "eec82e482184d3e613175202351af2929bf56c0c2dcc0da968a3c1d728b5d11a"
+    },
+    {
+      "source": "tmp_audit/focus_0.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_0.png",
+      "sha256": "7efc1d19806049e7b0e3207bc66c224613e8ace13a3952d3f0155a2690accf79"
+    },
+    {
+      "source": "tmp_audit/focus_1.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_1.png",
+      "sha256": "87b05cba08e4c9f02d77eeca14a447af13065b13c90476a43911ba6f8f9069bf"
+    },
+    {
+      "source": "tmp_audit/focus_10.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_10.png",
+      "sha256": "f14a8530a2a8e5eb9cd6e2b8919e9606075d46d4b1573f991b1d18872f032d33"
+    },
+    {
+      "source": "tmp_audit/focus_11.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_11.png",
+      "sha256": "73238e740b92f8edd231e9096f51a82d0eedd111f51978e2af6b73b7eec585ed"
+    },
+    {
+      "source": "tmp_audit/focus_12.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_12.png",
+      "sha256": "1b590077bfb0b6345637238048fa1fd5e767d4a4c49f5fabfac682bb63368893"
+    },
+    {
+      "source": "tmp_audit/focus_2.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_2.png",
+      "sha256": "4b4adc590aa7b08d3b3d70bd5c976c898fa768ceea4b516d5155d56a486b6f84"
+    },
+    {
+      "source": "tmp_audit/focus_3.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_3.png",
+      "sha256": "7fb8872e24e4c3d01ddf8c401e414620efdd2959aad3aa7ce11b36499795cfc6"
+    },
+    {
+      "source": "tmp_audit/focus_4.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_4.png",
+      "sha256": "df81a3b44efae05d2569b9ac1e06dc0dfd5b4211522a0ce40da02cfb8cd2afd6"
+    },
+    {
+      "source": "tmp_audit/focus_5.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_5.png",
+      "sha256": "2acf2f85e9e0299a563d2d558a403ecaa1d46fa61717169168fdfe751c85bc8d"
+    },
+    {
+      "source": "tmp_audit/focus_6.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_6.png",
+      "sha256": "959fe3e8b342831b1b0fdbd34381b072175a96cc43fa13d12fb3503c05bc501a"
+    },
+    {
+      "source": "tmp_audit/focus_7.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_7.png",
+      "sha256": "c2239f16c1d1fe811e01617b12dc7f5782ea3670aa09eb3d34a7882f028ee3b2"
+    },
+    {
+      "source": "tmp_audit/focus_8.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_8.png",
+      "sha256": "9217f5b47d878fa8cd60ed991225d92c2eacf0cdb31adf1f1ac7ce01ea209a59"
+    },
+    {
+      "source": "tmp_audit/focus_9.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_9.png",
+      "sha256": "3545d9bfe312f0ddc7e7dcec03497b9e283c5e1bd1f7c8a4697ff13c51ab4526"
+    },
+    {
+      "source": "tmp_audit/focus_contactus.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_contactus.png",
+      "sha256": "519367392070b689ed91788ae90417575bca873f4b354dfbaa373943efafff40"
+    },
+    {
+      "source": "tmp_audit/focus_english.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_english.png",
+      "sha256": "5f02745a520db61aa3a37511a9575cd3ce96d38b9e3c58282d0c1ee1ea84a159"
+    },
+    {
+      "source": "tmp_audit/focus_logo.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/focus_logo.png",
+      "sha256": "9f25680b0d4d99ef896a65077b09d963c43a0bfe1f50e6076728de21bab5dc33"
+    },
+    {
+      "source": "tmp_audit/links.txt",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/links.txt",
+      "sha256": "2913fcc8d87aef180abd74a585834b04763b1d0a708d306afe1798d182fb82aa"
+    },
+    {
+      "source": "tmp_audit/mobile_menu_open.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/mobile_menu_open.png",
+      "sha256": "679ef9f1c70abde0243362e5843fd72874f9d4b554c4401e93a56a85718c7966"
+    },
+    {
+      "source": "tmp_audit/no_focus.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/no_focus.png",
+      "sha256": "2cbb0a208a8a8ac1a293913ff8dbc05723f44b83a3fe731249371e9f8d501212"
+    },
+    {
+      "source": "tmp_audit/qa_audit_report.json",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/qa_audit_report.json",
+      "sha256": "c4f1b8979289b5dd46f959a8084eefa1b63bb3c7452411852f5e155117ff81f7"
+    },
+    {
+      "source": "tmp_audit/shot_1366x768.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/shot_1366x768.png",
+      "sha256": "bf77eb80e0bd7ab8b78b55fd945cb7ce6dc72ad58a5946be658fc024c79c08de"
+    },
+    {
+      "source": "tmp_audit/shot_1920x1080.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/shot_1920x1080.png",
+      "sha256": "a027c35dc641b6fea55b17636a7e3964cbc35e301245995e2e3550bd9c24228c"
+    },
+    {
+      "source": "tmp_audit/shot_375x812.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/shot_375x812.png",
+      "sha256": "c494c9029d59909b217c45864b1214b114b8a739ffcd4d6e14a4dd33c79c840a"
+    },
+    {
+      "source": "tmp_audit/shot_768x1024.png",
+      "destination": "qa3-oru-vml-dev-en-save-money-rebates-incentives-credits-nj-residential-efficient-products-recycling-0fcf20650ff0/legacy-tmp-audit/shot_768x1024.png",
+      "sha256": "0934bb8646e2c111f3edba9a626353f5480a54962e2f8acdd28b92c3e39622fb"
+    },
+    {
+      "source": "unique_links.txt",
+      "destination": "dev10-oru-com-en-save-money-rebates-incentives-credits-ny-residential-battery-program-cac36eaaa844/legacy-root-battery-links/unique_links.txt",
+      "sha256": "012b0da6414b5764e35f9713a4c31b925fbb92a8c567a6b4dc697300c66c768d"
+    }
+  ]
+}

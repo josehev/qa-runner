@@ -1,4 +1,5 @@
 const { chromium } = require('playwright');
+const fs = require('fs');
 const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program";
 const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
 
@@ -148,7 +149,7 @@ const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
 
   await page.setViewportSize({ width: 1920, height: 1080 });
 
-  console.log(JSON.stringify({
+  const output = JSON.stringify({
     url: URL,
     finalUrl: page.url(),
     gotoErr,
@@ -160,7 +161,9 @@ const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
     pageErrors,
     failedRequests,
     nonOkResponses: respStatuses.filter(r => r.status >= 400),
-  }, null, 2));
+  }, null, 2);
+  fs.writeFileSync(artifactPath('battery_audit_output.json'), output);
+  console.log(output);
 
   await browser.close();
 })();

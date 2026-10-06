@@ -1,5 +1,7 @@
 const { chromium } = require('playwright');
+const fs = require('fs');
 const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling";
+const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
 
 (async () => {
   const browser = await chromium.launch();
@@ -59,6 +61,8 @@ const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/nj/r
     out.bodyText = document.body.innerText.slice(0, 3000);
     return out;
   });
-  console.log(JSON.stringify(data, null, 2));
+  const output = JSON.stringify(data, null, 2);
+  fs.writeFileSync(artifactPath('audit_results.json'), output);
+  console.log(output);
   await browser.close();
 })();
