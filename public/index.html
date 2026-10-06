@@ -121,12 +121,12 @@
 <body>
   <div class="container">
     <h1>🧪 Copilot QA Runner</h1>
-    <p class="subtitle">Run your QA agents from anywhere, no VS Code needed</p>
+    <p class="subtitle">Test your website with AI-powered QA agents</p>
     
     <div class="card">
       <label for="prompt" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Choose a test:</label>
       <select id="prompt"></select>
-      <div class="prompt" id="preview"></div>
+      <!-- <div class="prompt" id="preview"></div> -->
       
       <label for="url" style="display: block; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; color: #333;">Website to test:</label>
       <input id="url" type="url" placeholder="https://example.com" />
@@ -163,6 +163,7 @@
     fetch('/api/results')
       .then(r => r.json())
       .then(results => {
+        results = results.slice(0, 5);
         if (results.length === 0) {
           $('history').innerHTML = '<p style="color: #999;">No test results yet. Run your first test!</p>';
         } else {
