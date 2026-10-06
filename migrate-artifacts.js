@@ -9,6 +9,15 @@ const BATTERY = "/en/save-money/rebates-incentives-credits/ny/residential/batter
 const ROOT_OUTPUT = /^(?:battery_.*\.(?:png|json|log)|clean_.*\.png|screenshot_.*\.png|search_result.*\.png|crop_.*\.png|faq_focus\.png|focus_contact_test\.png|login_modal_test\.png|interact_result\.png|sticky_viewport_768\.png|page_text\.txt|link_status.*\.txt|unique_links\.txt|links_to_check\.txt)$/;
 const digest = (file) => createHash("sha256").update(fs.readFileSync(file)).digest("hex");
 
+function isSymlink(file) {
+  try {
+    return fs.lstatSync(file).isSymbolicLink();
+  } catch (err) {
+    if (err.code === "ENOENT") return false;
+    throw err;
+  }
+}
+
 function inferGroup(source, root) {
   const name = path.basename(source);
   const folder = path.dirname(source);
@@ -67,11 +76,11 @@ function inferGroup(source, root) {
 function migrateArtifacts(root = __dirname) {
   const directory = path.join(root, "my-project", "result reports");
   for (const location of [path.join(root, "my-project"), directory]) {
-    if (fs.existsSync(location) && fs.lstatSync(location).isSymbolicLink()) throw new Error("Unsafe artifact root");
+    if (isSymlink(location)) throw new Error("Unsafe artifact root");
   }
   fs.mkdirSync(directory, { recursive: true });
   const manifestPath = path.join(directory, "legacy-artifacts.json");
-  if (fs.existsSync(manifestPath) && fs.lstatSync(manifestPath).isSymbolicLink()) throw new Error("Unsafe manifest");
+  if (isSymlink(manifestPath)) throw new Error("Unsafe manifest");
   const manifest = fs.existsSync(manifestPath)
     ? JSON.parse(fs.readFileSync(manifestPath, "utf8")) : { version: 1, artifacts: [] };
   const sources = fs.readdirSync(root).filter((name) => ROOT_OUTPUT.test(name));
@@ -98,7 +107,7 @@ function migrateArtifacts(root = __dirname) {
     const target = path.join(directory, entry.destination);
     // Check each ancestor before creating or writing anything beneath it.
     for (const location of [directory, path.dirname(path.dirname(target)), path.dirname(target), target]) {
-      if (fs.existsSync(location) && fs.lstatSync(location).isSymbolicLink()) throw new Error(`Unsafe destination: ${entry.destination}`);
+      if (isSymlink(location)) throw new Error(`Unsafe destination: ${entry.destination}`);
     }
     if (fs.existsSync(target) && digest(target) !== sha256) throw new Error(`Destination conflict: ${entry.destination}`);
     pending.push({ entry, file, target });
@@ -118,7 +127,9 @@ function migrateArtifacts(root = __dirname) {
     const file = resolveResult(entry.destination, directory);
     if (!file || digest(file) !== entry.sha256) throw new Error(`Missing or changed migrated artifact: ${entry.source}`);
   }
-  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
+  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n", {
+    flag: fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_TRUNC | fs.constants.O_NOFOLLOW,
+  });
   for (const { file } of pending) fs.unlinkSync(file);
   for (const folder of ["results", "qa-reports"]) {
     const location = path.join(root, folder);

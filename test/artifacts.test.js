@@ -116,6 +116,22 @@ test("migration rejects destination and artifact-root symlinks", (t) => {
   assert.throws(() => migrateArtifacts(root), /Unsafe artifact root/);
 });
 
+test("migration rejects dangling symlinks before writing outside its artifact root", (t) => {
+  const { root, write, directory } = fixture(t);
+  write("results/123-smoke.md", "URL: https://example.com/\n");
+  const outside = path.join(root, "outside.json");
+  const manifest = path.join(directory, "legacy-artifacts.json");
+  fs.symlinkSync(outside, manifest);
+  assert.throws(() => migrateArtifacts(root), /Unsafe manifest/);
+  assert.equal(fs.existsSync(outside), false);
+  assert.ok(fs.existsSync(path.join(root, "results/123-smoke.md")));
+  fs.unlinkSync(manifest);
+  const page = path.join(directory, pageSlug("https://example.com/"));
+  fs.symlinkSync(path.join(root, "missing-page"), page);
+  assert.throws(() => migrateArtifacts(root), /Unsafe destination/);
+  assert.equal(fs.existsSync(path.join(root, "missing-page")), false);
+});
+
 test("future runs are repository-rooted, URL-specific, unique, and safely reusable", (t) => {
   const url = "https://example.com/artifact-test?mode=1";
   const page = path.join(RESULTS, pageSlug(url));
