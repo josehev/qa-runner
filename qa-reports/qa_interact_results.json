@@ -1,0 +1,136 @@
+{
+  "tabResults": [
+    {
+      "tag": "A",
+      "text": "Skip to Main Content",
+      "id": "",
+      "outline": "solid 2px rgb(255, 255, 255)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "Contact Us",
+      "id": "",
+      "outline": "none 0px rgb(255, 255, 255)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "English",
+      "id": "",
+      "outline": "none 0px rgb(255, 255, 255)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "",
+      "id": "",
+      "outline": "none 0px rgb(0, 69, 87)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Account & Billing",
+      "id": "",
+      "outline": "none 3px rgb(42, 42, 42)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Services & Outages",
+      "id": "",
+      "outline": "none 3px rgb(42, 42, 42)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Save Energy & Money",
+      "id": "",
+      "outline": "none 3px rgb(42, 42, 42)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Clean Energy",
+      "id": "",
+      "outline": "none 3px rgb(42, 42, 42)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Search",
+      "id": "",
+      "outline": "none 3px rgb(42, 42, 42)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Log in or Register",
+      "id": "",
+      "outline": "none 3px rgb(42, 42, 42)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "Home",
+      "id": "",
+      "outline": "solid 2px rgb(255, 255, 255)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "Rebates, Incentives & Credits",
+      "id": "",
+      "outline": "solid 2px rgb(255, 255, 255)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "About",
+      "id": "",
+      "outline": "solid 2px rgb(255, 255, 255)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "Back to top",
+      "id": "",
+      "outline": "solid 2px rgb(255, 255, 255)",
+      "boxShadow": "none"
+    },
+    {
+      "tag": "A",
+      "text": "Back to top",
+      "id": "",
+      "outline": "solid 2px rgb(255, 255, 255)",
+      "boxShadow": "none"
+    }
+  ],
+  "faqTest": {
+    "beforeExpanded": "false",
+    "afterExpanded": "true",
+    "closedExpanded": "false"
+  },
+  "searchResults": {
+    "long": {
+      "error": "page.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#searchId')\u001b[22m\n\u001b[2m    - locator resolved to <input type=\"text\" id=\"searchId\" name=\"search\" maxlength=\"100\" aria-label=\"search\" placeholder=\"SEARCH\" class=\"input search-box__input js-search-box-input js-coned-input\"/>\u001b[22m\n\u001b[2m    - fill(\"\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    60 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    },
+    "special": {
+      "error": "page.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#searchId')\u001b[22m\n\u001b[2m    - locator resolved to <input type=\"text\" id=\"searchId\" name=\"search\" maxlength=\"100\" aria-label=\"search\" placeholder=\"SEARCH\" class=\"input search-box__input js-search-box-input js-coned-input\"/>\u001b[22m\n\u001b[2m    - fill(\"\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    60 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    },
+    "emoji": {
+      "error": "page.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#searchId')\u001b[22m\n\u001b[2m    - locator resolved to <input type=\"text\" id=\"searchId\" name=\"search\" maxlength=\"100\" aria-label=\"search\" placeholder=\"SEARCH\" class=\"input search-box__input js-search-box-input js-coned-input\"/>\u001b[22m\n\u001b[2m    - fill(\"\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    60 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    },
+    "sqlInjection": {
+      "error": "page.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#searchId')\u001b[22m\n\u001b[2m    - locator resolved to <input type=\"text\" id=\"searchId\" name=\"search\" maxlength=\"100\" aria-label=\"search\" placeholder=\"SEARCH\" class=\"input search-box__input js-search-box-input js-coned-input\"/>\u001b[22m\n\u001b[2m    - fill(\"\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    60 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    }
+  },
+  "searchSubmitError": "page.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#searchId')\u001b[22m\n\u001b[2m    - locator resolved to <input type=\"text\" id=\"searchId\" name=\"search\" maxlength=\"100\" aria-label=\"search\" placeholder=\"SEARCH\" class=\"input search-box__input js-search-box-input js-coned-input\"/>\u001b[22m\n\u001b[2m    - fill(\"' OR '1'='1\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    60 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+  "mobileMenu": {
+    "clicked": true,
+    "menuVisibleAfterClick": true
+  },
+  "backNavUrl": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/myheat",
+  "forwardNavUrl": "https://dev10.oru.com/en/",
+  "reloadUrl": "https://dev10.oru.com/en/"
+}

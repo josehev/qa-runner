@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QA & Accessibility Audit Report — ORU Recycling Page</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Arial, sans-serif; max-width: 960px; margin: 40px auto; padding: 0 20px; color: #1b1b1b; line-height: 1.5; }
+  h1 { font-size: 26px; border-bottom: 3px solid #004557; padding-bottom: 8px; }
+  h2 { font-size: 20px; color: #004557; margin-top: 40px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+  h3 { font-size: 16px; margin-top: 24px; }
+  .meta { background: #f4f6f7; padding: 12px 16px; border-radius: 6px; font-size: 14px; }
+  ul.checklist { list-style: none; padding-left: 0; }
+  ul.checklist li { margin: 10px 0; padding-left: 28px; position: relative; }
+  ul.checklist li input { position: absolute; left: 0; top: 3px; }
+  .status { font-weight: bold; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 6px; }
+  .pass { background: #e3f6e8; color: #1a7a33; }
+  .fail { background: #fde6e6; color: #b3261e; }
+  .partial { background: #fff4d9; color: #8a6400; }
+  .nottested { background: #e9e9e9; color: #555; }
+  .criteria { font-size: 13px; color: #444; margin-top: 2px; }
+  .evidence { font-size: 13px; background: #fafafa; border-left: 3px solid #b3261e; padding: 6px 10px; margin-top: 4px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 16px; font-size: 14px; }
+  th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
+  th { background: #004557; color: white; }
+  .sev-high { color: #b3261e; font-weight: bold; }
+  .sev-med { color: #8a6400; font-weight: bold; }
+  .sev-low { color: #555; }
+  footer { margin-top: 50px; font-size: 12px; color: #888; border-top: 1px solid #ccc; padding-top: 10px; }
+</style>
+</head>
+<body>
+
+<h1>QA &amp; Accessibility Audit Report</h1>
+<div class="meta">
+  <strong>Page Under Test:</strong> <a href="https://dev10.oru.com/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling">https://dev10.oru.com/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling</a><br>
+  <strong>Page Title:</strong> "Appliance Recycling Program in New Jersey"<br>
+  <strong>Date Tested:</strong> 2026-10-05<br>
+  <strong>Tools Used:</strong> Playwright (Chromium) scripted navigation/interaction, curl (HTTP status sweep), manual WCAG contrast-ratio calculation, viewport screenshots (1920 / 1366 / 768 / 375px).<br>
+  <strong>Legend:</strong>
+  <span class="status pass">PASS</span>
+  <span class="status fail">FAIL</span>
+  <span class="status partial">PARTIAL</span>
+  <span class="status nottested">NOT TESTED</span>
+</div>
+
+<h2>Executive Summary — Confirmed Failures (ranked by severity)</h2>
+<table>
+<tr><th>#</th><th>Severity</th><th>Issue</th><th>Location</th></tr>
+<tr><td>1</td><td class="sev-high">High</td><td>Primary CTA "DOWNLOAD PARTICIPATION FORM" has <code>href=""</code> — opens a new tab that just reloads the same page instead of downloading anything.</td><td>Hero section button</td></tr>
+<tr><td>2</td><td class="sev-high">High</td><td>"terms and conditions" (×2) and "participation form" links redirect (302) to the site's <code>/404</code> page.</td><td>"Get Started" Steps 1–3</td></tr>
+<tr><td>3</td><td class="sev-med">Medium</td><td>No <code>&lt;main&gt;</code> element or <code>role="main"</code> anywhere on the page — hurts screen-reader landmark navigation.</td><td>Document structure</td></tr>
+<tr><td>4</td><td class="sev-med">Medium</td><td>FAQ accordion buttons have no visible keyboard focus indicator (fails WCAG 2.4.7).</td><td>FAQ section, all 5 question buttons</td></tr>
+<tr><td>5</td><td class="sev-med">Medium</td><td>No Open Graph or Twitter Card meta tags — social share previews will be blank/broken.</td><td>&lt;head&gt;</td></tr>
+<tr><td>6</td><td class="sev-low">Low</td><td>Heading order anomaly: hidden login-modal markup injects H4→H3→H5 before the page's visible H1.</td><td>Hidden login modal DOM</td></tr>
+<tr><td>7</td><td class="sev-low">Low</td><td>No <code>loading="lazy"</code> on any of the 10 images; hero/step images are <code>.png</code> instead of <code>.webp</code>.</td><td>All content images</td></tr>
+<tr><td>8</td><td class="sev-low">Low</td><td>The broken links in items 1–2 also lack <code>rel="noopener"</code> on their <code>target="_blank"</code> attribute.</td><td>Same elements as #1–#2</td></tr>
+</table>
+
+<h2>1. Accessibility (WCAG 2.1 / 2.0 AA)</h2>
+<ul class="checklist">
+  <li><input type="checkbox" checked disabled> Keyboard reachability of all interactive elements <span class="status pass">PASS</span>
+    <div class="criteria">How to test: Tab sequentially through the page; every interactive control should receive focus in DOM order.</div>
+    <div class="criteria">Result: Header, FAQ, cards, and footer links all reachable in a 15+ element tab sweep.</div>
+  </li>
+  <li><input type="checkbox" disabled> Visible focus indicator on every focusable element <span class="status fail">FAIL</span>
+    <div class="criteria">Criteria: WCAG 2.4.7 — focused element must have a visible outline/highlight.</div>
+    <div class="evidence">Evidence: The 5 FAQ accordion buttons compute to <code>outline-style:none; outline-width:0; box-shadow:none</code> on focus. Repro: Tab to any FAQ question (e.g. "Do I need to own the appliance?") → no visible ring appears, though focus has moved (confirmed via computed style, not just visual inspection). Nav/footer links by contrast correctly show a 2px outline.</div>
+  </li>
+  <li><input type="checkbox" checked disabled> Logical tab order / no keyboard traps <span class="status pass">PASS</span></li>
+  <li><input type="checkbox" checked disabled> Skip-to-content link present and functional <span class="status pass">PASS</span>
+    <div class="criteria">"Skip to Main Content" is the first focusable element and moves focus to <code>#mainContent</code>.</div>
+  </li>
+  <li><input type="checkbox" checked disabled> Alt text present on all images <span class="status pass">PASS</span>
+    <div class="criteria">All 10 &lt;img&gt; elements carry non-empty, descriptive alt text.</div>
+  </li>
+  <li><input type="checkbox" disabled> ARIA landmarks (header/nav/main/footer) <span class="status fail">FAIL</span>
+    <div class="criteria">Criteria: page should expose header, nav, main, footer landmarks for AT users.</div>
+    <div class="evidence">Evidence: &lt;header&gt;, &lt;nav&gt;(×2), &lt;footer&gt; exist, but there is no &lt;main&gt; element or role="main" anywhere. The content wrapper is a plain &lt;div id="mainContent"&gt;.</div>
+  </li>
+  <li><input type="checkbox" disabled> Heading hierarchy is logical (no skipped levels) <span class="status fail">FAIL</span>
+    <div class="evidence">Hidden login-modal markup injects H4(empty)→H3("Verify Your Identity")→H5("To protect your account...") ahead of the visible H1 ("Get Rewarded for Recycling") in DOM order — confuses screen-reader heading navigation even though visually hidden. Visible content hierarchy itself (H1→H2→H3) is correct.</div>
+  </li>
+  <li><input type="checkbox" checked disabled> Icon-only buttons have accessible names <span class="status pass">PASS</span>
+    <div class="criteria">Login/search/menu-toggle icon buttons all carry descriptive aria-label values.</div>
+  </li>
+  <li><input type="checkbox" disabled> Form field labeling <span class="status partial">PARTIAL</span>
+    <div class="criteria">Header search input relies on aria-label (acceptable). Hidden login-modal email/password fields have proper &lt;label for&gt; association. A hidden MFA field's full accessible-name behavior could not be fully exercised without live credentials.</div>
+  </li>
+  <li><input type="checkbox" disabled> Accessible error messaging on form submission <span class="status nottested">NOT TESTED</span>
+    <div class="criteria">No submittable form could be driven to a failure state without live credentials/backend state in this environment.</div>
+  </li>
+  <li><input type="checkbox" checked disabled> Color contrast ratios (4.5:1 text / 3:1 large text) <span class="status pass">PASS</span>
+    <div class="criteria">Measured computed color/background pairs: body text #2A2A2A on white = 14.35:1; CTA white-on-teal = 10.56:1; footer links = 11.50:1; FAQ text = 14.35:1; orange anchor-tab text (teal on #FF8E2C) = 4.60:1 — passes but close to the 4.5:1 floor; recommend monitoring if this palette changes.</div>
+  </li>
+</ul>
+
+<h2>2. Design, UI &amp; Responsive Viewports</h2>
+<ul class="checklist">
+  <li><input type="checkbox" checked disabled> Desktop 1920px layout <span class="status pass">PASS</span> — clean multi-column layout, no overlap/stretching.</li>
+  <li><input type="checkbox" checked disabled> Laptop 1366px layout <span class="status pass">PASS</span> — scales correctly, no horizontal scroll.</li>
+  <li><input type="checkbox" checked disabled> Tablet 768px layout <span class="status pass">PASS</span> — cards reflow to 2-up then wrap, no overlap.</li>
+  <li><input type="checkbox" checked disabled> Mobile 375px layout <span class="status pass">PASS</span> — single-column stack; anchor-nav becomes a horizontally scrollable tab strip, no cut-off content.</li>
+  <li><input type="checkbox" checked disabled> No horizontal scroll / layout shift at any width <span class="status pass">PASS</span>
+    <div class="criteria">Verified programmatically: <code>document.documentElement.scrollWidth === clientWidth</code> at all 4 widths.</div>
+  </li>
+  <li><input type="checkbox" checked disabled> Typography consistency, padding/alignment <span class="status pass">PASS</span></li>
+  <li><input type="checkbox" disabled> Dark mode / light mode consistency <span class="status nottested">NOT TESTED — N/A</span>
+    <div class="criteria">No dark-mode toggle or prefers-color-scheme handling found; feature does not appear to exist on this page.</div>
+  </li>
+  <li><input type="checkbox" disabled> Mobile hamburger menu toggle <span class="status partial">INCONCLUSIVE</span>
+    <div class="criteria">Scripted click at 375px did not reveal expected nav items; manual visual re-check did not show an obviously broken menu. Recommend a manual re-verification pass specifically on this control.</div>
+  </li>
+</ul>
+
+<h2>3. Links, Media &amp; Asset Integrity</h2>
+<ul class="checklist">
+  <li><input type="checkbox" disabled> Primary hero CTA link resolves correctly <span class="status fail">FAIL</span>
+    <div class="evidence">"DOWNLOAD PARTICIPATION FORM" button has <code>href=""</code>. Repro: click the button → new tab opens showing the current page again, no document downloads.</div>
+  </li>
+  <li><input type="checkbox" disabled> In-body "terms and conditions" links (Get Started, Steps 1 &amp; 3) <span class="status fail">FAIL — 404</span>
+    <div class="evidence"><code>/-/media/1545545a70484f779640a98ac0515d14.ashx</code> → HTTP 302 → final <code>/404</code>. Repro: scroll to "Get Started" → click "terms and conditions" in Step 1 or Step 3.</div>
+  </li>
+  <li><input type="checkbox" disabled> In-body "participation form" link (Step 2) <span class="status fail">FAIL — 404</span>
+    <div class="evidence"><code>/-/media/448bc54262014bb794b467adeb91203a.ashx</code> → HTTP 302 → final <code>/404</code>. Repro: click "participation form" link in Step 2.</div>
+  </li>
+  <li><input type="checkbox" checked disabled> All other internal links (~85 unique: nav/footer/body) return 200 <span class="status pass">PASS</span></li>
+  <li><input type="checkbox" checked disabled> External links resolve correctly <span class="status pass">PASS (2 non-defects noted)</span>
+    <div class="criteria">microsoft.com/edge returns 403 on HEAD but 200 on GET with a browser UA (server-side bot filtering, not a site bug). phx.corporate-ir.net (legacy IR portal, footer) returned 403/timeouts — third-party, outside oru.com control, flagged NOT TESTED conclusively.</div>
+  </li>
+  <li><input type="checkbox" checked disabled> Anchor (#) in-page navigation scrolls correctly <span class="status pass">PASS</span> — "BACK TO TOP" and the About/Events/Get Started/FAQs tab strip function correctly.</li>
+  <li><input type="checkbox" checked disabled> Images render with no broken icons <span class="status pass">PASS</span> — all 10 images loaded with correct dimensions.</li>
+  <li><input type="checkbox" checked disabled> Image aspect ratio correct (no stretching) <span class="status pass">PASS</span></li>
+  <li><input type="checkbox" disabled> Lazy-loading attributes present on below-the-fold images <span class="status fail">FAIL</span>
+    <div class="evidence">0 of 10 &lt;img&gt; elements carry <code>loading="lazy"</code>.</div>
+  </li>
+  <li><input type="checkbox" disabled> Modern image formats (WebP/SVG) used <span class="status partial">PARTIAL</span>
+    <div class="criteria">Logo is .svg (good). Hero photo and 3 step illustrations are .png rather than .webp/.avif — a performance optimization opportunity, not a functional bug.</div>
+  </li>
+</ul>
+
+<h2>4. JavaScript Functionality &amp; Console Health</h2>
+<ul class="checklist">
+  <li><input type="checkbox" checked disabled> Zero JS errors / unhandled exceptions on page load <span class="status pass">PASS</span> — 0 <code>pageerror</code> events, 0 console <code>error</code>-level messages.</li>
+  <li><input type="checkbox" checked disabled> No problematic console warnings <span class="status pass">PASS</span> — only the browser's own benign self-XSS deterrent log message present.</li>
+  <li><input type="checkbox" checked disabled> FAQ accordion expand/collapse <span class="status pass">PASS</span> — individual toggle updates <code>aria-expanded</code> correctly; "EXPAND ALL"/"COLLAPSE ALL" works for all 5 items.</li>
+  <li><input type="checkbox" checked disabled> Search widget open/close <span class="status pass">PASS</span> — reveals <code>#searchId</code> input with no console errors.</li>
+  <li><input type="checkbox" disabled> Login modal full flow <span class="status nottested">NOT TESTED</span>
+    <div class="criteria">Markup present (email/password/MFA fields) but exercising full auth flow requires live credentials; not attempted.</div>
+  </li>
+  <li><input type="checkbox" disabled> Carousels/tabbed panels <span class="status nottested">N/A</span> — no true carousel/tab-panel widget present; the anchor-nav strip is scroll-to-anchor only (verified working, see Section 3).</li>
+</ul>
+
+<h2>5. General Core Functionality &amp; Edge Cases</h2>
+<ul class="checklist">
+  <li><input type="checkbox" checked disabled> Long string input handling (search field) <span class="status pass">PASS</span> — 300-char string silently truncated to 100 chars (maxlength), no error.</li>
+  <li><input type="checkbox" checked disabled> Script-tag-like input (<code>&lt;script&gt;alert(1)&lt;/script&gt;</code>) <span class="status pass">PASS</span> — treated as literal text, no execution.</li>
+  <li><input type="checkbox" checked disabled> SQL-injection-style input (<code>' OR '1'='1</code>) <span class="status pass">PASS</span> — accepted as literal text client-side, no errors.</li>
+  <li><input type="checkbox" checked disabled> Emoji input (😀🔥💧) <span class="status pass">PASS</span> — accepted/stored correctly, no rendering issues.</li>
+  <li><input type="checkbox" checked disabled> Page refresh consistency <span class="status pass">PASS</span> — repeated reloads returned HTTP 200 with identical content.</li>
+  <li><input type="checkbox" disabled> Browser back/forward button behavior <span class="status nottested">NOT TESTED</span>
+    <div class="criteria">No SPA routing / history-changing interaction beyond anchor scrolling was exercised, so back/forward could not be meaningfully distinguished from a plain reload.</div>
+  </li>
+  <li><input type="checkbox" disabled> End-to-end search submission <span class="status nottested">NOT TESTED</span>
+    <div class="criteria">Input safety was verified (see above) but the form was not submitted to <code>/en/search</code> to avoid unnecessary load on a shared dev environment; destination page not audited.</div>
+  </li>
+</ul>
+
+<h2>6. Content, Copy &amp; Grammar</h2>
+<ul class="checklist">
+  <li><input type="checkbox" checked disabled> Proofreading of all visible copy (hero, About, Get Started steps, all 5 expanded FAQs, footnotes) <span class="status pass">PASS</span> — no spelling/grammar errors found; copy is clear and consistent.</li>
+  <li><input type="checkbox" checked disabled> Button/CTA label clarity <span class="status pass">PASS</span> — labels are action-oriented and clear (note: the download button itself is functionally broken, see Section 3 #1).</li>
+  <li><input type="checkbox" checked disabled> No leftover placeholder content ("Lorem Ipsum", "{token}", "TODO") <span class="status pass">PASS</span> — none found in rendered text or raw HTML source.</li>
+  <li><input type="checkbox" disabled> Dynamic/event data sanity check <span class="status partial">NOTE</span>
+    <div class="criteria">The only two "Upcoming Events" entries are dated far in the future (Sep 20, 2026 and Oct 18, 2026) at a single venue — recommend confirming with content owners this is real/intended data rather than stale placeholder content for this dev environment.</div>
+  </li>
+</ul>
+
+<h2>7. Frontend &amp; Coding Best Practices</h2>
+<ul class="checklist">
+  <li><input type="checkbox" disabled> Semantic HTML structure (header/nav/main/footer) <span class="status partial">PARTIAL / FAIL</span>
+    <div class="evidence">header, nav (×2), footer present. No &lt;main&gt; element anywhere in the document (duplicate of Section 1 finding).</div>
+  </li>
+  <li><input type="checkbox" checked disabled> Single H1, logical H2–H6 nesting (visible content) <span class="status pass">PASS</span> — exactly one visible H1 ("Get Rewarded for Recycling") with well-nested H2/H3 sections.</li>
+  <li><input type="checkbox" checked disabled> &lt;title&gt; tag present and descriptive <span class="status pass">PASS</span> — "Appliance Recycling Program in New Jersey".</li>
+  <li><input type="checkbox" checked disabled> &lt;meta name="description"&gt; present and descriptive <span class="status pass">PASS</span>.</li>
+  <li><input type="checkbox" disabled> Open Graph tags (og:title, og:description, og:image, etc.) <span class="status fail">FAIL</span> — zero og:* tags found; social shares will not produce a rich preview card.</li>
+  <li><input type="checkbox" disabled> Twitter Card tags <span class="status fail">FAIL</span> — none found.</li>
+  <li><input type="checkbox" checked disabled> Canonical tag present and self-referential <span class="status pass">PASS</span>.</li>
+  <li><input type="checkbox" checked disabled> <code>&lt;html lang="en"&gt;</code> set correctly <span class="status pass">PASS</span>.</li>
+  <li><input type="checkbox" checked disabled> Viewport meta tag present <span class="status pass">PASS</span>
+    <div class="criteria">Note: lacks explicit <code>initial-scale=1</code> alongside width=device-width; most modern browsers default this correctly, low priority.</div>
+  </li>
+  <li><input type="checkbox" checked disabled> HTTPS enforced <span class="status pass">PASS</span> — plain http:// request returns 301 to https://.</li>
+  <li><input type="checkbox" disabled> External/new-tab links use rel="noopener noreferrer" <span class="status partial">PASS, with exception</span>
+    <div class="evidence">All sampled valid target="_blank" external links correctly set rel="noopener noreferrer". The broken hero/CTA links (Section 3, items 1–2) also use target="_blank" but have no rel attribute at all — secondary hardening gap on top of their primary bug.</div>
+  </li>
+</ul>
+
+<h2>Items Not Tested (and why)</h2>
+<ul>
+  <li>Full login/MFA authentication flow — requires live credentials against production-like backend; avoided to prevent touching real account systems.</li>
+  <li>Accessible error messaging on form submission — no form could be safely driven to a failure state.</li>
+  <li>Browser back/forward history behavior — no SPA routing/state change was exercised beyond anchor scrolling.</li>
+  <li>End-to-end search results page — submission avoided to limit load on a shared dev environment; destination page unaudited.</li>
+  <li>Dark/light mode — feature does not appear to exist on this page.</li>
+  <li>Third-party IR portal links (phx.corporate-ir.net) — network/timeout issues appear environment-related, outside site control.</li>
+  <li>Live screen-reader pass (NVDA/VoiceOver) — findings are based on automated DOM/ARIA/heading inspection, a reasonable proxy but not a substitute for a live assistive-technology pass.</li>
+</ul>
+
+<footer>
+  Report generated by automated QA/accessibility audit (Playwright + curl + manual WCAG contrast calculations). Findings should be triaged by the development team against the linked reproduction steps before remediation.
+</footer>
+
+</body>
+</html>

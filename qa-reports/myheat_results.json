@@ -1,0 +1,1448 @@
+{
+  "httpStatus": 200,
+  "finalUrl": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/myheat",
+  "https": true,
+  "title": "MyHEAT: Home Heat Loss & Energy Savings Program",
+  "metaDescription": "See where your home loses heat with MyHEAT’s thermal imaging tool. View a personalized heat loss map and discover energy-saving opportunities.",
+  "headings": [
+    {
+      "tag": "H4",
+      "text": "POPULAR SEARCH TOPICS"
+    },
+    {
+      "tag": "H3",
+      "text": "Verify Your Identity"
+    },
+    {
+      "tag": "H5",
+      "text": "To protect your account, we need to confirm it’s you."
+    },
+    {
+      "tag": "H1",
+      "text": "Get a Free Home Energy Profile"
+    },
+    {
+      "tag": "H3",
+      "text": "About"
+    },
+    {
+      "tag": "H2",
+      "text": "Benefits of MyHEAT"
+    },
+    {
+      "tag": "H3",
+      "text": "Understand Your Home’s Heat Loss"
+    },
+    {
+      "tag": "H3",
+      "text": "Compare Your Home’s Performance"
+    },
+    {
+      "tag": "H3",
+      "text": "Reduce Heat Loss and Improve Comfort"
+    },
+    {
+      "tag": "H3",
+      "text": "Find Rebates and Incentives"
+    },
+    {
+      "tag": "H2",
+      "text": "Get Started"
+    },
+    {
+      "tag": "H3",
+      "text": "Step 1: Set Up Your Profile"
+    },
+    {
+      "tag": "H3",
+      "text": "Step 2: Review Your Results"
+    },
+    {
+      "tag": "H3",
+      "text": "Step 3: Explore Ways to Save"
+    },
+    {
+      "tag": "H2",
+      "text": "FAQs"
+    },
+    {
+      "tag": "H2",
+      "text": "Outages"
+    },
+    {
+      "tag": "H2",
+      "text": "Safety"
+    },
+    {
+      "tag": "H2",
+      "text": "About Us"
+    },
+    {
+      "tag": "H2",
+      "text": "Community Affairs"
+    },
+    {
+      "tag": "H2",
+      "text": "Contact Us"
+    },
+    {
+      "tag": "H2",
+      "text": "Renters and Homeowners"
+    },
+    {
+      "tag": "H2",
+      "text": "Small & Medium Businesses"
+    },
+    {
+      "tag": "H2",
+      "text": "Commercial & Industrial"
+    },
+    {
+      "tag": "H2",
+      "text": "Business Partners"
+    },
+    {
+      "tag": "H2",
+      "text": "Investors"
+    },
+    {
+      "tag": "H2",
+      "text": "Rates & Tariffs"
+    },
+    {
+      "tag": "H2",
+      "text": "Municipalities"
+    },
+    {
+      "tag": "H2",
+      "text": "Social"
+    }
+  ],
+  "landmarks": {
+    "header": 1,
+    "nav": 2,
+    "main": 0,
+    "footer": 1
+  },
+  "images": [
+    {
+      "src": "//dev10.oru.com/images/ajax-loader-oru.gif",
+      "alt": "ajax loader animation",
+      "loading": null,
+      "naturalWidth": 150,
+      "naturalHeight": 133,
+      "displayWidth": 0,
+      "displayHeight": 0,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/images/logo-oru.svg",
+      "alt": "Orange & Rockland logo",
+      "loading": null,
+      "naturalWidth": 300,
+      "naturalHeight": 42,
+      "displayWidth": 250,
+      "displayHeight": 36,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/images/logo-oru.svg",
+      "alt": "Orange & Rockland logo",
+      "loading": null,
+      "naturalWidth": 300,
+      "naturalHeight": 42,
+      "displayWidth": 250,
+      "displayHeight": 36,
+      "complete": true
+    },
+    {
+      "src": "/images/ajax-loader-oru.gif",
+      "alt": "ajax loader animation",
+      "loading": null,
+      "naturalWidth": 150,
+      "naturalHeight": 133,
+      "displayWidth": 0,
+      "displayHeight": 0,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/images/logo-oru.svg",
+      "alt": "Orange & Rockland logo",
+      "loading": null,
+      "naturalWidth": 300,
+      "naturalHeight": 42,
+      "displayWidth": 0,
+      "displayHeight": 0,
+      "complete": true
+    },
+    {
+      "src": "//dev10.oru.com/images/ajax-loader-oru.gif",
+      "alt": "ajax loader animation",
+      "loading": null,
+      "naturalWidth": 150,
+      "naturalHeight": 133,
+      "displayWidth": 0,
+      "displayHeight": 0,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/my-heat/my-heat-hero.png?rev=21b2b317100b4c9bb5c6498bc19f157d",
+      "alt": "An image of an aerial view of homes in a residential neighborhood.",
+      "loading": null,
+      "naturalWidth": 850,
+      "naturalHeight": 478,
+      "displayWidth": 850,
+      "displayHeight": 478,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/my-heat/about-my-heat.png?rev=ae75402a8e1640f397091e3eb67e58ad&la=en&h=536&w=536&hash=397343AE898F69DCCD1D3D1257160675",
+      "alt": "An illustration of a home with a thermal heat map showing areas of higher and lower heat loss.",
+      "loading": null,
+      "naturalWidth": 536,
+      "naturalHeight": 536,
+      "displayWidth": 536,
+      "displayHeight": 536,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/my-heat/understand-your-homes-heat-loss.png?rev=5f75e9e76de44db2b6ca02841daa589a&la=en&h=161&w=260&hash=E716B23742F66C92AF064A916CA08672",
+      "alt": "An illustration of a home showing heat escaping through the roof.",
+      "loading": null,
+      "naturalWidth": 260,
+      "naturalHeight": 161,
+      "displayWidth": 260,
+      "displayHeight": 161,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/my-heat/compare-your-homes-performance.png?rev=7d36cb1c9f624502b9b1b94f07bf1680&la=en&h=161&w=260&hash=BE62A7241B20CF2B8A6D0BBFB243BB26",
+      "alt": "An illustration of a magnifying glass examining a home energy report.",
+      "loading": null,
+      "naturalWidth": 260,
+      "naturalHeight": 161,
+      "displayWidth": 260,
+      "displayHeight": 161,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/my-heat/reduce-heat-loss-and-improve-comfort.png?rev=6d2046f4e63743e39c64adc2e817ee08&la=en&h=161&w=260&hash=FA4B6FF14A515E9078DFE1509907F62E",
+      "alt": "An illustration of a checklist and dollar symbol representing energy-saving recommendations and savings.",
+      "loading": null,
+      "naturalWidth": 260,
+      "naturalHeight": 161,
+      "displayWidth": 260,
+      "displayHeight": 161,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/my-heat/find-rebates-and-incentives.png?rev=93513bf7f50e4c86891d56666b7b10e0&la=en&h=161&w=260&hash=C95E0B76BACE2678188AE54C16A5B5F4",
+      "alt": "An illustration of energy reports with a checkmark representing available rebates and incentives.",
+      "loading": null,
+      "naturalWidth": 260,
+      "naturalHeight": 161,
+      "displayWidth": 260,
+      "displayHeight": 161,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/my-heat/step-1.png?rev=ccea3d70cd1345c7aaf13b41b1fa14ce&la=en&h=161&w=260&hash=6AB98C02593D13BAB3001241722C443D",
+      "alt": "An illustration of a laptop displaying an online form with a checkmark.",
+      "loading": null,
+      "naturalWidth": 260,
+      "naturalHeight": 161,
+      "displayWidth": 260,
+      "displayHeight": 161,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/my-heat/step-2.png?rev=6a7b67ddd0894d178ae03a925010fe14&la=en&h=161&w=260&hash=857F5B07F0D683D3B8BA29125A989D89",
+      "alt": "An illustration of an energy report with a dollar symbol and a downward arrow representing potential savings.",
+      "loading": null,
+      "naturalWidth": 260,
+      "naturalHeight": 161,
+      "displayWidth": 260,
+      "displayHeight": 161,
+      "complete": true
+    },
+    {
+      "src": "https://dev10.oru.com/-/media/images/oru/03_save-energy-money/32_rebatesandincentives/my-heat/step-3.png?rev=8fe6e054e29b4c28bdf832249abe3dcb&la=en&h=161&w=260&hash=CC346CB7CBB7F7460E39780DEEFA8B19",
+      "alt": "An illustration of a home energy report being reviewed with a magnifying glass.",
+      "loading": null,
+      "naturalWidth": 260,
+      "naturalHeight": 161,
+      "displayWidth": 260,
+      "displayHeight": 161,
+      "complete": true
+    }
+  ],
+  "links": [
+    {
+      "href": "#mainContent",
+      "text": "Skip to Main Content",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://www.google.com/chrome/downloads/",
+      "text": "Chrome",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://www.mozilla.org/en-US/firefox/new/",
+      "text": "Firefox",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://www.microsoft.com/en-us/edge",
+      "text": "Edge",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://support.apple.com/downloads/safari",
+      "text": "Safari",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "/en/contact-us",
+      "text": "Contact Us",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "#",
+      "text": "English",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/",
+      "text": "",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/my-account",
+      "text": "My Account",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/my-account/pay-my-bill",
+      "text": "Pay Bill",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/my-account/bill-history-assistance",
+      "text": "Bill History & Assistance",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/my-account/energy-use",
+      "text": "Energy Use",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/my-account/manage-my-account",
+      "text": "Manage My Account",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/how-to-read-your-meter",
+      "text": "How to Submit a Meter Reading",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/services-and-outages/service-management-page",
+      "text": "Start, Stop Your Service",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/services-and-outages/report-track-service-issue",
+      "text": "Report & Track Service Issue",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/services-and-outages/claim-form",
+      "text": "File a Claim",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/services-and-outages/preventing-recovering-from-outages",
+      "text": "Preventing & Recovering From Outages",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/contact-us",
+      "text": "Contact Us",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/tips-to-lower-your-bill",
+      "text": "Tips for Lowering Your Energy Bill",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/savings-hub",
+      "text": "Save with Rebates & Incentives",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/my-oru-store",
+      "text": "Energy Saving Store",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/estimate-your-energy-usage",
+      "text": "Estimate Your Energy Use",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/shop-for-energy-suppliers",
+      "text": "Shop for Energy Suppliers",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/using-private-generation-energy-sources",
+      "text": "Using Private Generation Energy Sources",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/our-energy-future/our-energy-vision/our-energy-future-commitment",
+      "text": "Our Clean Energy Commitment",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/our-energy-future/our-energy-vision",
+      "text": "Our Energy Vision",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/save-with-clean-heating-and-cooling-technology",
+      "text": "Clean Heating and Cooling",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/our-energy-future/electric-vehicles",
+      "text": "Electric Vehicles",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "#",
+      "text": "Login or Register",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/contact-us",
+      "text": "Contact Us",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "#",
+      "text": "English",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/my-account",
+      "text": "My Account",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/my-account/pay-my-bill",
+      "text": "Pay Bill",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/my-account/bill-history-assistance",
+      "text": "Bill History & Assistance",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/my-account/energy-use",
+      "text": "Energy Use",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/my-account/manage-my-account",
+      "text": "Manage My Account",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/how-to-read-your-meter",
+      "text": "How to Submit a Meter Reading",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/services-and-outages/service-management-page",
+      "text": "Start, Stop Your Service",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/services-and-outages/report-track-service-issue",
+      "text": "Report & Track Service Issue",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/services-and-outages/claim-form",
+      "text": "File a Claim",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/services-and-outages/preventing-recovering-from-outages",
+      "text": "Preventing & Recovering From Outages",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/contact-us",
+      "text": "Contact Us",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/tips-to-lower-your-bill",
+      "text": "Tips for Lowering Your Energy Bill",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/savings-hub",
+      "text": "Save with Rebates & Incentives",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/my-oru-store",
+      "text": "Energy Saving Store",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/estimate-your-energy-usage",
+      "text": "Estimate Your Energy Use",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/shop-for-energy-suppliers",
+      "text": "Shop for Energy Suppliers",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/using-private-generation-energy-sources",
+      "text": "Using Private Generation Energy Sources",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/our-energy-future/our-energy-vision/our-energy-future-commitment",
+      "text": "Our Clean Energy Commitment",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/our-energy-future/our-energy-vision",
+      "text": "Our Energy Vision",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/save-with-clean-heating-and-cooling-technology",
+      "text": "Clean Heating and Cooling",
+      "target": "",
+      "rel": null
+    },
+    {
+      "href": "/en/our-energy-future/electric-vehicles",
+      "text": "Electric Vehicles",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/small-medium-sized-businesses/project-center",
+      "text": "Project Center - Building and Upgrade Services\n                                            Customers",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/about-us/careers",
+      "text": "Careers\n                                            About Orange and Rockland",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/about-us/media-center",
+      "text": "Media Center\n                                            Media",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/register/pre-register",
+      "text": "Register",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/register/reset-password",
+      "text": "Reset my password",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/",
+      "text": "Home",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/rebates-incentives-credits",
+      "text": "Rebates, Incentives & Credits",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/rebates-incentives-credits",
+      "text": "Rebates, Incentives & Credits",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "#anchorNavigationID",
+      "text": "Back to top",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "#anchorNavigationID",
+      "text": "Back to top",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://oru.myheat.app/nj/",
+      "text": "VISIT MYHEAT",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/new-jersey-customers/incentives-for-residential-customers-nj/energy-efficient-home-solutions",
+      "text": "Home Energy Assessment",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "#anchorNavigationID",
+      "text": "Back to top",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://dev10.oru.com/en/save-money/rebates-incentives-credits/new-jersey-customers/incentives-for-residential-customers-nj/energy-efficient-home-solutions",
+      "text": "Home Energy Assessment",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "mailto:rocklandelectric@myheat.ca",
+      "text": "email us.",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "#anchorNavigationID",
+      "text": "Back to top",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/rebates-incentives-credits/new-jersey-customers/incentives-for-residential-customers-nj/whole-home-energy-solutions",
+      "text": "Whole Home Energy\n            \n            Work with a certified contractor to get a no-cost energy ",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/rebates-incentives-credits/new-jersey-customers/incentives-for-residential-customers-nj/energy-efficient-home-solutions/weatherization-program",
+      "text": "Weatherization Upgrades for Income-Qualified Customers\n            \n            Explore energy-savin",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/rebates-incentives-credits/new-jersey-customers/incentives-for-residential-customers-nj/energy-efficient-home-solutions/comfort-partners",
+      "text": "No-Cost Home Upgrades with Comfort Partners\n            \n            Explore no-cost energy-saving h",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/services-and-outages/report-track-service-issue/check-outage-status",
+      "text": "Report Outage Status",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://outagemap.oru.com/external/default.html",
+      "text": "View Outage Map",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/home-energy-safety/beware-of-scammers",
+      "text": "Beware of Scammers",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/home-energy-safety/gas-safety",
+      "text": "Gas Safety",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/home-energy-safety/electric-safety",
+      "text": "Electric Safety",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/home-energy-safety/electric-vehicle-safety",
+      "text": "Electric Vehicle Safety",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/home-energy-safety/carbon-monoxide-safety",
+      "text": "Carbon Monoxide Safety",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/home-energy-safety/integrity-management",
+      "text": "Our Transmission Pipeline Integrity Management Plan",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/about-us/company-information",
+      "text": "Company Information",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/about-us/careers",
+      "text": "Careers",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/about-us/diversity-at-orange-rockland",
+      "text": "Diversity at Orange & Rockland",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/about-us/media-center",
+      "text": "Media Center",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/about-us/regulatory-guidance-and-oversight",
+      "text": "Regulatory Guidance & Oversight",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://lite.conedison.com/ehs/2023-sustainability-report",
+      "text": "Sustainability Report",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://www.retirees.oru.com/en",
+      "text": "Retirees",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/community-affairs/partnerships",
+      "text": "Community Partnerships",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/community-affairs/teachers-students",
+      "text": "For Teachers & Students",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/community-affairs/our-storm-recovery-plan",
+      "text": "Our Storm Recovery Plan",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/community-affairs/nj-veterans-organization-rate-program",
+      "text": "Rate Credit for NJ Veterans' Organizations",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/community-affairs/community-issues",
+      "text": "Community Issues",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/contact-us",
+      "text": "Contact Us",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/faqs/frequently-asked-questions",
+      "text": "Frequently Asked Questions",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/tips-to-lower-your-bill",
+      "text": "Tips for Lowering Your Energy Bill",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/rebates-incentives-credits",
+      "text": "Rebates, Incentives & Credits",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://www.myorustore.com/",
+      "text": "Energy Saving Store",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/energy-saving-landscaping",
+      "text": "Energy Saving Landscaping",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/share-energy-usage-data",
+      "text": "Request and Share Energy Data",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/small-medium-sized-businesses/project-center",
+      "text": "Project Center - Building and Upgrade Services",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/rebates-incentives-credits",
+      "text": "Rebates, Incentives & Credits",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/share-energy-usage-data/share-my-data",
+      "text": "Share My Data",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/small-medium-sized-businesses/project-center",
+      "text": "Project Center - Building and Upgrade Services",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/our-energy-future/electric-vehicles/new-york/commercial-ev-drivers/power-ready-program",
+      "text": "POWERREADY Electric Vehicle Program",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/small-medium-sized-businesses/project-center",
+      "text": "Project Center - Building and Upgrade Services",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/save-money/rebates-incentives-credits",
+      "text": "Rebates, Incentives & Credits",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/for-commercial-industrial/economic-development",
+      "text": "Economic Development",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/accounts-billing/share-energy-usage-data",
+      "text": "Request and Share Energy Data",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/our-energy-future/electric-vehicles/new-york/commercial-ev-drivers/power-ready-program",
+      "text": "POWERREADY Electric Vehicle Program",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/business-partners/become-an-energy-service-company-partner",
+      "text": "Become a Partner as an Energy Supplier",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/business-partners/access-customer-data",
+      "text": "Access Customer Data",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/business-partners/vendor-services",
+      "text": "Vendor Services",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/business-partners/transmission-planning",
+      "text": "Transmission Planning",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/business-partners/hosting-capacity",
+      "text": "Hosting Capacity and System Data",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/business-partners/business-opportunities",
+      "text": "Business Opportunities",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/financial-statement-and-notes",
+      "text": "Financial Statements and Notes",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "http://phx.corporate-ir.net/phoenix.zhtml?c=61493&p=irol-sec",
+      "text": "SEC Filings (CEI)",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "http://phx.corporate-ir.net/phoenix.zhtml?c=61493&p=irol-newsfinancial&nyo=0",
+      "text": "Financial Press Releases",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "http://phx.corporate-ir.net/phoenix.zhtml?c=61493&p=irol-stockQuote",
+      "text": "Stock Quotes",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/ny-rates-tariffs",
+      "text": "New York Rates & Tariffs",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/nj-rates-tariffs",
+      "text": "New Jersey Rates & Tariffs",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/municipalities/municipal-outage-information",
+      "text": "Municipal Outage Information",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://apps.coned.com/townScreens/townScreens/ROPLogin.aspx ",
+      "text": "Road Opening Permit Electronic System",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://apps.coned.com/OR_STL/Forms/SAccess.aspx ",
+      "text": "Municipal Street Light Portal",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://www.facebook.com/ORUConnect",
+      "text": "Facebook",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://x.com/ORUConnect",
+      "text": "X",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://www.linkedin.com/company/oruconnect/",
+      "text": "LinkedIn",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "https://www.instagram.com/oruconnect/",
+      "text": "Instagram",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "/en/privacy-statement",
+      "text": "Orange & Rockland Privacy Policy",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://www.conedison.com/en/accessibility-policy",
+      "text": "Accessibility Policy",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "/en/terms",
+      "text": "Terms of Service",
+      "target": null,
+      "rel": null
+    },
+    {
+      "href": "https://conedison.cloud.com/",
+      "text": "HomeNet",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "href": "/en/privacy-statement",
+      "text": "Learn more",
+      "target": null,
+      "rel": null
+    }
+  ],
+  "forms": [
+    {
+      "action": "/en/search",
+      "method": "post",
+      "inputs": [
+        {
+          "type": "text",
+          "name": "search",
+          "id": "searchId",
+          "ariaLabel": "search"
+        }
+      ]
+    },
+    {
+      "action": "#",
+      "method": "POST",
+      "inputs": [
+        {
+          "type": "text",
+          "name": "LoginEmail",
+          "id": "modal-login-email",
+          "ariaLabel": null
+        },
+        {
+          "type": "hidden",
+          "name": null,
+          "id": null,
+          "ariaLabel": null
+        },
+        {
+          "type": "password",
+          "name": "LoginPassword",
+          "id": "modal-login-password",
+          "ariaLabel": null
+        },
+        {
+          "type": "checkbox",
+          "name": "LoginRememberMe",
+          "id": "modal-login-remember-me",
+          "ariaLabel": null
+        }
+      ]
+    },
+    {
+      "action": "#",
+      "method": null,
+      "inputs": [
+        {
+          "type": "tel",
+          "name": "LoginMFACode",
+          "id": "form-login-mfa-code",
+          "ariaLabel": null
+        }
+      ]
+    }
+  ],
+  "allInputs": [
+    {
+      "type": "text",
+      "name": "search",
+      "id": "searchId",
+      "placeholder": "SEARCH"
+    },
+    {
+      "type": "text",
+      "name": "LoginEmail",
+      "id": "modal-login-email",
+      "placeholder": ""
+    },
+    {
+      "type": "hidden",
+      "name": null,
+      "id": null,
+      "placeholder": null
+    },
+    {
+      "type": "password",
+      "name": "LoginPassword",
+      "id": "modal-login-password",
+      "placeholder": null
+    },
+    {
+      "type": "checkbox",
+      "name": "LoginRememberMe",
+      "id": "modal-login-remember-me",
+      "placeholder": null
+    },
+    {
+      "type": "tel",
+      "name": "LoginMFACode",
+      "id": "form-login-mfa-code",
+      "placeholder": null
+    },
+    {
+      "type": null,
+      "name": "selectName",
+      "id": "selectDropdownMobile",
+      "placeholder": null
+    }
+  ],
+  "buttons": [
+    {
+      "text": "",
+      "ariaExpanded": null,
+      "ariaLabel": "login"
+    },
+    {
+      "text": "",
+      "ariaExpanded": null,
+      "ariaLabel": "search"
+    },
+    {
+      "text": "",
+      "ariaExpanded": null,
+      "ariaLabel": "toggle menu"
+    },
+    {
+      "text": "Account & Billing",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Services & Outages",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Save Energy & Money",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Clean Energy",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Search",
+      "ariaExpanded": null,
+      "ariaLabel": "Search"
+    },
+    {
+      "text": "Log in or Register",
+      "ariaExpanded": "false",
+      "ariaLabel": "Log in or Register"
+    },
+    {
+      "text": "Account & Billing",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Services & Outages",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Save Energy & Money",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Clean Energy",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Account & Billing",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Services & Outages",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Save Energy & Money",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Clean Energy",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "English",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "",
+      "ariaExpanded": null,
+      "ariaLabel": "Close"
+    },
+    {
+      "text": "",
+      "ariaExpanded": null,
+      "ariaLabel": "search"
+    },
+    {
+      "text": "",
+      "ariaExpanded": null,
+      "ariaLabel": "close"
+    },
+    {
+      "text": "Show",
+      "ariaExpanded": null,
+      "ariaLabel": "Show password"
+    },
+    {
+      "text": "Log In",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Request New Code",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Submit",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "About",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Benefits of MyHEAT",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Get Started",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "FAQs",
+      "ariaExpanded": null,
+      "ariaLabel": null
+    },
+    {
+      "text": "Expand all",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Q: How do I read my MyHEAT score?",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Q: How and when was the data collected?",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Q: What if I have made energy-efficient home improvements in the last year?",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Q: What can I do if MyHEAT identifies heat loss in my home?",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Q: How do I opt out of having my information on the MyHEAT platform?",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Outages",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Safety",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "About Us",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Community Affairs",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Contact Us",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Renters and Homeowners",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Small & Medium Businesses",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Commercial & Industrial",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Business Partners",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Investors",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Rates & Tariffs",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Municipalities",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "Social",
+      "ariaExpanded": "false",
+      "ariaLabel": null
+    },
+    {
+      "text": "",
+      "ariaExpanded": null,
+      "ariaLabel": "Close"
+    }
+  ],
+  "consoleMsgs": [
+    {
+      "type": "log",
+      "text": "%c⚠️ Security Warning! ⚠️ color: red; font-size: 30px; font-weight: bold; text-shadow: 3px 3px 0px rgba(0,0,0,0.2);"
+    },
+    {
+      "type": "log",
+      "text": "%cThis is a browser feature for developers. If you were instructed to enter a code or link here, this is a scam and doing so may compromise your security. background: yellow; color: black; font-size: 14px; padding: 1px; border-radius: 5px;"
+    }
+  ],
+  "pageErrors": [],
+  "failedRequests": [
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-5KLGEFQXK0&gtm=45je6a21v889672784za20ozb72669400zd72669400xf1&_p=1791256541089&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAACAAQ&cid=47065830.1791256542&frm=0&ngs=1&pscdl=noapi&rcb=18&sr=1920x1080&uaa=arm&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=macOS&uapv=26.7.1&uaw=0&ul=en-us&_s=2&tag_exp=115938465~115938468~118897920~118897930~120213116~120385422~120469145~120469153~121046263~121046271~121280971&sid=1791256541&sct=1&seg=1&dl=https%3A%2F%2Fdev10.oru.com%2Fen%2Fsave-money%2Frebates-incentives-credits%2Fmyheat&dt=MyHEAT%3A%20Home%20Heat%20Loss%20%26%20Energy%20Savings%20Program&en=page_view&ep.Account_ID=&ep.Logged_In=False&ep.User_ID=&ep.Site_Name=CECONY-DEV&_et=2&tfd=1943",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-5KLGEFQXK0&gtm=45je6a21v889672784za20ozb72669400zd72669400xf1&_p=1791256541089&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=47065830.1791256542&frm=0&ngs=1&pscdl=noapi&rcb=18&sr=1920x1080&uaa=arm&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=macOS&uapv=26.7.1&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938468~118897920~118897930~120213116~120385422~120469145~120469153~121046263~121046271~121280971&sid=1791256541&sct=1&seg=0&dl=https%3A%2F%2Fdev10.oru.com%2Fen%2Fsave-money%2Frebates-incentives-credits%2Fmyheat&dt=MyHEAT%3A%20Home%20Heat%20Loss%20%26%20Energy%20Savings%20Program&en=page_view&_fv=1&_nsi=1&_ss=1&ep.Account_ID=&ep.Logged_In=False&ep.User_ID=&ep.Site_Name=CECONY-DEV&ep.PR_Title=myheat&tfd=1932",
+      "failure": "net::ERR_ABORTED"
+    }
+  ],
+  "responseStatuses": []
+}
