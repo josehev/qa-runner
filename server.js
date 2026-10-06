@@ -3,7 +3,7 @@ const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const { toMarkdown, validateUrl } = require("./browser-check");
-const { RESULTS, createArtifactRun, resultUrl, listReports, resolveResult } = require("./artifacts");
+const { RESULTS, createArtifactRun, resultUrl, listReports, resolveResult, legacyResultPath } = require("./artifacts");
 
 const app = express();
 const PORT = 4545;
@@ -15,6 +15,19 @@ fs.mkdirSync(RESULTS, { recursive: true });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use((req, res, next) => {
+  if (!["GET", "HEAD"].includes(req.method)) return next();
+  let source;
+  try {
+    source = decodeURIComponent(req.path).replace(/^\//, "");
+  } catch {
+    return res.status(400).send("Invalid artifact path");
+  }
+  const target = legacyResultPath(source);
+  if (!target) return next();
+  return res.redirect(301, "/results/" + target.split("/").map(encodeURIComponent).join("/"));
+});
 
 const loadPrompts = () =>
   JSON.parse(fs.readFileSync(path.join(__dirname, "prompts.json"), "utf8"));
@@ -52,8 +65,9 @@ app.get("/results/*", (req, res) => {
   let content = fs.readFileSync(filePath, "utf8");
   
   // Simple markdown to HTML conversion
- const title = content.match(/# (.+)/)?.[1] || "Test Result";
- const url = content.match(/URL: (.+)/)?.[1] || "";
+ const escapeHtml = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+ const title = escapeHtml(content.match(/# (.+)/)?.[1] || "Test Result");
+ const url = escapeHtml(content.match(/URL: (.+)/)?.[1] || "");
   
   // Extract the test output (everything after the URL line)
   const output = content.split('\n').slice(2).join('\n');
@@ -184,6 +198,7 @@ app.get("/results/*", (req, res) => {
 </html>`;
   
   res.set('Content-Type', 'text/html');
+  res.set("Content-Security-Policy", "sandbox");
   res.send(page);
 });
 
@@ -294,4 +309,7 @@ function runBrowserCheck(p, url, req, res, send, run) {
   req.on("close", () => child.kill());
 }
 
-app.listen(PORT, () => console.log(`QA Runner → http://localhost:${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`QA Runner → http://localhost:${PORT}`));
+}
+module.exports = app;

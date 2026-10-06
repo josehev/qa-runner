@@ -8,7 +8,9 @@ This project is designed to [briefly describe the purpose of the project]. It ai
 my-project
 ├── src                # Source code for the project
 ├── result reports     # Directory to store results of each run
-│   └── .gitkeep       # Keeps the result reports directory tracked by Git
+│   ├── .gitkeep       # Keeps the result reports directory tracked by Git
+│   ├── legacy-artifacts.json # Old paths, new paths, and content checksums
+│   └── <page>/<run>/  # Reports, screenshots, JSON, HTML, and text logs
 ├── README.md          # Documentation for the project
 └── .gitignore         # Files and directories to be ignored by Git
 ```
