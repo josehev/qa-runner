@@ -8,6 +8,17 @@ const vm = require("vm");
 const { migrateArtifacts } = require("../migrate-artifacts");
 const { RESULTS, createArtifactRun, pageSlug, listReports, resolveResult, legacyResultPath } = require("../artifacts");
 
+const QA_SCRIPTS = [
+  "focus_check.js", "focus_detail.js", "login_aria_check.js",
+  "contrast.js", "contrast2.js", "contrast3.js", "contrast4.js", "button_contrast.js", "contrast_check.js",
+  "interact.js", "interact_test.js", "modal_close_btn.js", "modal_close_btn2.js", "modal_keyboard.js",
+  "modal_toggle_close.js", "faq_expand.js", "faq_expand2.js", "faq_full.js", "cta_test.js", "nav_test.js",
+  "check_links_browser.js", "battery_audit.js",
+  "audit.js", "clean_screens.js", "login_form_test.js", "qa_interact.js", "qa_myheat.js", "qa_search.js",
+  "search_debug.js", "search_test.js", "search_test2.js", "search_test3.js", "search_test4.js", "skip_test.js",
+  "sticky_check.js",
+];
+
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "qa-artifacts-"));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
@@ -160,6 +171,17 @@ test("every checked-in historical artifact resolves and matches its recorded che
   assert.ok(listReports().some(({ file }) => file.endsWith("battery-program-qa-report.html")));
 });
 
+test("standalone QA scripts are archived outside the repository root", () => {
+  const root = path.join(__dirname, "..");
+  for (const script of QA_SCRIPTS) {
+    assert.equal(fs.existsSync(path.join(root, script)), false, script);
+    assert.ok(fs.statSync(path.join(RESULTS, script)).isFile(), script);
+  }
+  for (const script of ["server.js", "browser-check.js", "artifacts.js", "migrate-artifacts.js"]) {
+    assert.ok(fs.statSync(path.join(root, script)).isFile(), script);
+  }
+});
+
 test("standalone audits save JSON alongside their screenshots without changing stdout", async (t) => {
   for (const script of ["audit.js", "battery_audit.js"]) {
     const url = `https://example.com/${script}`;
@@ -182,7 +204,7 @@ test("standalone audits save JSON alongside their screenshots without changing s
       newContext: async () => ({ newPage: async () => page }),
       close: async () => {},
     };
-    await vm.runInNewContext(fs.readFileSync(path.join(__dirname, "..", script), "utf8"), {
+    await vm.runInNewContext(fs.readFileSync(path.join(RESULTS, script), "utf8"), {
       require: (name) => name === "playwright" ? { chromium: { launch: async () => browser } }
         : name === "./artifacts" ? { createArtifactRun: () => run } : require(name),
       console: { log: (text) => stdout.push(text) },
