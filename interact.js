@@ -1,5 +1,6 @@
 const { chromium } = require('playwright');
 const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling";
+const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
 
 (async () => {
   const browser = await chromium.launch();
@@ -64,19 +65,19 @@ const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/nj/r
     menuOpenedOk = await page.locator('text=Account & Billing').first().isVisible().catch(()=>false);
   }
 
-  await page.screenshot({ path: 'screenshot_375.png', fullPage: true });
+  await page.screenshot({ path: artifactPath('screenshot_375.png'), fullPage: true });
 
   await page.setViewportSize({ width: 768, height: 1024 });
   await page.waitForTimeout(300);
-  await page.screenshot({ path: 'screenshot_768.png', fullPage: true });
+  await page.screenshot({ path: artifactPath('screenshot_768.png'), fullPage: true });
 
   await page.setViewportSize({ width: 1366, height: 900 });
   await page.waitForTimeout(300);
-  await page.screenshot({ path: 'screenshot_1366.png', fullPage: true });
+  await page.screenshot({ path: artifactPath('screenshot_1366.png'), fullPage: true });
 
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.waitForTimeout(300);
-  await page.screenshot({ path: 'screenshot_1920.png', fullPage: true });
+  await page.screenshot({ path: artifactPath('screenshot_1920.png'), fullPage: true });
 
   // check horizontal scroll at each width
   const hScrollCheck = async (w) => {

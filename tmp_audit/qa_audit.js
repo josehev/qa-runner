@@ -2,6 +2,7 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 
 const URL = 'https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling';
+const { file: artifactPath } = require('../artifacts').createArtifactRun(URL);
 
 (async () => {
   const browser = await chromium.launch();
@@ -141,7 +142,7 @@ const URL = 'https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj
     const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
     const p = await ctx.newPage();
     await p.goto(URL, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => {});
-    const path = `/Users/jose.herrera/qa-runner/qa-runner/tmp_audit/shot_${vp.name}.png`;
+    const path = artifactPath(`shot_${vp.name}.png`);
     await p.screenshot({ path, fullPage: true }).catch(() => {});
     const overflow = await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 5);
     report.viewportShots.push({ vp: vp.name, path, horizontalOverflow: overflow });
@@ -149,6 +150,6 @@ const URL = 'https://qa3-oru.vml.dev/en/save-money/rebates-incentives-credits/nj
   }
 
   await browser.close();
-  fs.writeFileSync('/Users/jose.herrera/qa-runner/qa-runner/tmp_audit/qa_audit_report.json', JSON.stringify(report, null, 2));
+  fs.writeFileSync(artifactPath('qa_audit_report.json'), JSON.stringify(report, null, 2));
   console.log('DONE');
 })();

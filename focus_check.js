@@ -1,5 +1,6 @@
 const { chromium } = require('playwright');
 const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/nj/residential/efficient-products/recycling";
+const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
 (async()=>{
   const browser = await chromium.launch();
   const page = await browser.newPage();
@@ -16,6 +17,6 @@ const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/nj/r
     };
   });
   console.log('FAQ button focus style:', JSON.stringify(styles));
-  await page.screenshot({ path: 'faq_focus.png', clip: { x: 0, y: 0, width: 800, height: 900 } }).catch(e=>console.log('shot err', e.message));
+  await page.screenshot({ path: artifactPath('faq_focus.png'), clip: { x: 0, y: 0, width: 800, height: 900 } }).catch(e=>console.log('shot err', e.message));
   await browser.close();
 })();

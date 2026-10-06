@@ -1,5 +1,6 @@
 const { chromium } = require('playwright');
 const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/residential/battery-program";
+const { file: artifactPath } = require('./artifacts').createArtifactRun(URL);
 
 (async () => {
   const browser = await chromium.launch();
@@ -122,19 +123,19 @@ const URL = "https://dev10.oru.com/en/save-money/rebates-incentives-credits/ny/r
     focusResults.push(focused);
   }
 
-  await page.screenshot({ path: 'battery_1920.png', fullPage: true });
+  await page.screenshot({ path: artifactPath('battery_1920.png'), fullPage: true });
 
   await page.setViewportSize({ width: 1366, height: 900 });
   await page.waitForTimeout(500);
-  await page.screenshot({ path: 'battery_1366.png', fullPage: true });
+  await page.screenshot({ path: artifactPath('battery_1366.png'), fullPage: true });
 
   await page.setViewportSize({ width: 768, height: 1024 });
   await page.waitForTimeout(500);
-  await page.screenshot({ path: 'battery_768.png', fullPage: true });
+  await page.screenshot({ path: artifactPath('battery_768.png'), fullPage: true });
 
   await page.setViewportSize({ width: 375, height: 812 });
   await page.waitForTimeout(500);
-  await page.screenshot({ path: 'battery_375.png', fullPage: true });
+  await page.screenshot({ path: artifactPath('battery_375.png'), fullPage: true });
 
   // check horizontal overflow at mobile
   const mobileOverflow = await page.evaluate(() => {

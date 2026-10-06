@@ -2,7 +2,8 @@ const express = require("express");
 const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
-const { toMarkdown } = require("./browser-check");
+const { toMarkdown, validateUrl } = require("./browser-check");
+const { RESULTS, createArtifactRun, resultUrl, listReports, resolveResult } = require("./artifacts");
 
 const app = express();
 const PORT = 4545;
@@ -10,7 +11,6 @@ const PORT = 4545;
 const WORKSPACE = process.env.QA_WORKSPACE || process.cwd();
 const COPILOT_BIN = process.env.COPILOT_BIN || "copilot";
 const BROWSER_CHECK_TIMEOUT = 60000;
-const RESULTS = path.join(__dirname, "results");
 fs.mkdirSync(RESULTS, { recursive: true });
 
 app.use(express.json());
@@ -23,30 +23,30 @@ app.get("/api/prompts", (_req, res) => res.json(loadPrompts()));
 
 // Serve results as HTML
 app.get("/api/results", (_req, res) => {
-  const files = fs.readdirSync(RESULTS)
-    .filter(f => f.endsWith('.md'))
-    .sort((a, b) => parseInt(b.split('-')[0]) - parseInt(a.split('-')[0]))
+  const files = listReports()
+    .sort((a, b) => b.created - a.created)
     .slice(0, 20);
   
-  res.json(files.map(f => ({
-    name: f,
-    path: `/results/${f.replace('.md', '.html')}`,
-    created: new Date(parseInt(f.split('-')[0])).toLocaleString()
+  res.json(files.map(({ file, created }) => ({
+    name: path.relative(RESULTS, file),
+    path: resultUrl(file.replace(/\.md$/, '.html')),
+    created: new Date(created).toLocaleString()
   })));
 });
 
 // Convert markdown results to HTML
-app.get("/results/:filename", (req, res) => {
-  if (/^\d+-[\w-]+\.png$/.test(req.params.filename)) {
-    return res.sendFile(req.params.filename, { root: RESULTS }, (err) => {
+app.get("/results/*", (req, res) => {
+  const filename = req.params[0];
+  const filePath = filename.endsWith(".html")
+    ? resolveResult(filename.replace(/\.html$/, ".md")) : null;
+
+  if (!filePath) {
+    const artifact = resolveResult(filename);
+    if (!artifact) return res.status(404).send("Result not found");
+    res.set("Content-Security-Policy", "sandbox");
+    return res.sendFile(artifact, (err) => {
       if (err && !res.headersSent) res.status(404).send("Result not found");
     });
-  }
-  const mdFile = req.params.filename.replace('.html', '.md');
-  const filePath = path.join(RESULTS, mdFile);
-  
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).send("Result not found");
   }
   
   let content = fs.readFileSync(filePath, "utf8");
@@ -68,7 +68,7 @@ app.get("/results/:filename", (req, res) => {
     .replace(/\*(.+?)\*/g, '<em>$1</em>')
     .replace(/`(.+?)`/g, '<code>$1</code>');
   
-  const stamp = new Date(parseInt(mdFile.split('-')[0])).toLocaleString();
+  const stamp = new Date(fs.statSync(filePath).mtimeMs).toLocaleString();
   
   const page = `<!DOCTYPE html>
 <html>
@@ -191,16 +191,21 @@ app.get("/results/:filename", (req, res) => {
 app.get("/api/run", (req, res) => {
   const { promptId, url } = req.query;
   const p = loadPrompts().find((x) => x.id === promptId);
-  if (!p || !/^https?:\/\//.test(url || "")) {
+  try {
+    if (!p || typeof url !== "string") throw new Error("Invalid request");
+    validateUrl(url);
+  } catch {
     return res.status(400).end("Invalid prompt or URL");
   }
+  const run = createArtifactRun(url, null);
 
   res.set({ "Content-Type": "text/event-stream", "Cache-Control": "no-cache", Connection: "keep-alive" });
   const send = (type, data) => res.write(`data: ${JSON.stringify({ type, data })}\n\n`);
 
-  if (p.type === "playwright") return runBrowserCheck(p, url, req, res, send);
+  if (p.type === "playwright") return runBrowserCheck(p, url, req, res, send, run);
 
-  const fullPrompt = p.prompt.replaceAll("{{URL}}", url);
+  const fullPrompt = p.prompt.replaceAll("{{URL}}", url) +
+    `\n\nSave ALL files generated during this QA run (reports, screenshots, logs, scripts, downloads, and temporary files) only in ${JSON.stringify(run.directory)}. Use absolute paths; do not write artifacts in the workspace root or other report folders. QA_ARTIFACT_DIR is set to this directory.`;
   const args = [
   "-p", fullPrompt,
   "--allow-all-tools",
@@ -209,7 +214,10 @@ app.get("/api/run", (req, res) => {
  if (p.agent) args.push("--agent", p.agent);
 
   send("start", `▶ ${p.name} on ${url}\n`);
-  const child = spawn(COPILOT_BIN, args, { cwd: WORKSPACE, shell: process.platform === "win32" });
+  const child = spawn(COPILOT_BIN, args, {
+    cwd: WORKSPACE, shell: process.platform === "win32",
+    env: { ...process.env, QA_ARTIFACT_DIR: run.directory },
+  });
 
 child.on("error", (err) => {
   send("end", `\n❌ Could not start Copilot CLI (${err.code}). Check that "copilot --version" works in Terminal, or set COPILOT_BIN to its full path.`);
@@ -222,12 +230,12 @@ child.on("error", (err) => {
   child.stderr.on("data", onData);
 
   child.on("close", (code) => {
-    const timestamp = Date.now();
-    const mdFile = path.join(RESULTS, `${timestamp}-${p.id}.md`);
+    const mdFile = run.file(`${p.id}.md`);
     const content = `# ${p.name}\nURL: ${url}\n\n${log}`;
+    fs.writeFileSync(run.file(`${p.id}.log`), log);
     fs.writeFileSync(mdFile, content);
     
-    const htmlFile = `/results/${timestamp}-${p.id}.html`;
+    const htmlFile = run.publicPath(`${p.id}.html`);
     send("end", `\n✔ Finished (exit ${code}). <a href="${htmlFile}" target="_blank">View full report →</a>`);
     res.end();
   });
@@ -236,13 +244,14 @@ child.on("error", (err) => {
 });
 
 // Runs deterministic Playwright checks in a child process instead of the Copilot CLI
-function runBrowserCheck(p, url, req, res, send) {
-  const timestamp = Date.now();
-  const shotName = `${timestamp}-${p.id}.png`;
-  const args = [path.join(__dirname, "browser-check.js"), url, "--screenshot", path.join(RESULTS, shotName)];
+function runBrowserCheck(p, url, req, res, send, run) {
+  const shotName = `${p.id}.png`;
+  const args = [path.join(__dirname, "browser-check.js"), url, "--screenshot", run.file(shotName)];
 
   send("start", `▶ ${p.name} on ${url}\n`);
-  const child = spawn(process.execPath, args, { cwd: __dirname });
+  const child = spawn(process.execPath, args, {
+    cwd: run.directory, env: { ...process.env, QA_ARTIFACT_DIR: run.directory },
+  });
 
   let log = "";
   let stdout = "";
@@ -270,13 +279,14 @@ function runBrowserCheck(p, url, req, res, send) {
     }
 
     const summary = result
-      ? toMarkdown(result, result.screenshot ? `/results/${shotName}` : null)
+      ? toMarkdown(result, result.screenshot ? run.publicPath(shotName) : null)
       : "**Overall:** ❌ FAILED\n**Error:** Browser check did not produce a result.";
-    if (result) fs.writeFileSync(path.join(RESULTS, `${timestamp}-${p.id}.json`), JSON.stringify(result, null, 2));
-    fs.writeFileSync(path.join(RESULTS, `${timestamp}-${p.id}.md`), `# ${p.name}\nURL: ${url}\n\n${log}\n${summary}\n`);
+    if (result) fs.writeFileSync(run.file(`${p.id}.json`), JSON.stringify(result, null, 2));
+    fs.writeFileSync(run.file(`${p.id}.log`), log);
+    fs.writeFileSync(run.file(`${p.id}.md`), `# ${p.name}\nURL: ${url}\n\n${log}\n${summary}\n`);
 
     send("out", `\n${summary}\n`);
-    const htmlFile = `/results/${timestamp}-${p.id}.html`;
+    const htmlFile = run.publicPath(`${p.id}.html`);
     send("end", `\n✔ Finished (exit ${code}). <a href="${htmlFile}" target="_blank">View full report →</a>`);
     res.end();
   });
