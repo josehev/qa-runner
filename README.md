@@ -4,7 +4,7 @@ Local QA testing tool that connects to Copilot agents without needing VS Code op
 ## Setup
 
 ```bash
-npm install
+npm install && npx playwright install chromium
 npm start   # http://localhost:4545
 ```
 
@@ -35,6 +35,7 @@ npx playwright install chromium
 You can also run the check from the command line (JSON result on stdout, progress on stderr):
 
 ```bash
+node browser-check.js https://example.com
 node browser-check.js https://example.com --screenshot shot.png
 ```
 
@@ -44,6 +45,79 @@ inside that run directory. JSON on stdout and progress on stderr remain availabl
 
 Only `http://` and `https://` URLs are accepted. The check is meant for a trusted local machine;
 don't expose the server publicly, since it opens any URL it is given.
+
+## Browser-backed Copilot tests
+
+Smoke, accessibility, and form tests **require a browser**. Install and authenticate
+Copilot CLI (`copilot --version` must work), then use the setup command above.
+`COPILOT_BIN` can be an executable path; shell commands/wrappers are not accepted.
+`QA_WORKSPACE` selects the workspace used for custom agent discovery. The existing
+`qa-agent` must allow Playwright tools; a restrictive custom-agent tool list can
+still block an audit.
+
+Each run supplies `--additional-mcp-config @<absolute-config-file>` to Copilot.
+The configuration launches the locally pinned Playwright MCP through a recording
+wrapper, with headless Chromium, an isolated in-memory profile, and the run's
+`QA_ARTIFACT_DIR` as its working/output directory. MCP uses the Chromium executable
+installed by the project's pinned Playwright, not an independently downloaded
+browser or an MCP configuration from your user profile. The target origin replaces
+the previously fixed URL permission; additional domains may require CLI approval.
+
+Before Copilot starts, mandatory preflight connects to that same MCP wrapper,
+discovers browser tools, launches Chromium, navigates to the target, executes
+JavaScript, and saves `preflight.png` and `browser-preflight.json`. A missing
+binary, failed MCP connection, unreachable target, or failed evidence capture
+returns **BLOCKED: browser environment unavailable** with the underlying error.
+Copilot is not started and no static-only fallback is accepted. On Linux, if
+Playwright reports missing system libraries, install them with
+`npx playwright install --with-deps chromium`.
+Agent runs have a 15-minute deadline; an unfinished run is BLOCKED, not a pass.
+Disconnects terminate the CLI; on POSIX systems its MCP/browser process group is
+also terminated.
+The run endpoint allows five requests per client per minute and at most two
+active QA runs (including preflight); excess requests receive HTTP 429.
+
+The run prompt requires navigation, real interactions (including keyboard focus
+and safe form submissions), screenshots/DOM observations and console inspection.
+The wrapper records agent tool calls/results in `agent-browser.jsonl`, returning
+a `QA evidence ID` for each call. Copilot must write `agent-result.json`:
+
+```json
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "status": "PASS",
+      "action": "browser_navigate",
+      "evidence": 1,
+      "observed": "Page Title: Example",
+      "detail": "Rendered target loaded"
+    }
+  ]
+}
+```
+
+This illustrates a single check; an accepted report also needs an evidence-backed
+interaction. PASS/FAIL checks must cite matching tool calls and exact excerpts
+of their responses. The runner rejects missing/mismatched evidence, a failed CLI,
+tool-execution errors, or runs lacking target navigation and interaction. Echoed
+Playwright code cannot support an observed-result claim. Preflight evidence never
+counts as agent testing. The saved report shows validated checks and labels raw
+agent commentary as unvalidated; `evidence-validation.json` records the verdict.
+This validates recorded execution, not the completeness or correctness of an
+agent's entire audit, and is not a security boundary against an untrusted agent
+with filesystem access.
+
+- **PASS**: evidence supports the reported executed checks; not a claim of full compliance.
+- **FAIL**: an executed check observed a product defect.
+- **NOT TESTED**: an intentionally unexecuted check, with a reason (for example,
+  manual screen-reader testing). Playwright is not a real screen reader.
+- **BLOCKED**: required browser infrastructure or agent evidence is unavailable
+  or invalid. Fix the diagnostic and rerun; this is not a completed static audit.
+
+All current agent prompts are browser-required; Browser Check remains the separate
+deterministic path. Keep any intentional static analysis clearly identified as
+static, rather than using it to substitute for these audits.
 
 ## Historical artifacts
 
@@ -71,5 +145,9 @@ rather than overwriting them. New runs keep using unique run directories, not th
 historical folders. For shell redirection, explicitly use a path within the run's
 `QA_ARTIFACT_DIR`; the runner cannot reroute arbitrary shell `>` commands.
 
-Run `npm test` for local migration, content-preservation, path-safety, and HTTP
-compatibility tests. No external websites, browser downloads, or Copilot are needed.
+Run `npm test` after setup for migration, content-preservation, path-safety, HTTP
+compatibility, preflight failure, MCP wiring, and real Chromium interaction tests.
+The browser tests use local HTTP fixtures and deliberately fail if Chromium is
+unavailable. No external websites or authenticated Copilot sessions are needed;
+tests do not download browsers. CLI authentication/model behavior must still be
+verified with a real smoke run on your machine.

@@ -1,9 +1,13 @@
 const express = require("express");
+const { rateLimit } = require("express-rate-limit");
 const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const { toMarkdown, validateUrl } = require("./browser-check");
 const { RESULTS, createArtifactRun, resultUrl, listReports, resolveResult, legacyResultPath } = require("./artifacts");
+const { browserPreflight } = require("./browser-preflight");
+const { agentMcpConfig } = require("./browser-mcp");
+const { browserInstructions, validateAgentEvidence, evidenceMarkdown } = require("./browser-evidence");
 
 const app = express();
 const PORT = 4545;
@@ -11,6 +15,7 @@ const PORT = 4545;
 const WORKSPACE = process.env.QA_WORKSPACE || process.cwd();
 const COPILOT_BIN = process.env.COPILOT_BIN || "copilot";
 const BROWSER_CHECK_TIMEOUT = 60000;
+const AGENT_TIMEOUT = 15 * 60 * 1000;
 fs.mkdirSync(RESULTS, { recursive: true });
 
 app.use(express.json());
@@ -203,7 +208,19 @@ app.get("/results/*", (req, res) => {
 });
 
 // Server-Sent Events: streams the agent output live
-app.get("/api/run", (req, res) => {
+const runRateLimit = rateLimit({
+  windowMs: 60000,
+  limit: 5,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+});
+let activeRuns = 0;
+app.get("/api/run", runRateLimit, (req, res, next) => {
+  if (activeRuns >= 2) return res.status(429).end("Two QA runs are already active; retry when one finishes.");
+  activeRuns++;
+  res.once("close", () => { activeRuns--; });
+  next();
+}, async (req, res) => {
   const { promptId, url } = req.query;
   const p = loadPrompts().find((x) => x.id === promptId);
   try {
@@ -219,24 +236,51 @@ app.get("/api/run", (req, res) => {
 
   if (p.type === "playwright") return runBrowserCheck(p, url, req, res, send, run);
 
+  send("start", `▶ ${p.name} on ${url}\nBrowser preflight…\n`);
+  let disconnected = false;
+  res.on("close", () => { disconnected = true; });
+  const preflight = await browserPreflight(url, run);
+  if (disconnected) return;
+  if (preflight.status === "BLOCKED") {
+    fs.writeFileSync(run.file(`${p.id}.md`), `# ${p.name}\nURL: ${url}\n\n${preflight.error}\n`);
+    send("end", `${preflight.error}\nReport: ${run.publicPath(`${p.id}.html`)}`);
+    return res.end();
+  }
+
   const fullPrompt = p.prompt.replaceAll("{{URL}}", url) +
-    `\n\nSave ALL files generated during this QA run (reports, screenshots, logs, scripts, downloads, and temporary files) only in ${JSON.stringify(run.directory)}. Use absolute paths; do not write artifacts in the workspace root or other report folders. QA_ARTIFACT_DIR is set to this directory.`;
+    `\n\n${p.browserSteps || ""}` +
+    `\n\nSave ALL files generated during this QA run (reports, screenshots, logs, scripts, downloads, and temporary files) only in ${JSON.stringify(run.directory)}. Use absolute paths; do not write artifacts in the workspace root or other report folders. QA_ARTIFACT_DIR is set to this directory.` +
+    browserInstructions(run);
   const args = [
   "-p", fullPrompt,
   "--allow-all-tools",
-  "--allow-url=qa3-oru.vml.dev"
+  `--allow-url=${new URL(url).origin}`,
+  "--additional-mcp-config", `@${agentMcpConfig(run)}`
 ];
  if (p.agent) args.push("--agent", p.agent);
 
-  send("start", `▶ ${p.name} on ${url}\n`);
+  send("out", "Browser preflight PASS. Starting browser-backed agent…\n");
   const child = spawn(COPILOT_BIN, args, {
-    cwd: WORKSPACE, shell: process.platform === "win32",
+    cwd: WORKSPACE, shell: false,
+    detached: process.platform !== "win32",
     env: { ...process.env, QA_ARTIFACT_DIR: run.directory },
   });
 
+  const stopAgent = (signal = "SIGTERM") => {
+    if (process.platform !== "win32" && child.pid) {
+      try {
+        // Copilot's MCP servers and Chromium belong to the same process group.
+        process.kill(-child.pid, signal);
+      } catch (err) {
+        if (err.code !== "ESRCH") child.kill(signal);
+      }
+    } else {
+      child.kill(signal);
+    }
+  };
+  let spawnError;
 child.on("error", (err) => {
-  send("end", `\n❌ Could not start Copilot CLI (${err.code}). Check that "copilot --version" works in Terminal, or set COPILOT_BIN to its full path.`);
-  res.end();
+  spawnError = `BLOCKED: browser environment unavailable — Could not start Copilot CLI (${err.message}). Check "copilot --version" or COPILOT_BIN.`;
 });
 
   let log = "";
@@ -244,18 +288,36 @@ child.on("error", (err) => {
   child.stdout.on("data", onData);
   child.stderr.on("data", onData);
 
-  child.on("close", (code) => {
+  let finished = false;
+  let timer;
+  const finish = (code) => {
+    clearTimeout(timer);
+    if (disconnected || finished) return;
+    finished = true;
+    const validation = spawnError
+      ? { status: "BLOCKED", error: spawnError } : validateAgentEvidence(run, url, code);
     const mdFile = run.file(`${p.id}.md`);
-    const content = `# ${p.name}\nURL: ${url}\n\n${log}`;
+    const summary = validation.error || `Browser evidence validated: ${validation.status}`;
+    fs.writeFileSync(run.file("evidence-validation.json"), JSON.stringify(validation, null, 2));
+    const content = `# ${p.name}\nURL: ${url}\n\n**Overall: ${validation.status}**\n${evidenceMarkdown(validation, run)}\n\n## Unvalidated agent output (not accepted as test results)\n${log}`;
     fs.writeFileSync(run.file(`${p.id}.log`), log);
     fs.writeFileSync(mdFile, content);
     
     const htmlFile = run.publicPath(`${p.id}.html`);
-    send("end", `\n✔ Finished (exit ${code}). <a href="${htmlFile}" target="_blank">View full report →</a>`);
+    send("end", `\n${summary}. <a href="${htmlFile}" target="_blank">View full report →</a>`);
     res.end();
-  });
+  };
+  child.on("close", finish);
+  timer = setTimeout(() => {
+    spawnError = `BLOCKED: browser environment unavailable — Agent timed out after ${AGENT_TIMEOUT / 60000} minutes; browser audit did not complete.`;
+    finish(null);
+    stopAgent("SIGKILL");
+  }, AGENT_TIMEOUT);
 
-  req.on("close", () => child.kill());
+  res.on("close", () => {
+    clearTimeout(timer);
+    stopAgent();
+  });
 });
 
 // Runs deterministic Playwright checks in a child process instead of the Copilot CLI
