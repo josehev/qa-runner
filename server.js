@@ -1,4 +1,5 @@
 const express = require("express");
+const { rateLimit } = require("express-rate-limit");
 const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
@@ -207,7 +208,19 @@ app.get("/results/*", (req, res) => {
 });
 
 // Server-Sent Events: streams the agent output live
-app.get("/api/run", async (req, res) => {
+const runRateLimit = rateLimit({
+  windowMs: 60000,
+  limit: 5,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+});
+let activeRuns = 0;
+app.get("/api/run", runRateLimit, (req, res, next) => {
+  if (activeRuns >= 2) return res.status(429).end("Two QA runs are already active; retry when one finishes.");
+  activeRuns++;
+  res.once("close", () => { activeRuns--; });
+  next();
+}, async (req, res) => {
   const { promptId, url } = req.query;
   const p = loadPrompts().find((x) => x.id === promptId);
   try {

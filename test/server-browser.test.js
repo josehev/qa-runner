@@ -72,11 +72,12 @@ async function routeFixture(t, mode) {
   await new Promise((resolve) => server.once("listening", resolve));
   t.after(() => new Promise((resolve) => server.close(resolve)));
   t.after(() => { if (run) fs.rmSync(run.directory, { recursive: true, force: true }); });
-  const response = await fetch(`http://127.0.0.1:${server.address().port}/api/run?promptId=smoke&url=${encodeURIComponent(url)}`);
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const response = await fetch(`${base}/api/run?promptId=smoke&url=${encodeURIComponent(url)}`);
   assert.equal(response.status, 200);
   const text = await response.text();
   const messages = text.trim().split("\n\n").map((line) => JSON.parse(line.slice(6)));
-  return { run, invocation, messages, killed };
+  return { run, invocation, messages, killed, base };
 }
 
 test("preflight BLOCKED never starts Copilot or emits a successful completion", async (t) => {
@@ -121,6 +122,17 @@ test("hung agent returns BLOCKED and is killed even without a close event", asyn
   assert.equal(JSON.parse(fs.readFileSync(run.file("evidence-validation.json"), "utf8")).status, "BLOCKED");
 });
 
+test("run endpoint rejects more than five requests per client per minute", async (t) => {
+  const { base } = await routeFixture(t, "no-evidence");
+  for (let i = 0; i < 4; i++) {
+    const response = await fetch(`${base}/api/run?promptId=invalid`);
+    assert.equal(response.status, 400);
+    await response.text();
+  }
+  const response = await fetch(`${base}/api/run?promptId=invalid`);
+  assert.equal(response.status, 429);
+});
+
 test("real server blocks unreachable targets without trying an unavailable Copilot executable", async (t) => {
   const app = require("../server");
   const server = app.listen(0, "127.0.0.1");
@@ -134,6 +146,28 @@ test("real server blocks unreachable targets without trying an unavailable Copil
   assert.match(text, /BLOCKED: browser environment unavailable/);
   assert.match(text, /ERR_UNSAFE_PORT|ERR_CONNECTION_REFUSED/);
   assert.doesNotMatch(text, /Starting browser-backed agent/);
+});
+
+test("server limits concurrent browser preflights and releases completed run slots", async (t) => {
+  const app = require("../server");
+  const server = app.listen(0, "127.0.0.1");
+  await new Promise((resolve) => server.once("listening", resolve));
+  t.after(() => new Promise((resolve) => server.close(resolve)));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const urls = ["a", "b"].map((suffix) => `http://127.0.0.1:1/concurrency-browser-regression-${suffix}`);
+  for (const url of urls) {
+    const run = createArtifactRun(url, null);
+    t.after(() => fs.rmSync(path.dirname(run.directory), { recursive: true, force: true }));
+  }
+  const start = (url) => fetch(`${base}/api/run?promptId=forms&url=${encodeURIComponent(url)}`);
+  const first = await start(urls[0]);
+  const second = await start(urls[1]);
+  const excess = await start(urls[0]);
+  assert.equal(excess.status, 429);
+  assert.match(await excess.text(), /already active/);
+  await Promise.all([first.text(), second.text()]);
+  const invalid = await fetch(`${base}/api/run?promptId=invalid`);
+  assert.equal(invalid.status, 400);
 });
 
 test("real MCP catches unreachable target navigation", async (t) => {

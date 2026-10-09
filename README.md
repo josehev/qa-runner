@@ -74,6 +74,8 @@ Playwright reports missing system libraries, install them with
 Agent runs have a 15-minute deadline; an unfinished run is BLOCKED, not a pass.
 Disconnects terminate the CLI; on POSIX systems its MCP/browser process group is
 also terminated.
+The run endpoint allows five requests per client per minute and at most two
+active QA runs (including preflight); excess requests receive HTTP 429.
 
 The run prompt requires navigation, real interactions (including keyboard focus
 and safe form submissions), screenshots/DOM observations and console inspection.
