@@ -15,7 +15,8 @@ submissions with empty, invalid and valid input. Capture screenshots, DOM snapsh
 and console messages after interactions. Do not claim real screen-reader testing.
 Preflight evidence proves setup ONLY, not that you performed any tests.
 Each tool response includes a QA evidence ID. Cite these IDs and exact excerpts of
-the observed tool response, not invented actions/results or planned test steps.
+the observed result, page state, or console response, not the "Ran Playwright code"
+section, invented actions/results, or planned test steps.
 Write ${JSON.stringify(run.file("agent-result.json"))} with this JSON structure:
 {"status":"PASS","checks":[{"status":"PASS","action":"browser_navigate","evidence":1,
 "observed":"exact excerpt from this tool's response","detail":"what was verified"}]}
@@ -49,11 +50,12 @@ function validateAgentEvidence(run, url, exitCode) {
       }
       if (!["PASS", "FAIL"].includes(check.status)) throw new Error("Invalid or BLOCKED check status");
       const record = records.find((item) => item.id === check.evidence && item.tool === check.action);
+      const observedText = record?.text?.replace(/### Ran Playwright code\n```[\s\S]*?```/g, "");
       if (!record || !record.text || typeof check.observed !== "string" ||
-          check.observed.trim().length < 3 || !record.text.includes(check.observed)) {
+          check.observed.trim().length < 3 || !observedText.includes(check.observed)) {
         throw new Error(`Unsupported browser claim: ${check.action || "no action"} (evidence ${check.evidence})`);
       }
-      if (check.status === "PASS" && record.isError) throw new Error("Failed browser tool cannot support PASS");
+      if (record.isError) throw new Error(`Browser tool unavailable or failed: ${record.tool} — ${record.text}`);
       supported.push(record);
     }
     if (!supported.some((item) => !item.isError && item.tool === "browser_navigate" &&

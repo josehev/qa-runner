@@ -1,12 +1,30 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 const vm = require("vm");
 const { EventEmitter } = require("events");
 const { PassThrough } = require("stream");
-const { createArtifactRun } = require("../artifacts");
 const { connectBrowser } = require("../browser-mcp");
+
+function testRun(t) {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "qa-server-browser-"));
+  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  return { directory, file: (name) => path.join(directory, name), publicPath: (name) => `/results/${name}` };
+}
+
+function isolatedApp(t) {
+  const context = {
+    require: (name) => name === "./artifacts"
+      ? { ...require("../artifacts"), createArtifactRun: () => testRun(t) }
+      : name.startsWith("./") ? require(path.join(__dirname, "..", name)) : require(name),
+    __dirname: path.join(__dirname, ".."),
+    process, console, URL, setTimeout, clearTimeout, module: { exports: {} },
+  };
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8"), context);
+  return context.module.exports;
+}
 
 async function routeFixture(t, mode) {
   const url = `https://example.com/server-browser-${mode}`;
@@ -19,6 +37,7 @@ async function routeFixture(t, mode) {
   child.kill = () => { killed = true; };
   const context = {
     require: (name) => {
+      if (name === "./artifacts") return { ...require("../artifacts"), createArtifactRun: () => testRun(t) };
       if (name === "child_process") return {
         spawn: (command, args, options) => {
           invocation = { command, args, options };
@@ -71,7 +90,6 @@ async function routeFixture(t, mode) {
   const server = context.module.exports.listen(0, "127.0.0.1");
   await new Promise((resolve) => server.once("listening", resolve));
   t.after(() => new Promise((resolve) => server.close(resolve)));
-  t.after(() => { if (run) fs.rmSync(run.directory, { recursive: true, force: true }); });
   const base = `http://127.0.0.1:${server.address().port}`;
   const response = await fetch(`${base}/api/run?promptId=smoke&url=${encodeURIComponent(url)}`);
   assert.equal(response.status, 200);
@@ -134,13 +152,11 @@ test("run endpoint rejects more than five requests per client per minute", async
 });
 
 test("real server blocks unreachable targets without trying an unavailable Copilot executable", async (t) => {
-  const app = require("../server");
+  const app = isolatedApp(t);
   const server = app.listen(0, "127.0.0.1");
   await new Promise((resolve) => server.once("listening", resolve));
   t.after(() => new Promise((resolve) => server.close(resolve)));
   const url = "http://127.0.0.1:1/unreachable-browser-regression";
-  const cleanupRun = createArtifactRun(url, null);
-  t.after(() => fs.rmSync(path.dirname(cleanupRun.directory), { recursive: true, force: true }));
   const response = await fetch(`http://127.0.0.1:${server.address().port}/api/run?promptId=forms&url=${encodeURIComponent(url)}`);
   const text = await response.text();
   assert.match(text, /BLOCKED: browser environment unavailable/);
@@ -149,16 +165,12 @@ test("real server blocks unreachable targets without trying an unavailable Copil
 });
 
 test("server limits concurrent browser preflights and releases completed run slots", async (t) => {
-  const app = require("../server");
+  const app = isolatedApp(t);
   const server = app.listen(0, "127.0.0.1");
   await new Promise((resolve) => server.once("listening", resolve));
   t.after(() => new Promise((resolve) => server.close(resolve)));
   const base = `http://127.0.0.1:${server.address().port}`;
   const urls = ["a", "b"].map((suffix) => `http://127.0.0.1:1/concurrency-browser-regression-${suffix}`);
-  for (const url of urls) {
-    const run = createArtifactRun(url, null);
-    t.after(() => fs.rmSync(path.dirname(run.directory), { recursive: true, force: true }));
-  }
   const start = (url) => fetch(`${base}/api/run?promptId=forms&url=${encodeURIComponent(url)}`);
   const first = await start(urls[0]);
   const second = await start(urls[1]);
@@ -172,8 +184,7 @@ test("server limits concurrent browser preflights and releases completed run slo
 
 test("real MCP catches unreachable target navigation", async (t) => {
   const url = "http://127.0.0.1:1/unreachable-mcp-regression";
-  const run = createArtifactRun(url, null);
-  t.after(() => fs.rmSync(run.directory, { recursive: true, force: true }));
+  const run = testRun(t);
   const browser = await connectBrowser({
     command: process.execPath,
     args: [path.join(__dirname, "..", "browser-mcp.js")],

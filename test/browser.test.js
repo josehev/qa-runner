@@ -1,15 +1,20 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 const http = require("http");
-const { createArtifactRun } = require("../artifacts");
 const { browserPreflight } = require("../browser-preflight");
 const { agentMcpConfig, browserConfig, connectBrowser, playwrightConfig } = require("../browser-mcp");
 const { validateAgentEvidence, browserInstructions } = require("../browser-evidence");
 
-function runFixture(t, url = "http://127.0.0.1/browser-regression") {
-  const run = createArtifactRun(url, null);
+function runFixture(t) {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "qa-browser-"));
+  const run = {
+    directory,
+    file: (name) => path.join(directory, name),
+    publicPath: (name) => `/results/${name}`,
+  };
   t.after(() => fs.rmSync(run.directory, { recursive: true, force: true }));
   return run;
 }
@@ -192,5 +197,29 @@ test("statuses, observed excerpts, target navigation and interactions must agree
     { status: "PASS", checks: [...checks, { status: "NOT TESTED", reason: "no browser available" }] },
   ]) assert.equal(validate(report).status, "BLOCKED");
   assert.equal(validate({ status: "PASS", checks }, [records[0], { ...records[1], isError: true }]).status, "BLOCKED");
+  assert.equal(validate({ status: "FAIL", checks: [checks[0], { ...checks[1], status: "FAIL" }] },
+    [records[0], { ...records[1], isError: true }]).status, "BLOCKED");
   assert.equal(validate({ status: "PASS", checks }, [{ ...records[0], arguments: { url: "https://wrong.example/" } }, records[1]]).status, "BLOCKED");
+});
+
+test("agent-authored code echoes cannot substitute for observed browser results", (t) => {
+  const url = "https://example.com/";
+  const run = runFixture(t);
+  const records = [
+    { id: 1, tool: "browser_navigate", arguments: { url }, text: "### Page\n- Page Title: Fixture" },
+    { id: 2, tool: "browser_click", text: "### Page\n- Page Title: Fixture" },
+    {
+      id: 3, tool: "browser_evaluate",
+      text: "### Result\nfalse\n### Ran Playwright code\n```js\nawait page.evaluate(() => document.body.textContent.includes('Submitted successfully'));\n```",
+    },
+  ];
+  fs.writeFileSync(run.file("agent-browser.jsonl"), records.map((record) => JSON.stringify(record)).join("\n"));
+  fs.writeFileSync(run.file("agent-result.json"), JSON.stringify({
+    status: "PASS", checks: [
+      { status: "PASS", action: "browser_navigate", evidence: 1, observed: "Fixture" },
+      { status: "PASS", action: "browser_click", evidence: 2, observed: "Fixture" },
+      { status: "PASS", action: "browser_evaluate", evidence: 3, observed: "Submitted successfully" },
+    ],
+  }));
+  assert.match(validateAgentEvidence(run, url, 0).error, /Unsupported browser claim/);
 });

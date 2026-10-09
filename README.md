@@ -100,7 +100,8 @@ a `QA evidence ID` for each call. Copilot must write `agent-result.json`:
 This illustrates a single check; an accepted report also needs an evidence-backed
 interaction. PASS/FAIL checks must cite matching tool calls and exact excerpts
 of their responses. The runner rejects missing/mismatched evidence, a failed CLI,
-or runs lacking target navigation and interaction. Preflight evidence never
+tool-execution errors, or runs lacking target navigation and interaction. Echoed
+Playwright code cannot support an observed-result claim. Preflight evidence never
 counts as agent testing. The saved report shows validated checks and labels raw
 agent commentary as unvalidated; `evidence-validation.json` records the verdict.
 This validates recorded execution, not the completeness or correctness of an
