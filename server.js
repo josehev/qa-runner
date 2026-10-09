@@ -14,6 +14,7 @@ const PORT = 4545;
 const WORKSPACE = process.env.QA_WORKSPACE || process.cwd();
 const COPILOT_BIN = process.env.COPILOT_BIN || "copilot";
 const BROWSER_CHECK_TIMEOUT = 60000;
+const AGENT_TIMEOUT = 15 * 60 * 1000;
 fs.mkdirSync(RESULTS, { recursive: true });
 
 app.use(express.json());
@@ -248,9 +249,22 @@ app.get("/api/run", async (req, res) => {
   send("out", "Browser preflight PASS. Starting browser-backed agent…\n");
   const child = spawn(COPILOT_BIN, args, {
     cwd: WORKSPACE, shell: false,
+    detached: process.platform !== "win32",
     env: { ...process.env, QA_ARTIFACT_DIR: run.directory },
   });
 
+  const stopAgent = (signal = "SIGTERM") => {
+    if (process.platform !== "win32" && child.pid) {
+      try {
+        // Copilot's MCP servers and Chromium belong to the same process group.
+        process.kill(-child.pid, signal);
+      } catch (err) {
+        if (err.code !== "ESRCH") child.kill(signal);
+      }
+    } else {
+      child.kill(signal);
+    }
+  };
   let spawnError;
 child.on("error", (err) => {
   spawnError = `BLOCKED: browser environment unavailable — Could not start Copilot CLI (${err.message}). Check "copilot --version" or COPILOT_BIN.`;
@@ -261,8 +275,12 @@ child.on("error", (err) => {
   child.stdout.on("data", onData);
   child.stderr.on("data", onData);
 
-  child.on("close", (code) => {
-    if (disconnected) return;
+  let finished = false;
+  let timer;
+  const finish = (code) => {
+    clearTimeout(timer);
+    if (disconnected || finished) return;
+    finished = true;
     const validation = spawnError
       ? { status: "BLOCKED", error: spawnError } : validateAgentEvidence(run, url, code);
     const mdFile = run.file(`${p.id}.md`);
@@ -275,9 +293,18 @@ child.on("error", (err) => {
     const htmlFile = run.publicPath(`${p.id}.html`);
     send("end", `\n${summary}. <a href="${htmlFile}" target="_blank">View full report →</a>`);
     res.end();
-  });
+  };
+  child.on("close", finish);
+  timer = setTimeout(() => {
+    spawnError = `BLOCKED: browser environment unavailable — Agent timed out after ${AGENT_TIMEOUT / 60000} minutes; browser audit did not complete.`;
+    finish(null);
+    stopAgent("SIGKILL");
+  }, AGENT_TIMEOUT);
 
-  res.on("close", () => child.kill());
+  res.on("close", () => {
+    clearTimeout(timer);
+    stopAgent();
+  });
 });
 
 // Runs deterministic Playwright checks in a child process instead of the Copilot CLI

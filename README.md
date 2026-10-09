@@ -71,6 +71,9 @@ returns **BLOCKED: browser environment unavailable** with the underlying error.
 Copilot is not started and no static-only fallback is accepted. On Linux, if
 Playwright reports missing system libraries, install them with
 `npx playwright install --with-deps chromium`.
+Agent runs have a 15-minute deadline; an unfinished run is BLOCKED, not a pass.
+Disconnects terminate the CLI; on POSIX systems its MCP/browser process group is
+also terminated.
 
 The run prompt requires navigation, real interactions (including keyboard focus
 and safe form submissions), screenshots/DOM observations and console inspection.
