@@ -5,24 +5,12 @@
 
 const fs = require("fs");
 const { createArtifactRun } = require("./artifacts");
+const { validateUrl, resolveTarget, prepareTarget } = require("./targets");
 
 const NAVIGATION_TIMEOUT = 15000;
 const MAX_SAMPLES = 20;
 
-function validateUrl(url) {
-  let parsed;
-  try {
-    parsed = new URL(url);
-  } catch {
-    throw new Error(`Invalid URL: ${url}`);
-  }
-  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
-    throw new Error("URL must start with http:// or https://");
-  }
-  return parsed.href;
-}
-
-async function runBrowserCheck(url, { screenshotPath, artifactDirectory, timeout = NAVIGATION_TIMEOUT, onProgress = () => {} } = {}) {
+async function runBrowserCheck(url, { screenshotPath, artifactDirectory, targetIdentity, timeout = NAVIGATION_TIMEOUT, onProgress = () => {} } = {}) {
   const startedAt = new Date();
   const result = {
     url,
@@ -41,8 +29,12 @@ async function runBrowserCheck(url, { screenshotPath, artifactDirectory, timeout
   };
 
   let browser;
+  let target;
   try {
-    result.url = validateUrl(url);
+    target = await prepareTarget(url);
+    result.url = targetIdentity || target.identity;
+    result.originalTarget = target.original;
+    result.effectiveUrl = target.url;
     if (screenshotPath) {
       screenshotPath = createArtifactRun(result.url, artifactDirectory).file(screenshotPath);
     }
@@ -66,9 +58,9 @@ async function runBrowserCheck(url, { screenshotPath, artifactDirectory, timeout
     page.on("pageerror", (err) => result.pageErrors.push(err.message));
     page.on("console", (msg) => result.consoleMessages.push({ type: msg.type(), text: msg.text() }));
 
-    onProgress(`Navigating to ${result.url}…`);
+    onProgress(`Navigating to ${target.url}…`);
     // page.goto does not throw on 4xx/5xx responses, so the status is checked explicitly.
-    const response = await page.goto(result.url, { waitUntil: "load", timeout });
+    const response = await page.goto(target.url, { waitUntil: "load", timeout });
     result.status = response ? response.status() : null;
     result.finalUrl = page.url();
     result.title = await page.title();
@@ -96,6 +88,7 @@ async function runBrowserCheck(url, { screenshotPath, artifactDirectory, timeout
     onProgress(`Error: ${result.error}`);
   } finally {
     if (browser) await browser.close().catch(() => {});
+    target?.close();
   }
 
   const consoleErrors = result.consoleMessages.filter((m) => m.type === "error");
@@ -175,13 +168,14 @@ if (require.main === module) {
   Promise.resolve().then(() => {
     let validUrl;
     try {
-      validUrl = validateUrl(url);
+      validUrl = process.env.QA_TARGET_IDENTITY || resolveTarget(url).identity;
     } catch {
       return runBrowserCheck(url, { screenshotPath, onProgress });
     }
     const run = createArtifactRun(validUrl);
     return runBrowserCheck(url, {
       screenshotPath, artifactDirectory: run.directory, onProgress,
+      targetIdentity: process.env.QA_TARGET_IDENTITY,
     }).then((result) => {
       fs.writeFileSync(run.file("browser-check.json"), JSON.stringify(result, null, 2));
       fs.writeFileSync(run.file("browser-check.log"), log);

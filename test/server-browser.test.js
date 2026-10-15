@@ -26,9 +26,9 @@ function isolatedApp(t) {
   return context.module.exports;
 }
 
-async function routeFixture(t, mode) {
-  const url = `https://example.com/server-browser-${mode}`;
+async function routeFixture(t, mode, { url = `https://example.com/server-browser-${mode}`, promptId = "smoke" } = {}) {
   let run;
+  let browserUrl;
   let invocation;
   let killed = false;
   const child = new EventEmitter();
@@ -52,7 +52,7 @@ async function routeFixture(t, mode) {
             child.stdout.write("Agent claims all checks passed\n");
             if (mode === "evidence") {
               fs.writeFileSync(path.join(directory, "agent-browser.jsonl"), [
-                { id: 1, tool: "browser_navigate", arguments: { url }, text: "Page Title: Fixture", isError: false },
+                { id: 1, tool: "browser_navigate", arguments: { url: browserUrl }, text: "Page Title: Fixture", isError: false },
                 { id: 2, tool: "browser_press_key", arguments: { key: "Tab" }, text: "Focused button", isError: false },
               ].map((record) => JSON.stringify(record)).join("\n"));
               fs.writeFileSync(path.join(directory, "agent-result.json"), JSON.stringify({
@@ -69,6 +69,7 @@ async function routeFixture(t, mode) {
       };
       if (name === "./browser-preflight") return {
         browserPreflight: async (_url, artifactRun) => {
+          browserUrl = _url;
           run = artifactRun;
           return mode === "preflight-blocked"
             ? { status: "BLOCKED", error: "BLOCKED: browser environment unavailable — MCP connection refused" }
@@ -91,12 +92,64 @@ async function routeFixture(t, mode) {
   await new Promise((resolve) => server.once("listening", resolve));
   t.after(() => new Promise((resolve) => server.close(resolve)));
   const base = `http://127.0.0.1:${server.address().port}`;
-  const response = await fetch(`${base}/api/run?promptId=smoke&url=${encodeURIComponent(url)}`);
+  const response = await fetch(`${base}/api/run?promptId=${promptId}&url=${encodeURIComponent(url)}`);
   assert.equal(response.status, 200);
   const text = await response.text();
   const messages = text.trim().split("\n\n").map((line) => JSON.parse(line.slice(6)));
-  return { run, invocation, messages, killed, base };
+  return { run, invocation, messages, killed, base, browserUrl };
 }
+
+test("all Copilot QA modes share the local preflight, prompt, permission and evidence target, then close it", async (t) => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "qa-server-local-"));
+  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  const url = path.join(directory, "local page.html");
+  fs.writeFileSync(url, "<title>Fixture</title>");
+  for (const promptId of ["smoke", "a11y", "forms"]) {
+    const { run, invocation, messages, browserUrl } = await routeFixture(t, "evidence", { url, promptId });
+    assert.match(browserUrl, /^http:\/\/127\.0\.0\.1:\d+\//);
+    assert.ok(invocation.args.includes(`--allow-url=${new URL(browserUrl).origin}`));
+    const prompt = invocation.args[invocation.args.indexOf("-p") + 1];
+    assert.ok(prompt.includes(browserUrl));
+    assert.match(prompt, /local static HTML preview/);
+    assert.match(messages.at(-1).data, /Browser evidence validated: PASS/);
+    const target = JSON.parse(fs.readFileSync(run.file("target.json"), "utf8"));
+    assert.equal(target.original, url);
+    assert.equal(target.identity, require("url").pathToFileURL(url).href);
+    assert.equal(target.effectiveUrl, browserUrl);
+    assert.ok(fs.readFileSync(run.file(`${promptId}.md`), "utf8").includes(`URL: ${url}`));
+    await assert.rejects(fetch(browserUrl));
+  }
+});
+
+test("blocked, failed and timed-out local agent runs release their temporary server", async (t) => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "qa-server-local-fail-"));
+  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  const url = path.join(directory, "index.html");
+  fs.writeFileSync(url, "<title>Fixture</title>");
+  for (const mode of ["preflight-blocked", "spawn-error", "no-evidence", "timeout"]) {
+    const { messages, browserUrl } = await routeFixture(t, mode, { url });
+    assert.match(messages.at(-1).data, /BLOCKED/);
+    await assert.rejects(fetch(browserUrl));
+  }
+});
+
+test("UI validation uses server filesystem errors and cross-origin pages cannot probe paths or start runs", async (t) => {
+  const app = isolatedApp(t);
+  const server = app.listen(0, "127.0.0.1");
+  await new Promise((resolve) => server.once("listening", resolve));
+  t.after(() => new Promise((resolve) => server.close(resolve)));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const response = await fetch(base + "/api/target", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ target: path.join(os.tmpdir(), "qa-missing-page.html") }),
+  });
+  assert.equal(response.status, 400);
+  assert.match((await response.json()).error, /Cannot read local HTML file.*ENOENT/);
+  for (const headers of [{ Origin: "http://127.0.0.1:9999" }, { "Sec-Fetch-Site": "cross-site" }]) {
+    assert.equal((await fetch(base + "/api/run?promptId=smoke&url=https://example.com", { headers })).status, 403);
+    assert.equal((await fetch(base + "/api/target", { method: "POST", headers })).status, 403);
+  }
+});
 
 test("preflight BLOCKED never starts Copilot or emits a successful completion", async (t) => {
   const { run, invocation, messages } = await routeFixture(t, "preflight-blocked");

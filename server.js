@@ -3,7 +3,8 @@ const { rateLimit } = require("express-rate-limit");
 const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
-const { toMarkdown, validateUrl } = require("./browser-check");
+const { toMarkdown } = require("./browser-check");
+const { resolveTarget, prepareTarget } = require("./targets");
 const { RESULTS, createArtifactRun, resultUrl, listReports, resolveResult, legacyResultPath } = require("./artifacts");
 const { browserPreflight } = require("./browser-preflight");
 const { agentMcpConfig } = require("./browser-mcp");
@@ -38,6 +39,23 @@ const loadPrompts = () =>
   JSON.parse(fs.readFileSync(path.join(__dirname, "prompts.json"), "utf8"));
 
 app.get("/api/prompts", (_req, res) => res.json(loadPrompts()));
+
+// A tested page has a different origin and must not start runs or probe local paths.
+app.use(["/api/run", "/api/target"], (req, res, next) => {
+  if ((req.get("Sec-Fetch-Site") && !["same-origin", "none"].includes(req.get("Sec-Fetch-Site"))) ||
+      (req.get("Origin") && req.get("Origin") !== `${req.protocol}://${req.get("Host")}`)) {
+    return res.status(403).end("Open QA Runner directly to validate targets or start tests.");
+  }
+  next();
+});
+app.post("/api/target", (req, res) => {
+  try {
+    resolveTarget(req.body.target);
+    res.json({ valid: true });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
 
 // Serve results as HTML
 app.get("/api/results", (_req, res) => {
@@ -223,23 +241,32 @@ app.get("/api/run", runRateLimit, (req, res, next) => {
 }, async (req, res) => {
   const { promptId, url } = req.query;
   const p = loadPrompts().find((x) => x.id === promptId);
+  let target;
+  let run;
+  let disconnected = false;
+  res.once("close", () => { disconnected = true; target?.close(); });
   try {
     if (!p || typeof url !== "string") throw new Error("Invalid request");
-    validateUrl(url);
-  } catch {
-    return res.status(400).end("Invalid prompt or URL");
+    const resolved = resolveTarget(url);
+    target = await prepareTarget(resolved);
+    if (disconnected) { target.close(); return; }
+    run = createArtifactRun(target.identity, null);
+    fs.writeFileSync(run.file("target.json"), JSON.stringify({
+      original: target.original, identity: target.identity, effectiveUrl: target.url,
+    }, null, 2));
+  } catch (err) {
+    target?.close();
+    return res.status(400).end(err.message);
   }
-  const run = createArtifactRun(url, null);
+  const browserUrl = target.url;
 
   res.set({ "Content-Type": "text/event-stream", "Cache-Control": "no-cache", Connection: "keep-alive" });
   const send = (type, data) => res.write(`data: ${JSON.stringify({ type, data })}\n\n`);
 
-  if (p.type === "playwright") return runBrowserCheck(p, url, req, res, send, run);
+  if (p.type === "playwright") return runBrowserCheck(p, url, req, res, send, run, target);
 
   send("start", `▶ ${p.name} on ${url}\nBrowser preflight…\n`);
-  let disconnected = false;
-  res.on("close", () => { disconnected = true; });
-  const preflight = await browserPreflight(url, run);
+  const preflight = await browserPreflight(browserUrl, run);
   if (disconnected) return;
   if (preflight.status === "BLOCKED") {
     fs.writeFileSync(run.file(`${p.id}.md`), `# ${p.name}\nURL: ${url}\n\n${preflight.error}\n`);
@@ -247,14 +274,15 @@ app.get("/api/run", runRateLimit, (req, res, next) => {
     return res.end();
   }
 
-  const fullPrompt = p.prompt.replaceAll("{{URL}}", url) +
+  const fullPrompt = p.prompt.replaceAll("{{URL}}", browserUrl) +
+    (target.filePath ? "\n\nThis is a local static HTML preview, not a production web server. Backend endpoints and production HTTPS behavior are not provided; report unavailable checks as NOT TESTED with a reason." : "") +
     `\n\n${p.browserSteps || ""}` +
     `\n\nSave ALL files generated during this QA run (reports, screenshots, logs, scripts, downloads, and temporary files) only in ${JSON.stringify(run.directory)}. Use absolute paths; do not write artifacts in the workspace root or other report folders. QA_ARTIFACT_DIR is set to this directory.` +
     browserInstructions(run);
   const args = [
   "-p", fullPrompt,
   "--allow-all-tools",
-  `--allow-url=${new URL(url).origin}`,
+  `--allow-url=${new URL(browserUrl).origin}`,
   "--additional-mcp-config", `@${agentMcpConfig(run)}`
 ];
  if (p.agent) args.push("--agent", p.agent);
@@ -295,7 +323,7 @@ child.on("error", (err) => {
     if (disconnected || finished) return;
     finished = true;
     const validation = spawnError
-      ? { status: "BLOCKED", error: spawnError } : validateAgentEvidence(run, url, code);
+      ? { status: "BLOCKED", error: spawnError } : validateAgentEvidence(run, browserUrl, code);
     const mdFile = run.file(`${p.id}.md`);
     const summary = validation.error || `Browser evidence validated: ${validation.status}`;
     fs.writeFileSync(run.file("evidence-validation.json"), JSON.stringify(validation, null, 2));
@@ -321,13 +349,13 @@ child.on("error", (err) => {
 });
 
 // Runs deterministic Playwright checks in a child process instead of the Copilot CLI
-function runBrowserCheck(p, url, req, res, send, run) {
+function runBrowserCheck(p, url, req, res, send, run, target) {
   const shotName = `${p.id}.png`;
-  const args = [path.join(__dirname, "browser-check.js"), url, "--screenshot", run.file(shotName)];
+  const args = [path.join(__dirname, "browser-check.js"), target.url, "--screenshot", run.file(shotName)];
 
   send("start", `▶ ${p.name} on ${url}\n`);
   const child = spawn(process.execPath, args, {
-    cwd: run.directory, env: { ...process.env, QA_ARTIFACT_DIR: run.directory },
+    cwd: run.directory, env: { ...process.env, QA_ARTIFACT_DIR: run.directory, QA_TARGET_IDENTITY: target.identity },
   });
 
   let log = "";
@@ -348,6 +376,8 @@ function runBrowserCheck(p, url, req, res, send, run) {
 
   child.on("close", (code) => {
     clearTimeout(timer);
+    target.close();
+    if (res.destroyed) return;
     let result;
     try {
       result = JSON.parse(stdout);
@@ -358,7 +388,10 @@ function runBrowserCheck(p, url, req, res, send, run) {
     const summary = result
       ? toMarkdown(result, result.screenshot ? run.publicPath(shotName) : null)
       : "**Overall:** ❌ FAILED\n**Error:** Browser check did not produce a result.";
-    if (result) fs.writeFileSync(run.file(`${p.id}.json`), JSON.stringify(result, null, 2));
+    if (result) {
+      result.originalTarget = url;
+      fs.writeFileSync(run.file(`${p.id}.json`), JSON.stringify(result, null, 2));
+    }
     fs.writeFileSync(run.file(`${p.id}.log`), log);
     fs.writeFileSync(run.file(`${p.id}.md`), `# ${p.name}\nURL: ${url}\n\n${log}\n${summary}\n`);
 
@@ -368,10 +401,10 @@ function runBrowserCheck(p, url, req, res, send, run) {
     res.end();
   });
 
-  req.on("close", () => child.kill());
+  res.on("close", () => { clearTimeout(timer); child.kill(); });
 }
 
 if (require.main === module) {
-  app.listen(PORT, () => console.log(`QA Runner → http://localhost:${PORT}`));
+  app.listen(PORT, "127.0.0.1", () => console.log(`QA Runner → http://localhost:${PORT}`));
 }
 module.exports = app;
