@@ -68,6 +68,8 @@ test("targets reject missing, nonregular, unreadable and unsupported local targe
     ["ftp://example.com/index.html", /Unsupported scheme/],
     ["data:text/html,hello", /Unsupported scheme/],
     ["file://remote.example/index.html", /local file/],
+    ["file://localhost/tmp/index.html", /local file/],
+    ["file:////remote/share/index.html", /local file/],
     ["file:/tmp/index.html", /local file/],
     ["file:///tmp/bad%ZZ.html", /local file/],
     ["file:///tmp/bad%2Fname.html", /local file/],
@@ -81,6 +83,27 @@ test("targets reject missing, nonregular, unreadable and unsupported local targe
     fs.writeFileSync(unreadable, "<title>Denied</title>", { mode: 0 });
     if (process.getuid?.() !== 0) assert.throws(() => resolveTarget(unreadable), /EACCES/);
   }
+});
+
+test("deterministic HTTP checks still execute JavaScript and fail HTTP errors", async (t) => {
+  let status = 200;
+  const server = http.createServer((_req, res) => {
+    res.writeHead(status, { "Content-Type": "text/html" });
+    res.end("<title>HTTP fixture</title><script>document.title='HTTP JavaScript executed'</script>");
+  });
+  server.listen(0, "127.0.0.1");
+  await new Promise((resolve) => server.once("listening", resolve));
+  t.after(() => new Promise((resolve) => server.close(resolve)));
+  const url = `http://127.0.0.1:${server.address().port}/fixture`;
+  const result = await runBrowserCheck(url);
+  assert.equal(result.passed, true, JSON.stringify(result));
+  assert.equal(result.url, url);
+  assert.equal(result.finalUrl, url);
+  assert.equal(result.title, "HTTP JavaScript executed");
+  status = 404;
+  const failure = await runBrowserCheck(url);
+  assert.equal(failure.passed, false);
+  assert.equal(failure.checks[0].status, "failed");
 });
 
 function request(url, requestPath, headers = {}, method = "GET") {

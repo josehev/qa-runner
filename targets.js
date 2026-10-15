@@ -40,8 +40,9 @@ function resolveTarget(input) {
   if (/^file:/i.test(input)) {
     try {
       const url = new URL(input);
-      if (!/^file:\/\//i.test(input) || url.host || url.search || url.hash) throw new Error();
+      if (!/^file:\/\/\//i.test(input) || url.host || url.search || url.hash) throw new Error();
       filePath = fileURLToPath(url);
+      if (filePath.startsWith("//") || filePath.startsWith("\\\\")) throw new Error();
     } catch {
       throw new Error("Use a local file:/// URL without a host, query, or fragment; encode special characters.");
     }

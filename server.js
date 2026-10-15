@@ -360,10 +360,13 @@ function runBrowserCheck(p, url, req, res, send, run, target) {
 
   let log = "";
   let stdout = "";
+  let timedOut = false;
   child.stderr.on("data", (d) => { log += d; send("out", d.toString()); });
   child.stdout.on("data", (d) => { stdout += d; });
 
   const timer = setTimeout(() => {
+    timedOut = true;
+    target.close();
     const msg = `Timed out after ${BROWSER_CHECK_TIMEOUT / 1000}s\n`;
     log += msg;
     send("out", msg);
@@ -380,7 +383,7 @@ function runBrowserCheck(p, url, req, res, send, run, target) {
     if (res.destroyed) return;
     let result;
     try {
-      result = JSON.parse(stdout);
+      result = timedOut ? null : JSON.parse(stdout);
     } catch {
       result = null;
     }
