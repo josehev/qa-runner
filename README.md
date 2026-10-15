@@ -1,7 +1,7 @@
 # qa-runner
 
-A local web app for checking websites without opening VS Code. Choose a test, enter a
-URL, and watch the output in your browser. The runner offers fixed Playwright checks
+A local web app for checking websites and local HTML without opening VS Code. Choose a test, enter a
+URL or local file path, and watch the output in your browser. The runner offers fixed Playwright checks
 or browser-backed Copilot QA tests, and saves reports, logs, and screenshots for review.
 
 ## Setup
@@ -62,13 +62,61 @@ or browser-backed Copilot QA tests, and saves reports, logs, and screenshots for
 
 ## Run a QA test
 
-Open http://localhost:4545, choose a test, enter an `http://` or `https://` URL,
+Open http://localhost:4545, choose a test, enter an `http://` or `https://` URL
+or a local `.html`/`.htm` file path (see below),
 and click **Run Test**. Watch **Test Output**, then open the report under
 **Recent Results**. Start with **Browser Check** to verify browser setup; after
 authenticating Copilot, run a **Smoke test** to verify the agent workflow too.
 
 Use this only on a trusted local machine and test sites you are authorized to access.
 Do not expose the server publicly: it opens supplied URLs and Copilot runs allow tools.
+
+### Local HTML targets
+
+All four testing options accept the same local inputs. For example, in the UI enter:
+
+- `/home/me/demo site/index.html` (macOS/Linux absolute path)
+- `C:\sites\demo\index.html` (Windows absolute path, when the runner is on Windows)
+- `./demo site/index.html` (relative path)
+- `file:///home/me/demo%20site/index.html` (local file URL)
+
+**Relative paths always resolve against the directory containing `server.js` and
+`browser-check.js` (the QA Runner repository root)**, regardless of the shell's
+working directory, `QA_WORKSPACE`, or a run's artifact directory. Paths refer to
+the filesystem of the machine **running QA Runner**, not the browser's machine.
+There is no upload or file picker: selecting an HTML file in a browser would not
+provide its server path or its sibling assets. Use native paths on the runner's OS;
+network/UNC paths and remote file URLs are not supported.
+
+Plain paths preserve literal spaces, Unicode, `#`, and `%`; do not URL-encode them.
+File URLs use normal URL encoding (`%20` for spaces, `%23` for `#`, `%25` for `%`)
+and must not contain a host, query, or fragment. The target must be a readable,
+regular, non-hidden `.html` or `.htm` file (case-insensitive).
+
+The runner previews each local document on a temporary **127.0.0.1-only,
+ephemeral-port HTTP server**, separate from the runner UI/API. The same effective
+URL is used for Chromium, MCP preflight, Copilot prompts/permissions, and browser
+evidence matching. This avoids MCP's unrestricted filesystem-access permission.
+The preview closes on completion, error, timeout, or client disconnection.
+
+The **selected document's parent directory is the asset root**. Relative CSS,
+JavaScript, images, fonts, JSON, WebAssembly, and audio/video assets in that tree
+are served with appropriate MIME types. Keep all needed assets beneath that
+directory. Parent-relative escapes, root-relative URLs (such as `/style.css`),
+directory listings/index fallback, hidden paths, `node_modules`, symlinked assets,
+and other file types are not served. A selected symlink is resolved to its real
+document first; that document's parent becomes the root. Use a dedicated demo
+directory with no sensitive files: supported sibling assets are readable by the
+tested page. Source files are never copied into `/results/`.
+
+JavaScript and real browser interactions still run; this is **not static analysis**.
+Response status describes the local preview response, not a production server.
+No backend, server-side rendering, production redirects, or HTTPS configuration
+is supplied. External services still require network access and may behave
+differently under the preview origin; production-only audit checks should be
+reported as **NOT TESTED** with a reason. Only test trusted local HTML on a
+trusted machine: pages execute code, may contact external services, and Copilot
+has its existing tool permissions. The runner UI itself binds only to loopback.
 
 ## Configuration (optional)
 
@@ -94,6 +142,9 @@ Run the same checks from the command line:
 ```bash
 node browser-check.js https://example.com
 node browser-check.js https://example.com --screenshot shot.png
+node browser-check.js "./demo site/index.html" --screenshot local.png
+node browser-check.js "/home/me/demo site/index.html"
+node browser-check.js "file:///home/me/demo%20site/index.html"
 ```
 
 JSON results go to stdout and progress to stderr; a Markdown report, JSON, and log
@@ -141,6 +192,13 @@ from overwriting earlier results. Generated runs are ignored by Git. Reports and
 their associated files are available through the UI and `/results/` URLs.
 Copilot receives the run directory in its prompt and `QA_ARTIFACT_DIR`. For shell
 redirection, explicitly write inside that directory; the runner cannot reroute `>`.
+Local page folders use the canonical absolute file URL as their identity, so
+path/file-URL aliases and repeated runs group together rather than by temporary
+port. Reports retain the entered target; browser JSON includes the canonical
+`url`, `originalTarget`, `effectiveUrl`, and observed `finalUrl`. API runs also
+record that mapping in `target.json`. Preview URLs in evidence are historical
+and stop working when the run ends. Screenshots and other generated output stay
+inside the normal run directory.
 
 ## Historical artifacts
 

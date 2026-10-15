@@ -128,8 +128,9 @@
       <select id="prompt"></select>
       <!-- <div class="prompt" id="preview"></div> -->
       
-      <label for="url" style="display: block; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; color: #333;">Website to test:</label>
-      <input id="url" type="url" placeholder="https://example.com" />
+      <label for="url" style="display: block; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; color: #333;">Website or local HTML file to test:</label>
+      <input id="url" type="text" placeholder="https://example.com or ./site/index.html" aria-describedby="target-help" />
+      <p id="target-help">Enter HTTP/HTTPS, a .html/.htm path, or a file:/// URL on the machine running QA Runner. Relative paths start at the QA Runner repository directory, not your browser's filesystem.</p>
       <button id="run">▶ Run Test</button>
     </div>
     
@@ -191,13 +192,24 @@
 
   $('prompt').onchange = showPreview;
 
-  $('run').onclick = () => {
+  $('run').onclick = async () => {
     const url = $('url').value.trim();
-    if (!url) return alert('Paste a URL first');
-    if (!url.startsWith('http')) return alert('URL must start with http:// or https://');
+    if (!url) return alert('Enter a URL or local .html/.htm file path first');
     
     $('out').textContent = 'Starting test...\n';
     $('run').disabled = true;
+    try {
+      const response = await fetch('/api/target', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target: url })
+      });
+      const validation = await response.json();
+      if (!response.ok) throw new Error(validation.error || 'Target validation failed');
+    } catch (err) {
+      $('out').textContent = `❌ ${err.message}`;
+      $('run').disabled = false;
+      return;
+    }
     
     const es = new EventSource(`/api/run?promptId=${$('prompt').value}&url=${encodeURIComponent(url)}`);
     

@@ -6,8 +6,9 @@ const RESULTS = path.join(__dirname, "my-project", "result reports");
 
 function pageSlug(url) {
   const page = new URL(url);
-  if (!["http:", "https:"].includes(page.protocol)) {
-    throw new Error("URL must start with http:// or https://");
+  const localHtml = page.protocol === "file:" && !page.host && !page.search && !page.hash && /\.html?$/i.test(page.pathname);
+  if (!["http:", "https:"].includes(page.protocol) && !localHtml) {
+    throw new Error("Target must be an http:// or https:// URL or a local HTML file URL");
   }
   const label = `${page.host}${page.pathname}`
     .replace(/[^a-zA-Z0-9_-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 100);
