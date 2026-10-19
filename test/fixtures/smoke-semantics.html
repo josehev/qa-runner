@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content="Semantic fixture">
+  <meta name="twitter:card" content="summary">
+  <title>Semantic Smoke fixture</title>
+  <style>
+    body { color: #111; background: white; font: 18px sans-serif; }
+    :focus-visible { outline: none; box-shadow: 0 0 0 4px #005fcc; }
+  </style>
+</head>
+<body>
+  Outside-landmark sample text.
+  <main id="main">
+    <h1>SEMANTIC FIXTURE</h1>
+    <h2 hidden>Hidden heading</h2>
+    <button tabindex="2" type="button">Positive tab order</button>
+    <button type="button" id="unnamed"></button>
+    <button type="button" aria-labelledby="missing-label">Missing referenced name</button>
+    <span id="duplicate">First</span><span id="duplicate">Second</span>
+    <ul><ul><li>Invalid direct nested list</li></ul></ul>
+    <nav aria-label="Logo navigation">
+      <a href="/ok" aria-current="page"><img alt="" width="20" height="10"
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='blue'/%3E%3C/svg%3E"></a>
+    </nav>
+    <details><summary>FAQ question</summary><p>FAQ answer</p></details>
+    <button type="button" disabled>Expand All</button>
+    <label>Language <select><option>English</option><option>French</option></select></label>
+    <label>Search <input type="search"></label>
+    <form method="post" action="/login">
+      <label>Password <input type="password" autocomplete="current-password"></label>
+      <button type="submit">Login</button>
+    </form>
+    <div role="status" aria-live="polite">Ready</div>
+    <iframe srcdoc="<p>Frame content</p>"></iframe>
+    <p>TODO TBD undefined [object Object] Lorem ipsum</p>
+    <p>Repeated fixture sentence.</p><p>Repeated fixture sentence.</p>
+  </main>
+  <footer>Copyright © 2020 Fixture. <a href="/ok">Contact</a></footer>
+</body>
+</html>

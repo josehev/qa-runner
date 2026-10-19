@@ -4,6 +4,7 @@ const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const { toMarkdown } = require("./browser-check");
+const { validateSmokeEvidence } = require("./smoke-check");
 const { normalizeReport, renderReport, writeReport } = require("./report");
 const { resolveTarget, prepareTarget } = require("./targets");
 const { RESULTS, createArtifactRun, resultUrl, listReports, resolveResult, legacyResultPath } = require("./artifacts");
@@ -64,8 +65,12 @@ app.post("/api/target", (req, res) => {
 // Serve results as HTML
 app.get("/api/results", (_req, res) => {
   const files = listReports()
-    .filter(({ file }) => path.basename(file) === "report.html" ||
-      !fs.existsSync(path.join(path.dirname(file), "report.html")))
+    .filter(({ file }) => {
+      const directory = path.dirname(file);
+      const preferred = fs.existsSync(path.join(directory, "qa-report.html")) ? "qa-report.html" :
+        fs.existsSync(path.join(directory, "report.html")) ? "report.html" : null;
+      return !preferred || path.basename(file) === preferred;
+    })
     .sort((a, b) => b.created - a.created)
     .slice(0, 20);
   
@@ -150,6 +155,7 @@ app.get("/api/run", runRateLimit, (req, res, next) => {
   const send = (type, data) => res.write(`data: ${JSON.stringify({ type, data })}\n\n`);
 
   if (p.type === "playwright") return runBrowserCheck(p, url, req, res, send, run, target, startedAt);
+  if (p.type === "smoke") return runSmoke(p, url, res, send, run, target, startedAt);
 
   const curl = await checkCurl();
   if (disconnected) return;
@@ -249,6 +255,70 @@ child.on("error", (err) => {
     stopAgent();
   });
 });
+
+function runSmoke(p, url, res, send, run, target, startedAt) {
+  send("start", `▶ ${p.name} on ${url}\nRunning the versioned deterministic Smoke baseline…\n`);
+  const child = spawn(process.execPath, [path.join(__dirname, "smoke-check.js"), target.url], {
+    cwd: run.directory,
+    detached: process.platform !== "win32",
+    env: { ...process.env, QA_ARTIFACT_DIR: run.directory, QA_TARGET_IDENTITY: target.identity },
+  });
+  let stdout = "";
+  let log = "";
+  let failure = "";
+  let finished = false;
+  const stop = () => {
+    if (process.platform !== "win32" && child.pid) {
+      try { process.kill(-child.pid, "SIGKILL"); } catch (err) {
+        if (err.code !== "ESRCH") child.kill("SIGKILL");
+      }
+    } else child.kill("SIGKILL");
+  };
+  child.stdout.on("data", (data) => { stdout += data; });
+  child.stderr.on("data", (data) => { log += data; send("out", data.toString()); });
+  child.on("error", (err) => { failure = `Smoke collector could not start: ${err.message}`; });
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    clearTimeout(timer);
+    target.close();
+    if (res.destroyed) return;
+    let result;
+    try { result = JSON.parse(stdout); } catch {}
+    // A terminated collector may still have persisted independently validated partial evidence.
+    if (!result) {
+      for (const name of ["smoke-result.json", "audit.json"]) {
+        try {
+          result = JSON.parse(fs.readFileSync(run.file(name), "utf8"));
+          break;
+        } catch {}
+      }
+    }
+    let validation;
+    try {
+      validation = validateSmokeEvidence(result, run.directory);
+    } catch (err) {
+      validation = { status: "BLOCKED", error: `BLOCKED: Smoke evidence unavailable or invalid — ${err.message}` };
+    }
+    if (failure) validation = { ...validation, error: [failure, validation.error].filter(Boolean).join("\n") };
+    fs.writeFileSync(run.file("evidence-validation.json"), JSON.stringify(validation, null, 2));
+    fs.writeFileSync(run.file("smoke.log"), log);
+    writeReport(run, {
+      mode: "smoke", name: p.name, url: target.identity, startedAt, endedAt: new Date().toISOString(),
+      result: validation.report || result, smokeValidated: Boolean(validation.report), validation,
+      error: failure || validation.error, details: log,
+    });
+    send("end", `${failure || validation.error || `Smoke collection: ${validation.status}`}\nReport: ${run.publicPath("qa-report.html")}`);
+    res.end();
+  };
+  const timer = setTimeout(() => {
+    failure = `Smoke collector timed out after ${AGENT_TIMEOUT / 60000} minutes; remaining checks are NOT TESTED.`;
+    stop();
+    finish();
+  }, AGENT_TIMEOUT);
+  child.on("close", finish);
+  res.on("close", () => { clearTimeout(timer); stop(); target.close(); });
+}
 
 // Runs deterministic Playwright checks in a child process instead of the Copilot CLI
 function runBrowserCheck(p, url, req, res, send, run, target, startedAt) {

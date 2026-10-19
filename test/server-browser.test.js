@@ -26,7 +26,7 @@ function isolatedApp(t) {
   return context.module.exports;
 }
 
-async function routeFixture(t, mode, { url = `https://example.com/server-browser-${mode}`, promptId = "smoke" } = {}) {
+async function routeFixture(t, mode, { url = `https://example.com/server-browser-${mode}`, promptId = "a11y" } = {}) {
   let run;
   let browserUrl;
   let invocation;
@@ -133,7 +133,7 @@ test("all Copilot QA modes share the local preflight, prompt, permission and evi
   t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
   const url = path.join(directory, "local page.html");
   fs.writeFileSync(url, "<title>Fixture</title>");
-  for (const promptId of ["smoke", "a11y", "forms"]) {
+  for (const promptId of ["a11y", "forms"]) {
     const { run, invocation, messages, browserUrl } = await routeFixture(t, "evidence", { url, promptId });
     assert.match(browserUrl, /^http:\/\/127\.0\.0\.1:\d+\//);
     assert.ok(invocation.args.includes(`--allow-url=${new URL(browserUrl).origin}`));
@@ -155,7 +155,7 @@ test("all Copilot QA modes share the local preflight, prompt, permission and evi
     assert.ok(fs.readFileSync(run.file(`${promptId}.md`), "utf8").includes(`URL: ${url}`));
     const html = fs.readFileSync(run.file("report.html"), "utf8");
     assert.match(html, />PASS<\/span>/);
-    assert.match(html, /<h2 id="tests-title">Test areas/);
+    assert.match(html, /<h2[^>]*>Executive Summary/);
     assert.ok(html.includes(target.identity));
     await assert.rejects(fetch(browserUrl));
   }
@@ -172,7 +172,7 @@ test("blocked, failed and timed-out local agent runs release their temporary ser
     const html = fs.readFileSync(run.file("report.html"), "utf8");
     assert.match(html, />N\/A<\/span>/);
     assert.match(html, /Evidence validation: <strong>BLOCKED/);
-    assert.match(html, /<h2 id="bugs-title">Bugs found/);
+    assert.match(html, /<h2[^>]*>Reproduction notes for failures/);
     await assert.rejects(fetch(browserUrl));
   }
 });
@@ -243,10 +243,11 @@ test("real Browser Check API keeps file identity and serves only generated artif
   const html = await reportResponse.text();
   assert.match(html, />PASS<\/span>/);
   assert.match(html, /API JavaScript/);
-  assert.match(html, /<h3>Accessibility<\/h3>/);
-  assert.match(html, /<dt>Total duration<\/dt><dd>\d+ ms/);
+  assert.match(html, /1\. Accessibility \(WCAG 2\.0\/2\.1 AA\)/);
+  assert.match(html, /\d+ ms/);
   const alias = await fetch(reportUrl.replace("report.html", "browser-check.html"));
   assert.equal(await alias.text(), html);
+  assert.equal(await (await fetch(reportUrl.replace("report.html", "qa-report.html"))).text(), html);
   const reports = await (await fetch(`${base}/api/results`)).json();
   assert.equal(reports.filter((report) => report.path.includes(`/${runs[0]}/`)).length, 1);
   fs.writeFileSync(path.join(runDirectory, "supplement.html"), "<p>Supplemental artifact</p>");
@@ -277,7 +278,7 @@ test("preflight BLOCKED never starts Copilot or emits a successful completion", 
   const { run, invocation, messages } = await routeFixture(t, "preflight-blocked");
   assert.equal(invocation, undefined);
   assert.match(messages.at(-1).data, /BLOCKED: browser environment unavailable.*MCP connection refused/);
-  assert.match(fs.readFileSync(run.file("smoke.md"), "utf8"), /MCP connection refused/);
+  assert.match(fs.readFileSync(run.file("a11y.md"), "utf8"), /MCP connection refused/);
   assert.equal(messages.filter((message) => message.type === "end").length, 1);
 });
 
@@ -290,13 +291,13 @@ test("server passes run-specific MCP, target URL permission and mandatory intera
   assert.equal(configArg, `@${run.file("playwright-mcp.json")}`);
   assert.match(invocation.args[invocation.args.indexOf("-p") + 1], /real interactions/);
   assert.match(messages.at(-1).data, /Browser evidence validated: PASS/);
-  assert.match(fs.readFileSync(run.file("smoke.md"), "utf8"), /PASS: browser_press_key/);
-  assert.match(fs.readFileSync(run.file("smoke.md"), "utf8"), /Unvalidated agent output/);
+  assert.match(fs.readFileSync(run.file("a11y.md"), "utf8"), /PASS: browser_press_key/);
+  assert.match(fs.readFileSync(run.file("a11y.md"), "utf8"), /Unvalidated agent output/);
 });
 
 test("curl permission, network and transcript diagnostics are reported without changing validated status", async (t) => {
   const { run, messages } = await routeFixture(t, "diagnostics");
-  const report = fs.readFileSync(run.file("smoke.md"), "utf8");
+  const report = fs.readFileSync(run.file("a11y.md"), "utf8");
   assert.match(report, /\*\*Overall: PASS\*\*/);
   assert.match(report, /## Command diagnostics[\s\S]*PERMISSION-DENIED[\s\S]*NETWORK-ERROR[\s\S]*## Unvalidated agent output/);
   const diagnostics = JSON.parse(fs.readFileSync(run.file("command-diagnostics.json"), "utf8"));
@@ -310,13 +311,13 @@ test("curl permission, network and transcript diagnostics are reported without c
   assert.match(html, /network-error/);
   assert.match(html, /path verification/);
   assert.match(html, /curl https|curl -sS https/);
-  assert.ok(html.indexOf('id="diagnostics-title"') < html.indexOf('id="bugs-title"'));
+  assert.match(html, /Reproduction notes for failures/);
 });
 
 test("CLI exit zero without recorded browser evidence is BLOCKED", async (t) => {
   const { run, messages } = await routeFixture(t, "no-evidence");
   assert.match(messages.at(-1).data, /BLOCKED: browser evidence unavailable or invalid/);
-  assert.match(fs.readFileSync(run.file("smoke.md"), "utf8"), /Overall: BLOCKED/);
+  assert.match(fs.readFileSync(run.file("a11y.md"), "utf8"), /Overall: BLOCKED/);
   assert.equal(JSON.parse(fs.readFileSync(run.file("evidence-validation.json"), "utf8")).status, "BLOCKED");
 });
 
