@@ -6,6 +6,11 @@ const INTERACTIONS = new Set([
   "browser_select_option", "browser_drag", "browser_type",
 ]);
 
+function evidenceId(value) {
+  const id = typeof value === "string" && /^[1-9]\d*$/.test(value) ? Number(value) : value;
+  return Number.isSafeInteger(id) && id > 0 ? id : null;
+}
+
 function browserInstructions(run) {
   return `
 Browser testing is MANDATORY. Use the playwright MCP tools supplied to this session.
@@ -17,6 +22,10 @@ Preflight evidence proves setup ONLY, not that you performed any tests.
 Each tool response includes a QA evidence ID. Cite these IDs and exact excerpts of
 the observed result, page state, or console response, not the "Ran Playwright code"
 section, invented actions/results, or planned test steps.
+Before writing the result, read ${JSON.stringify(run.file("agent-browser.jsonl"))}.
+Copy each check's action from the record's tool, evidence from its id (a positive
+integer, not a tool-call ID), and observed verbatim from its text. Do not paraphrase,
+combine excerpts, or assume navigation always has evidence ID 1.
 Write ${JSON.stringify(run.file("agent-result.json"))} with this JSON structure:
 {"status":"PASS","title":"actual document title","checks":[{"name":"Page loads","area":"Page loading","status":"PASS","action":"browser_navigate","evidence":1,
 "observed":"exact excerpt from this tool's response","detail":"what was verified"}]}
@@ -56,13 +65,21 @@ function validateAgentEvidence(run, url, exitCode) {
         continue;
       }
       if (!["PASS", "FAIL"].includes(check.status)) throw new Error("Invalid or BLOCKED check status");
-      const record = records.find((item) => item.id === check.evidence && item.tool === check.action);
-      const observedText = record?.text?.replace(/### Ran Playwright code\n```[\s\S]*?```/g, "");
-      if (!record || !record.text || typeof check.observed !== "string" ||
-          check.observed.trim().length < 3 || !observedText.includes(check.observed)) {
-        throw new Error(`Unsupported browser claim: ${check.action || "no action"} (evidence ${check.evidence})`);
+      const id = evidenceId(check.evidence);
+      const claim = `Unsupported browser claim: ${check.action || "no action"} (evidence ${check.evidence})`;
+      if (id === null) throw new Error(`${claim}: evidence must be a positive integer ID from agent-browser.jsonl`);
+      const record = records.find((item) => item.id === id);
+      if (!record) throw new Error(`${claim}: evidence ID not found in agent-browser.jsonl`);
+      if (record.tool !== check.action) {
+        throw new Error(`${claim}: recorded tool is ${record.tool}; copy action from the transcript`);
       }
       if (record.isError) throw new Error(`Browser tool unavailable or failed: ${record.tool} — ${record.text}`);
+      const observedText = record.text?.replace(/### Ran Playwright code\n```[\s\S]*?```/g, "");
+      if (!record.text || typeof check.observed !== "string" ||
+          check.observed.trim().length < 3 || !observedText.includes(check.observed)) {
+        throw new Error(`${claim}: observed must be an exact excerpt of the recorded browser result, excluding Ran Playwright code`);
+      }
+      check.evidence = id;
       supported.push(record);
     }
     if (!supported.some((item) => !item.isError && item.tool === "browser_navigate" &&
@@ -79,8 +96,11 @@ function validateAgentEvidence(run, url, exitCode) {
       throw new Error("Overall FAIL requires an observed failed check");
     }
     if (report.bugs !== undefined && (!Array.isArray(report.bugs) || report.bugs.some((bug) =>
-      !bug || !report.checks.some((check) => check.status === "FAIL" && check.evidence === bug.evidence)))) {
+      !bug || !report.checks.some((check) => check.status === "FAIL" && check.evidence === evidenceId(bug.evidence))))) {
       throw new Error("Each bug must cite an evidence-backed FAIL check");
+    }
+    if (report.bugs) {
+      report.bugs = report.bugs.map((bug) => ({ ...bug, evidence: evidenceId(bug.evidence) }));
     }
     return { status: report.status, report };
   } catch (err) {
