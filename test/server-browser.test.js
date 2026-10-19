@@ -153,6 +153,10 @@ test("all Copilot QA modes share the local preflight, prompt, permission and evi
     assert.equal(target.identity, require("url").pathToFileURL(url).href);
     assert.equal(target.effectiveUrl, browserUrl);
     assert.ok(fs.readFileSync(run.file(`${promptId}.md`), "utf8").includes(`URL: ${url}`));
+    const html = fs.readFileSync(run.file("report.html"), "utf8");
+    assert.match(html, />PASS<\/span>/);
+    assert.match(html, /<h2 id="tests-title">Test areas/);
+    assert.ok(html.includes(target.identity));
     await assert.rejects(fetch(browserUrl));
   }
 });
@@ -163,8 +167,12 @@ test("blocked, failed and timed-out local agent runs release their temporary ser
   const url = path.join(directory, "index.html");
   fs.writeFileSync(url, "<title>Fixture</title>");
   for (const mode of ["preflight-blocked", "spawn-error", "no-evidence", "timeout"]) {
-    const { messages, browserUrl } = await routeFixture(t, mode, { url });
+    const { run, messages, browserUrl } = await routeFixture(t, mode, { url });
     assert.match(messages.at(-1).data, /BLOCKED/);
+    const html = fs.readFileSync(run.file("report.html"), "utf8");
+    assert.match(html, />N\/A<\/span>/);
+    assert.match(html, /Evidence validation: <strong>BLOCKED/);
+    assert.match(html, /<h2 id="bugs-title">Bugs found/);
     await assert.rejects(fetch(browserUrl));
   }
 });
@@ -185,13 +193,16 @@ test("local Browser Check closes on disconnect and cannot accept success after t
   const url = path.join(directory, "index.html");
   fs.writeFileSync(url, "<title>Fixture</title>");
   for (const mode of ["disconnect", "browser-timeout"]) {
-    const { browserUrl, killed, invocation, messages } = await routeFixture(t, mode, { url, promptId: "browser-check" });
+    const { run, browserUrl, killed, invocation, messages } = await routeFixture(t, mode, { url, promptId: "browser-check" });
     assert.equal(killed, true);
     assert.equal(invocation.options.env.QA_TARGET_IDENTITY, require("url").pathToFileURL(url).href);
     await assert.rejects(fetch(browserUrl));
     if (mode === "browser-timeout") {
       assert.match(messages.map((message) => message.data).join(""), /Timed out.*FAILED/s);
       assert.doesNotMatch(messages.map((message) => message.data).join(""), /PASSED/);
+      const html = fs.readFileSync(run.file("report.html"), "utf8");
+      assert.match(html, />N\/A<\/span>/);
+      assert.doesNotMatch(html, />PASS<\/span>/);
     }
   }
 });
@@ -226,6 +237,20 @@ test("real Browser Check API keeps file identity and serves only generated artif
   assert.ok(result.screenshot.startsWith(runDirectory + path.sep));
   assert.ok(fs.readFileSync(path.join(runDirectory, "browser-check.md"), "utf8").includes(`URL: ${file}`));
   assert.equal(fs.existsSync(path.join(runDirectory, "original page.html")), false);
+  const reportUrl = `${base}/results/${pageSlug(identity)}/${runs[0]}/report.html`;
+  const reportResponse = await fetch(reportUrl);
+  assert.equal(reportResponse.headers.get("content-security-policy"), "sandbox");
+  const html = await reportResponse.text();
+  assert.match(html, />PASS<\/span>/);
+  assert.match(html, /API JavaScript/);
+  assert.match(html, /<h3>Accessibility<\/h3>/);
+  assert.match(html, /<dt>Total duration<\/dt><dd>\d+ ms/);
+  const alias = await fetch(reportUrl.replace("report.html", "browser-check.html"));
+  assert.equal(await alias.text(), html);
+  const reports = await (await fetch(`${base}/api/results`)).json();
+  assert.equal(reports.filter((report) => report.path.includes(`/${runs[0]}/`)).length, 1);
+  fs.writeFileSync(path.join(runDirectory, "supplement.html"), "<p>Supplemental artifact</p>");
+  assert.equal(await (await fetch(reportUrl.replace("report.html", "supplement.html"))).text(), "<p>Supplemental artifact</p>");
   await assert.rejects(fetch(result.effectiveUrl));
   assert.equal((await fetch(`${base}/results/${pageSlug(identity)}/${runs[0]}/private.json`)).status, 404);
 });
@@ -279,6 +304,13 @@ test("curl permission, network and transcript diagnostics are reported without c
   assert.match(diagnostics.entries[0].detail, /path verification: .*\/opt\/qa-outside$/);
   assert.match(messages.at(-1).data, /Browser evidence validated: PASS\. Command diagnostics: 1 permission-denied, 1 network-error\./);
   assert.ok(messages.some((message) => /Browser preflight PASS\. curl: /.test(message.data)));
+  const html = fs.readFileSync(run.file("report.html"), "utf8");
+  assert.match(html, />PASS<\/span>/);
+  assert.match(html, /permission-denied/);
+  assert.match(html, /network-error/);
+  assert.match(html, /path verification/);
+  assert.match(html, /curl https|curl -sS https/);
+  assert.ok(html.indexOf('id="diagnostics-title"') < html.indexOf('id="bugs-title"'));
 });
 
 test("CLI exit zero without recorded browser evidence is BLOCKED", async (t) => {

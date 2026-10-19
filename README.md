@@ -147,7 +147,7 @@ node browser-check.js "/home/me/demo site/index.html"
 node browser-check.js "file:///home/me/demo%20site/index.html"
 ```
 
-JSON results go to stdout and progress to stderr; a Markdown report, JSON, and log
+JSON results go to stdout and progress to stderr; an HTML report, Markdown, JSON, and log
 are also saved in the run directory. `--screenshot` adds a screenshot; its argument
 supplies only the filename, so even an absolute path stays inside that run directory.
 
@@ -184,6 +184,38 @@ Agent runs have a 15-minute deadline. Copilot's built-in URL tools are approved
 only for the target origin; other domains may require CLI approval (see curl below).
 The server allows two active runs and five run requests per client per minute;
 excess requests receive HTTP 429.
+
+### Standard run reports
+
+Every completed Browser Check (UI or CLI) and Copilot run, including blocked runs,
+saves a self-contained `report.html` in its run directory. The report includes:
+
+- A summary with the tested URL, recorded page title, UTC start/end times, total
+  duration, check/bug counts, and a text-labelled **PASS**, **FAIL**, or **N/A** badge.
+  Missing metadata is shown as **Not recorded**. Only HTTP(S) URLs are clickable;
+  local file identities remain text.
+- Test areas derived from actual checks, with a bullet per check labelled **Pass**,
+  **Fail**, or **Not tested**, plus recorded details, reasons, and evidence.
+- Command diagnostics, artifact links, and complete recorded results/output.
+  Unvalidated agent commentary is never used to determine success.
+- A final bug table showing description, location, area, and severity, ordered
+  Critical → High → Medium → Low → Informational → Unknown. Failed product checks
+  without separate bug records become findings with **Unknown** severity; screenshot
+  capture failures are not product bugs.
+
+No accepted executed checks means **N/A**, not PASS. Agent evidence validation
+retains its **BLOCKED** diagnostic; unaccepted checks are displayed as **Not tested**.
+Command failures remain visible without overriding the validated browser verdict.
+Reports use inline CSS, responsive tables, and print styles with no external assets.
+Markdown, JSON, logs, screenshots, and transcripts remain available unchanged.
+Older Markdown-only reports retain their full text but show **N/A** rather than
+guessing structured outcomes or timing from prose or file timestamps.
+
+Agents are asked to record a page `title` and a `name` and `area` per check in
+`agent-result.json`. An optional `bugs` array records distinct findings with
+`title`/`description`, `page`/`section`/`element`/`selector`/`location`, `area`,
+and optional `severity`. Each bug must cite the `evidence` ID of a FAIL check;
+unsupported bug records block validation. Missing severity is never guessed.
 
 ### curl in Copilot runs
 

@@ -239,5 +239,10 @@ test("standalone CLI resolves relative local targets independently of cwd and gr
   assert.equal(result.title, "Local JavaScript executed");
   assert.ok(fs.existsSync(result.screenshot));
   assert.ok(result.screenshot.startsWith(pageDirectory + path.sep));
+  const html = fs.readFileSync(path.join(path.dirname(result.screenshot), "report.html"), "utf8");
+  assert.match(html, />PASS<\/span>/);
+  assert.match(html, /Local JavaScript executed/);
+  assert.match(html, /<h2 id="tests-title">Test areas/);
+  assert.match(html, /<h2 id="bugs-title">Bugs found/);
   await assert.rejects(fetch(result.effectiveUrl));
 });

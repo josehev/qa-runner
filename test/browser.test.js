@@ -187,6 +187,14 @@ test("statuses, observed excerpts, target navigation and interactions must agree
   };
   assert.equal(validate({ status: "PASS", checks }).status, "PASS");
   assert.equal(validate({ status: "FAIL", checks: [checks[0], { ...checks[1], status: "FAIL" }] }).status, "FAIL");
+  const failedChecks = [checks[0], { ...checks[1], status: "FAIL", area: "Design", name: "Layout" }];
+  assert.equal(validate({ status: "FAIL", checks: failedChecks, bugs: [
+    { title: "Layout defect", area: "Design", location: "Hero", evidence: 2 },
+  ] }).status, "FAIL");
+  for (const bugs of [
+    [{ title: "Unsupported", evidence: 1 }], [{ title: "Missing evidence" }], [null], "not an array",
+  ]) assert.match(validate({ status: "FAIL", checks: failedChecks, bugs }).error, /Each bug must cite/);
+  assert.equal(validate({ status: "PASS", checks, bugs: [{ title: "Contradiction", evidence: 2 }] }).status, "BLOCKED");
   for (const report of [
     { status: "PASS", checks: [checks[0]] },
     { status: "PASS", checks: [checks[1]] },
