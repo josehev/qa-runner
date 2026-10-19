@@ -24,7 +24,7 @@ function startFixture() {
         return res.end();
       }
       const status = Number(req.url.match(/^\/status\/(\d+)/)?.[1] || 200);
-      res.writeHead(status, { "Content-Type": "text/html", "Set-Cookie": "qa=1; Path=/" });
+      res.writeHead(status, { "Content-Type": "text/plain", "X-Content-Type-Options": "nosniff", "Set-Cookie": "qa=1; Path=/" });
       res.end(req.method === "HEAD" ? undefined
         : `<html><title>QA-FIXTURE</title>${req.method} ${req.url} ${req.headers["content-type"] || ""} ${body.length}</html>\n`);
     });
