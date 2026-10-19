@@ -166,6 +166,12 @@ Failure blocks the run rather than falling back to static analysis.
 
 Copilot must write `agent-result.json` with checks citing matching evidence IDs
 and exact observed excerpts from recorded tool responses in `agent-browser.jsonl`.
+Evidence IDs may be positive integers or their decimal strings (`1` or `"1"`).
+Before writing results, the agent reads that transcript and copies each record's
+`tool` as `action`, `id` as `evidence`, and a verbatim excerpt of `text` as
+`observed` (excluding the echoed Playwright code). Missing IDs, mismatched tools,
+and non-verbatim excerpts produce distinct diagnostics; do not bypass validation
+or use preflight IDs to repair a blocked report.
 The runner requires target navigation and a real interaction; preflight alone
 does not count as agent testing. Missing or invalid evidence blocks the result.
 The report separates validated checks from unvalidated agent commentary, and

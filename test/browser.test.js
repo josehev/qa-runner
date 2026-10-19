@@ -108,6 +108,8 @@ test("MCP configuration is pinned locally, headless, isolated and run-specific",
   assert.equal(config.env.QA_ARTIFACT_DIR, run.directory);
   assert.match(browserInstructions(run), /BLOCKED: browser environment unavailable/);
   assert.match(browserInstructions(run), /QA evidence ID/);
+  assert.ok(browserInstructions(run).includes(JSON.stringify(run.file("agent-browser.jsonl"))));
+  assert.match(browserInstructions(run), /observed verbatim/);
 });
 
 test("real Chromium launch, JavaScript and navigation capture evidence through agent MCP wrapper", async (t) => {
@@ -149,8 +151,8 @@ test("agent-facing MCP discovers browser tools and records real form interaction
   fs.writeFileSync(run.file("agent-result.json"), JSON.stringify({
     status: "PASS",
     checks: [
-      { status: "PASS", action: nav.tool, evidence: nav.id, observed: "Browser regression" },
-      { status: "PASS", action: click.tool, evidence: click.id, observed: "Browser regression" },
+      { status: "PASS", action: nav.tool, evidence: String(nav.id), observed: "Browser regression" },
+      { status: "PASS", action: click.tool, evidence: String(click.id), observed: "Browser regression" },
       { status: "NOT TESTED", reason: "Manual screen-reader checks require a human" },
     ],
   }));
@@ -192,7 +194,9 @@ test("statuses, observed excerpts, target navigation and interactions must agree
     { title: "Layout defect", area: "Design", location: "Hero", evidence: 2 },
   ] }).status, "FAIL");
   for (const bugs of [
-    [{ title: "Unsupported", evidence: 1 }], [{ title: "Missing evidence" }], [null], "not an array",
+    [{ title: "Unsupported", evidence: 1 }], [{ title: "Missing evidence" }],
+    ...[null, true, [2], "02", "2.0", "2e0", " 2 ", "3"].map((evidence) => [{ title: "Invalid reference", evidence }]),
+    [null], "not an array",
   ]) assert.match(validate({ status: "FAIL", checks: failedChecks, bugs }).error, /Each bug must cite/);
   assert.equal(validate({ status: "PASS", checks, bugs: [{ title: "Contradiction", evidence: 2 }] }).status, "BLOCKED");
   for (const report of [
@@ -230,4 +234,56 @@ test("agent-authored code echoes cannot substitute for observed browser results"
     ],
   }));
   assert.match(validateAgentEvidence(run, url, 0).error, /Unsupported browser claim/);
+});
+
+test("decimal string evidence IDs validate and normalize checks and bugs consistently", (t) => {
+  const url = "https://example.com/";
+  const run = runFixture(t);
+  const records = [
+    { id: 3, tool: "browser_navigate", arguments: { url }, text: "Page Title: Fixture" },
+    { id: 7, tool: "browser_click", text: "Button did not respond" },
+  ];
+  fs.writeFileSync(run.file("agent-browser.jsonl"), records.map((record) => JSON.stringify(record)).join("\n"));
+  for (const [checkId, bugId] of [["7", 7], [7, "7"], ["7", "7"]]) {
+    fs.writeFileSync(run.file("agent-result.json"), JSON.stringify({
+      status: "FAIL", checks: [
+        { status: "PASS", action: "browser_navigate", evidence: "3", observed: "Fixture" },
+        { status: "FAIL", action: "browser_click", evidence: checkId, observed: "Button did not respond" },
+      ], bugs: [{ title: "Unresponsive button", evidence: bugId }],
+    }));
+    const validation = validateAgentEvidence(run, url, 0);
+    assert.equal(validation.status, "FAIL", validation.error);
+    assert.deepEqual(validation.report.checks.map((check) => check.evidence), [3, 7]);
+    assert.equal(validation.report.bugs[0].evidence, 7);
+    const model = require("../report").normalizeReport({ mode: "agent", validation });
+    assert.deepEqual(model.counts, { pass: 1, fail: 1, notTested: 0 });
+    assert.equal(model.bugs.length, 1);
+  }
+});
+
+test("invalid evidence references stay blocked with specific diagnostics", (t) => {
+  const url = "https://example.com/";
+  const run = runFixture(t);
+  fs.writeFileSync(run.file("agent-browser.jsonl"), JSON.stringify({
+    id: 1, tool: "browser_navigate", arguments: { url }, text: "Page Title: Fixture",
+  }) + "\n");
+  const check = { status: "PASS", action: "browser_navigate", evidence: "1", observed: "Fixture" };
+  const validate = (changes) => {
+    fs.writeFileSync(run.file("agent-result.json"), JSON.stringify({
+      status: "PASS", checks: [{ ...check, ...changes }],
+    }));
+    return validateAgentEvidence(run, url, 0);
+  };
+  for (const evidence of [null, true, false, [], [1], {}, "", " ", "01", "1.0", "1e0", "0x1", " 1 ", 0, -1, 1.5, "9007199254740993"]) {
+    const result = validate({ evidence });
+    assert.equal(result.status, "BLOCKED", JSON.stringify(evidence));
+    assert.match(result.error, /evidence must be a positive integer ID/);
+  }
+  assert.match(validate({ evidence: "2" }).error, /evidence ID not found/);
+  assert.match(validate({ action: "browser_click" }).error, /recorded tool is browser_navigate/);
+  assert.match(validate({ observed: "Page loaded successfully" }).error, /observed must be an exact excerpt/);
+  fs.writeFileSync(run.file("agent-browser.jsonl"), JSON.stringify({
+    id: 1, tool: "browser_navigate", arguments: { url }, text: "net::ERR_CONNECTION_REFUSED", isError: true,
+  }) + "\n");
+  assert.match(validate({}).error, /Browser tool unavailable or failed: browser_navigate.*ERR_CONNECTION_REFUSED/);
 });
