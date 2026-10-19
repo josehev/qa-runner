@@ -180,9 +180,63 @@ The report separates validated checks from unvalidated agent commentary, and
 
 Evidence validation confirms recorded execution, not the completeness of an audit,
 and is not a security boundary against an agent with filesystem access.
-Agent runs have a 15-minute deadline. Extra domains may require CLI approval.
+Agent runs have a 15-minute deadline. Copilot's built-in URL tools are approved
+only for the target origin; other domains may require CLI approval (see curl below).
 The server allows two active runs and five run requests per client per minute;
 excess requests receive HTTP 429.
+
+### curl in Copilot runs
+
+Copilot runs are noninteractive (`copilot -p`), so any action that needs approval
+is denied with "Permission denied … no interactive user response was available"
+(older CLIs: "could not request permission from user"). This is an application
+prompt, not an OS, network, or sandbox error. Shell tools, including curl, were
+already approved by `--allow-all-tools`; historical curl denials came from the
+CLI's **path** check, which auto-approves only the working directory
+(`QA_WORKSPACE`) and the system temp directory. Commands such as `cd /tmp && curl`,
+`curl -o /tmp/page.html`, or `wc -l /tmp/page.html` were denied on macOS, where the
+temp directory is `$TMPDIR` (`/var/folders/…`), not `/tmp`. Run directories outside
+the workspace were denied the same way.
+
+Each run now passes `--add-dir <run directory>` and tells the agent to keep curl
+downloads, upload sources, header dumps, cookie jars, and scratch files there
+using absolute paths. Within that directory, curl may use any argument order,
+quoted URLs, redirects (`-L`), HEAD/GET or explicit methods (`-X`), headers and
+auth (`-H`, `-A`, `-u`, cookies), request bodies, multipart or `-T` uploads,
+downloads, `-w` status output, and compositions such as `cd <run dir> && curl`
+or `curl … | grep`. Only that one directory is added; no `--allow-all`, `--yolo`,
+`--allow-all-paths`, `--allow-all-urls`, or shell allow rules are used. Approval
+is not substring-based: commands that merely mention curl, or curl compositions
+that touch other paths (`; touch /elsewhere`, `$(…)`, `> /elsewhere`), still
+need approval and are denied. Shell curl URLs are not limited by `--allow-url`
+under `--allow-all-tools`, so external linked resources work as before.
+
+Security: the agent can send state-changing requests (POST/PUT/PATCH/DELETE,
+uploads) to any reachable host and write downloaded content into the run
+directory. The prompt limits these requests to the target and to tests that
+permit safe submissions; this is guidance, not enforcement. Run QA only against
+targets you are authorized to test, and do not point it at production systems
+with destructive endpoints. The CLI may load agent or skill files from added
+directories, so do not place untrusted `.github` content in run directories.
+
+Diagnostics: the server checks `curl --version` before each run, records the
+session transcript in `copilot-session.txt` (`--share`), and writes
+`command-diagnostics.json` plus a **Command diagnostics** report section. It
+separates `permission-denied`, `curl-missing`, `network-error`, `http-error`
+(`--fail`), and `sandbox-restricted` failures, with the denied path when it can
+be identified. These commands are not PASS evidence and do not change the
+validated status; the agent is told to report them as BLOCKED or NOT TESTED.
+
+Limitations: CLI path checks are heuristic (for example, unresolved `$VARS` are
+not checked) and are not a security boundary. A sandbox, OS policy, proxy,
+firewall, or DNS can still block curl. The CLI's command safety analysis may
+still ask for approval for some high-risk commands. The transcript is not written
+when a run times out or is killed. None of this guarantees coverage of every
+scenario.
+
+`npm test` includes an opt-in check against the real Copilot CLI that uses a
+scripted local model and local HTTP fixtures (no GitHub authentication):
+`QA_TEST_COPILOT_BIN=/path/to/copilot npm test`. It is skipped without that variable.
 
 ## Reports and artifacts
 

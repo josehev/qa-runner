@@ -9,6 +9,9 @@ const { RESULTS, createArtifactRun, resultUrl, listReports, resolveResult, legac
 const { browserPreflight } = require("./browser-preflight");
 const { agentMcpConfig } = require("./browser-mcp");
 const { browserInstructions, validateAgentEvidence, evidenceMarkdown } = require("./browser-evidence");
+const {
+  SESSION_TRANSCRIPT, agentCliArgs, checkCurl, curlInstructions, commandDiagnostics, diagnosticsMarkdown, diagnosticsSummary,
+} = require("./agent-permissions");
 
 const app = express();
 const PORT = 4545;
@@ -265,6 +268,8 @@ app.get("/api/run", runRateLimit, (req, res, next) => {
 
   if (p.type === "playwright") return runBrowserCheck(p, url, req, res, send, run, target);
 
+  const curl = await checkCurl();
+  if (disconnected) return;
   send("start", `▶ ${p.name} on ${url}\nBrowser preflight…\n`);
   const preflight = await browserPreflight(browserUrl, run);
   if (disconnected) return;
@@ -278,16 +283,16 @@ app.get("/api/run", runRateLimit, (req, res, next) => {
     (target.filePath ? "\n\nThis is a local static HTML preview, not a production web server. Backend endpoints and production HTTPS behavior are not provided; report unavailable checks as NOT TESTED with a reason." : "") +
     `\n\n${p.browserSteps || ""}` +
     `\n\nSave ALL files generated during this QA run (reports, screenshots, logs, scripts, downloads, and temporary files) only in ${JSON.stringify(run.directory)}. Use absolute paths; do not write artifacts in the workspace root or other report folders. QA_ARTIFACT_DIR is set to this directory.` +
-    browserInstructions(run);
+    browserInstructions(run) +
+    curlInstructions(run, curl);
   const args = [
   "-p", fullPrompt,
-  "--allow-all-tools",
-  `--allow-url=${new URL(browserUrl).origin}`,
+  ...agentCliArgs(run, browserUrl),
   "--additional-mcp-config", `@${agentMcpConfig(run)}`
 ];
  if (p.agent) args.push("--agent", p.agent);
 
-  send("out", "Browser preflight PASS. Starting browser-backed agent…\n");
+  send("out", `Browser preflight PASS. curl: ${curl.available ? curl.version : curl.error}.\nStarting browser-backed agent…\n`);
   const child = spawn(COPILOT_BIN, args, {
     cwd: WORKSPACE, shell: false,
     detached: process.platform !== "win32",
@@ -327,12 +332,16 @@ child.on("error", (err) => {
     const mdFile = run.file(`${p.id}.md`);
     const summary = validation.error || `Browser evidence validated: ${validation.status}`;
     fs.writeFileSync(run.file("evidence-validation.json"), JSON.stringify(validation, null, 2));
-    const content = `# ${p.name}\nURL: ${url}\n\n**Overall: ${validation.status}**\n${evidenceMarkdown(validation, run)}\n\n## Unvalidated agent output (not accepted as test results)\n${log}`;
+    const transcript = fs.existsSync(run.file(SESSION_TRANSCRIPT)) ? fs.readFileSync(run.file(SESSION_TRANSCRIPT), "utf8") : null;
+    const diagnostics = commandDiagnostics({ log, transcript, run, workspace: WORKSPACE, curl });
+    fs.writeFileSync(run.file("command-diagnostics.json"), JSON.stringify(diagnostics, null, 2));
+    const content = `# ${p.name}\nURL: ${url}\n\n**Overall: ${validation.status}**\n${evidenceMarkdown(validation, run)}\n\n${diagnosticsMarkdown(diagnostics)}\n\n## Unvalidated agent output (not accepted as test results)\n${log}`;
     fs.writeFileSync(run.file(`${p.id}.log`), log);
     fs.writeFileSync(mdFile, content);
     
     const htmlFile = run.publicPath(`${p.id}.html`);
-    send("end", `\n${summary}. <a href="${htmlFile}" target="_blank">View full report →</a>`);
+    const commandSummary = diagnosticsSummary(diagnostics);
+    send("end", `\n${summary}.${commandSummary ? ` ${commandSummary}` : ""} <a href="${htmlFile}" target="_blank">View full report →</a>`);
     res.end();
   };
   child.on("close", finish);

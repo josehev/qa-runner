@@ -61,7 +61,20 @@ async function routeFixture(t, mode, { url = `https://example.com/server-browser
               return;
             }
             child.stdout.write("Agent claims all checks passed\n");
-            if (mode === "evidence") {
+            if (mode === "diagnostics") {
+              child.stdout.write([
+                "✗ Save page (shell)", "  │ cd /opt/qa-outside && curl -s https://example.com -o page.html",
+                "  └ Permission denied because no interactive user response was available. Retry in an interactive",
+                "● Check API (shell)", "  │ curl -sS https://api.invalid/status", "  └ 2 lines…", "",
+              ].join("\n"));
+              fs.writeFileSync(args[args.indexOf("--share") + 1], [
+                "### `bash` — Failed", "", "$ cd /opt/qa-outside && curl -s https://example.com -o page.html", "",
+                "```", "Permission denied because no interactive user response was available.", "```", "", "---",
+                "### `bash`", "", "$ curl -sS https://api.invalid/status", "",
+                "```", "curl: (6) Could not resolve host: api.invalid", "<exited with exit code 6>", "```", "",
+              ].join("\n"));
+            }
+            if (mode === "evidence" || mode === "diagnostics") {
               fs.writeFileSync(path.join(directory, "agent-browser.jsonl"), [
                 { id: 1, tool: "browser_navigate", arguments: { url: browserUrl }, text: "Page Title: Fixture", isError: false },
                 { id: 2, tool: "browser_press_key", arguments: { key: "Tab" }, text: "Focused button", isError: false },
@@ -124,8 +137,15 @@ test("all Copilot QA modes share the local preflight, prompt, permission and evi
     const { run, invocation, messages, browserUrl } = await routeFixture(t, "evidence", { url, promptId });
     assert.match(browserUrl, /^http:\/\/127\.0\.0\.1:\d+\//);
     assert.ok(invocation.args.includes(`--allow-url=${new URL(browserUrl).origin}`));
+    assert.equal(invocation.args[invocation.args.indexOf("--add-dir") + 1], run.directory);
+    assert.equal(invocation.args[invocation.args.indexOf("--share") + 1], run.file("copilot-session.txt"));
+    for (const broad of ["--allow-all", "--yolo", "--allow-all-paths", "--allow-all-urls"]) assert.ok(!invocation.args.includes(broad));
+    assert.ok(!invocation.args.some((arg) => arg.startsWith("--allow-tool")));
+    assert.equal(invocation.args.filter((arg) => arg === "--add-dir").length, 1);
     const prompt = invocation.args[invocation.args.indexOf("-p") + 1];
     assert.ok(prompt.includes(browserUrl));
+    assert.match(prompt, /Shell HTTP checks with curl are permitted in this run/);
+    assert.ok(prompt.includes(JSON.stringify(path.join(run.directory, "page.html"))));
     assert.match(prompt, /local static HTML preview/);
     assert.match(messages.at(-1).data, /Browser evidence validated: PASS/);
     const target = JSON.parse(fs.readFileSync(run.file("target.json"), "utf8"));
@@ -247,6 +267,18 @@ test("server passes run-specific MCP, target URL permission and mandatory intera
   assert.match(messages.at(-1).data, /Browser evidence validated: PASS/);
   assert.match(fs.readFileSync(run.file("smoke.md"), "utf8"), /PASS: browser_press_key/);
   assert.match(fs.readFileSync(run.file("smoke.md"), "utf8"), /Unvalidated agent output/);
+});
+
+test("curl permission, network and transcript diagnostics are reported without changing validated status", async (t) => {
+  const { run, messages } = await routeFixture(t, "diagnostics");
+  const report = fs.readFileSync(run.file("smoke.md"), "utf8");
+  assert.match(report, /\*\*Overall: PASS\*\*/);
+  assert.match(report, /## Command diagnostics[\s\S]*PERMISSION-DENIED[\s\S]*NETWORK-ERROR[\s\S]*## Unvalidated agent output/);
+  const diagnostics = JSON.parse(fs.readFileSync(run.file("command-diagnostics.json"), "utf8"));
+  assert.deepEqual(diagnostics.counts, { "permission-denied": 1, "network-error": 1 });
+  assert.match(diagnostics.entries[0].detail, /path verification: .*\/opt\/qa-outside$/);
+  assert.match(messages.at(-1).data, /Browser evidence validated: PASS\. Command diagnostics: 1 permission-denied, 1 network-error\./);
+  assert.ok(messages.some((message) => /Browser preflight PASS\. curl: /.test(message.data)));
 });
 
 test("CLI exit zero without recorded browser evidence is BLOCKED", async (t) => {
