@@ -46,7 +46,7 @@ or browser-backed Copilot QA tests, and saves reports, logs, and screenshots for
    ```
 
    In the interactive CLI, enter `/login` and follow the prompts, then exit the CLI.
-   Skip this step if you only need **Browser Check** or the repository test suite.
+   Skip this step if you only need **Browser Check**, **Smoke test**, or the repository test suite.
 
 4. Verify the installation, then start the local server:
 
@@ -65,8 +65,8 @@ or browser-backed Copilot QA tests, and saves reports, logs, and screenshots for
 Open http://localhost:4545, choose a test, enter an `http://` or `https://` URL
 or a local `.html`/`.htm` file path (see below),
 and click **Run Test**. Watch **Test Output**, then open the report under
-**Recent Results**. Start with **Browser Check** to verify browser setup; after
-authenticating Copilot, run a **Smoke test** to verify the agent workflow too.
+**Recent Results**. Start with **Browser Check** to verify browser setup, or
+**Smoke test** for the fixed baseline below. Neither requires Copilot authentication.
 
 Use this only on a trusted local machine and test sites you are authorized to access.
 Do not expose the server publicly: it opens supplied URLs and Copilot runs allow tools.
@@ -151,11 +151,55 @@ JSON results go to stdout and progress to stderr; an HTML report, Markdown, JSON
 are also saved in the run directory. `--screenshot` adds a screenshot; its argument
 supplies only the filename, so even an absolute path stays inside that run directory.
 
+## Smoke test: fixed, versioned baseline
+
+Smoke is a deterministic Playwright/axe audit, **not an agent-generated checklist**.
+`smoke-contract.js` defines the version, stable check IDs, groups, criteria and expected
+evidence consumed by both collection and rendering. Every expected check appears on
+every run, including blocked and partial runs. Missing evidence is **NOT TESTED**, never
+PASS. **REVIEW/PARTIAL** means recorded evidence still needs judgment, and **NOT
+APPLICABLE** requires an observed reason. Zero axe violations is not WCAG compliance.
+
+The same seven groups run each time:
+
+1. Accessibility: keyboard/skip link, 40-step Tab walk, focus styles and screenshots,
+   axe WCAG 2.0/2.1 A/AA and best practices, landmarks/ARIA, alt, contrast, form labels.
+2. Design/UI/responsive: exactly **1920×1080, 1366×768, 768×1024, 375×812**;
+   load plus full scroll, overflow, lab CLS session windows, light/dark and menu evidence.
+3. Links/media/assets: unique resolved HTTP(S) anchors, malformed hrefs, bounded link
+   requests, redirects/errors, footer inventory, request failures and image observations.
+4. JavaScript/console: warnings, errors and page exceptions at all four viewports,
+   safe menu response; unexercised widgets and validation states remain explicit.
+5. Core functionality: protocol/status/headers/canonical; unsafe or unapproved journeys
+   (search submissions, login/MFA, session state, intrusive/long/emoji inputs) stay NOT TESTED.
+6. Content/copy: rendered placeholder candidates and contextual copy/heading/footer review.
+7. Frontend practices: semantic/visible headings, metadata/social inventories, HTTPS,
+   link rel attributes, headers and contextual cookie observations.
+
+Real screen-reader announcements, assistive technology, real devices, visual judgment,
+authentication and form submissions are not automatically verified. Missing or disabled
+widgets are distinguished from exercised widgets. No auth/MFA credentials, state-changing
+submissions, or intrusive payloads are sent. Only audit sites you are authorized to access;
+even GET requests and page scripts can have side effects. Network/browser failures identify
+affected checks and the access or installation needed; no blanket permission is added.
+
+```bash
+node smoke-check.js https://example.com
+node smoke-check.js "./demo site/index.html"
+```
+
+Results and raw browser observations are isolated per run: `audit.json`, `headers.txt`,
+`page.html`, `link-sweep.txt`, and successful screenshots. Tool versions and dates come
+from the actual runtime. Unsupported CLS is **not measured**, not a fabricated zero;
+measured values describe the captured headless lab session, not field Core Web Vitals.
+Review alt descriptions, gradient/axe-incomplete contrast, visual focus alternatives,
+and best-practice observations in context rather than treating them as WCAG failures.
+
 ## Browser-backed Copilot tests
 
-**Smoke test**, **Accessibility audit**, and **Form validation** use Copilot CLI
+**Accessibility audit** and **Form validation** use Copilot CLI
 with the `qa-agent` and Playwright MCP browser tools to navigate, inspect, and
-interact with the target. Unlike Browser Check, these are agent-driven audits,
+interact with the target. Unlike Browser Check and Smoke, these are agent-driven audits,
 not a fixed list of deterministic checks.
 
 The runner supplies its own recorded MCP configuration, using headless Chromium
@@ -193,21 +237,22 @@ excess requests receive HTTP 429.
 
 ### Standard run reports
 
-Every completed Browser Check (UI or CLI) and Copilot run, including blocked runs,
-saves a self-contained `report.html` in its run directory. The report includes:
+Every completed Browser Check, Smoke (UI or CLI) and Copilot run, including blocked
+runs, saves **`qa-report.html`**, with identical **`report.html`** for existing links.
+Recent Results lists one report per run, not the alias or captured `page.html`.
+The shared compact, printable report always uses this order:
 
-- A summary with the tested URL, recorded page title, UTC start/end times, total
-  duration, check/bug counts, and a text-labelled **PASS**, **FAIL**, or **N/A** badge.
-  Missing metadata is shown as **Not recorded**. Only HTTP(S) URLs are clickable;
-  local file identities remain text.
-- Test areas derived from actual checks, with a bullet per check labelled **Pass**,
-  **Fail**, or **Not tested**, plus recorded details, reasons, and evidence.
-- Command diagnostics, artifact links, and complete recorded results/output.
-  Unvalidated agent commentary is never used to determine success.
-- A final bug table showing description, location, area, and severity, ordered
-  Critical → High → Medium → Low → Informational → Unknown. Failed product checks
-  without separate bug records become findings with **Unknown** severity; screenshot
-  capture failures are not product bugs.
+- **QA & Accessibility Audit Report**, metadata (URL, date, measured tools, title,
+  legend, timing and validated outcome).
+- **Executive Summary**, severity-ranked `# | Severity | Finding` table.
+- The seven numbered sections above, including the five accessibility subsections
+  and four-row `Viewport | Horizontal overflow | CLS (page load + scroll) | Result` table.
+  Smoke includes every contract ID with How/Criteria, observations and evidence/reasons.
+  Other modes retain their actual checks and explicitly do not claim Smoke coverage.
+- **Reproduction notes for failures**, **Evidence (same folder)**, and limitations.
+  Only existing files are linked; absent screenshots are not rendered as broken images.
+  Raw results, diagnostics and unvalidated commentary remain available without becoming
+  evidence of execution. No sample URL, finding, count, date or tool version is reused.
 
 No accepted executed checks means **N/A**, not PASS. Agent evidence validation
 retains its **BLOCKED** diagnostic; unaccepted checks are displayed as **Not tested**.
@@ -259,7 +304,7 @@ directories, so do not place untrusted `.github` content in run directories.
 
 Diagnostics: the server checks `curl --version` before each run, records the
 session transcript in `copilot-session.txt` (`--share`), and writes
-`command-diagnostics.json` plus a **Command diagnostics** report section. It
+`command-diagnostics.json` plus unobtrusive command diagnostics in the report. It
 separates `permission-denied`, `curl-missing`, `network-error`, `http-error`
 (`--fail`), and `sandbox-restricted` failures, with the denied path when it can
 be identified. These commands are not PASS evidence and do not change the

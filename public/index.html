@@ -126,7 +126,7 @@
     <div class="card">
       <label for="prompt" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Choose a test:</label>
       <select id="prompt"></select>
-      <!-- <div class="prompt" id="preview"></div> -->
+      <div class="prompt" id="preview"></div>
       
       <label for="url" style="display: block; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; color: #333;">Website or local HTML file to test:</label>
       <input id="url" type="text" placeholder="https://example.com or ./site/index.html" aria-describedby="target-help" />
@@ -185,7 +185,8 @@
   const showPreview = () => {
     const p = prompts.find(x => x.id === $('prompt').value);
     if (p) {
-      const runner = p.type === 'playwright' ? '<strong>Runner:</strong> Playwright (no agent)' : `<strong>Agent:</strong> ${p.agent}`;
+      const runner = p.type === 'smoke' ? '<strong>Runner:</strong> Fixed Smoke baseline — Playwright + axe (no agent)' :
+        p.type === 'playwright' ? '<strong>Runner:</strong> Playwright (no agent)' : `<strong>Agent:</strong> ${p.agent}`;
       $('preview').innerHTML = `${runner}<br><strong>Prompt:</strong> ${p.prompt}`;
     }
   };

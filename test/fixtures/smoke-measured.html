@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Deterministic Smoke evidence fixture">
+  <title>Measured Smoke fixture</title>
+  <style>
+    body { margin: 0; font: 18px sans-serif; color: #111; background: white; }
+    main { padding: 20px; }
+    a, button, input { margin: 8px; }
+    :focus-visible { outline: 4px solid #005fcc; outline-offset: 3px; }
+    .low-contrast { color: #ccc; background: #fff; }
+    .spacer { height: 1600px; }
+    .hidden { display: none; }
+    @media (prefers-color-scheme: dark) { body { color: white; background: #111; } }
+  </style>
+</head>
+<body>
+  <header><a href="#content">Skip to content</a></header>
+  <main id="content">
+    <h1>Measured Smoke fixture</h1>
+    <h1 class="hidden">Hidden heading must not become a visible hierarchy defect</h1>
+    <p class="low-contrast">This deliberately low contrast text must be measured by axe.</p>
+    <img src="/missing-image.png" width="80" height="40">
+    <nav aria-label="Fixture links">
+      <a href="/ok">Working link</a><a href="/ok">Duplicate working link</a>
+      <a href="http://">Malformed HTTP URL</a>
+      <a href="">Empty link intent needs review</a>
+      <a href="/forbidden">Access restricted</a>
+      <a href="/missing">Missing destination</a>
+      <a href="/redirect">Safe redirect</a><a href="/unsafe-redirect">Unsafe redirect not followed</a>
+      <a href="/logout">Unsafe sign out skipped</a>
+      <a href="mailto:test@example.invalid">Email not launched</a>
+    </nav>
+    <form action="/login" method="post">
+      <label for="email">Email</label><input id="email" name="email" type="email" autocomplete="username" required>
+      <label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required>
+      <button type="submit">Sign in</button>
+    </form>
+    <button type="button" disabled aria-expanded="false">Disabled menu</button>
+    <button type="button" id="menu-toggle" aria-controls="safe-menu" aria-expanded="false"
+      onclick="const expanded=this.getAttribute('aria-expanded')==='true';this.setAttribute('aria-expanded',String(!expanded));document.getElementById('safe-menu').hidden=expanded">Navigation menu</button>
+    <nav id="safe-menu" aria-label="Toggle navigation" hidden><a href="/ok">Safe menu destination</a></nav>
+    <div class="spacer"></div>
+    <h2>Scroll evidence</h2>
+    <img src="/missing-lazy.png" width="80" height="40" alt="Lazy failure" loading="lazy">
+  </main>
+  <footer>Fixture footer</footer>
+  <script>
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 0 && !window.didScroll) {
+        window.didScroll = true;
+        console.error("fixture scroll-only console error");
+        console.warn("fixture scroll-only warning");
+        fetch("/scroll-network-failure");
+      }
+    });
+    setTimeout(() => {
+      const banner = document.createElement("div");
+      banner.style.height = "90px";
+      banner.textContent = "Late layout shift";
+      document.body.prepend(banner);
+    }, 120);
+  </script>
+</body>
+</html>
