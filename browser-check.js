@@ -6,6 +6,7 @@
 const fs = require("fs");
 const { createArtifactRun } = require("./artifacts");
 const { validateUrl, resolveTarget, prepareTarget } = require("./targets");
+const { writeReport } = require("./report");
 
 const NAVIGATION_TIMEOUT = 15000;
 const MAX_SAMPLES = 20;
@@ -125,6 +126,7 @@ async function runBrowserCheck(url, { screenshotPath, artifactDirectory, targetI
   }
   result.passed = !result.error && result.checks.every((c) => c.status === "passed");
   result.durationMs = Date.now() - startedAt.getTime();
+  result.endedAt = new Date().toISOString();
   return result;
 }
 
@@ -181,6 +183,7 @@ if (require.main === module) {
       fs.writeFileSync(run.file("browser-check.log"), log);
       fs.writeFileSync(run.file("browser-check.md"),
         `# Browser Check\nURL: ${url}\n\n${toMarkdown(result, result.screenshot ? run.publicPath(screenshotPath) : null)}\n`);
+      writeReport(run, { name: "Browser Check", result, details: log });
       return result;
     });
   })

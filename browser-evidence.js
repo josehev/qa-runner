@@ -18,8 +18,15 @@ Each tool response includes a QA evidence ID. Cite these IDs and exact excerpts 
 the observed result, page state, or console response, not the "Ran Playwright code"
 section, invented actions/results, or planned test steps.
 Write ${JSON.stringify(run.file("agent-result.json"))} with this JSON structure:
-{"status":"PASS","checks":[{"status":"PASS","action":"browser_navigate","evidence":1,
+{"status":"PASS","title":"actual document title","checks":[{"name":"Page loads","area":"Page loading","status":"PASS","action":"browser_navigate","evidence":1,
 "observed":"exact excerpt from this tool's response","detail":"what was verified"}]}
+Use a specific name and area for each actual check (for example Accessibility,
+Design, or Form validation only when tested); do not invent checks or page metadata.
+For defects, add a bugs array with one object per distinct observed bug:
+{"title":"description","location":"page/section/element","selector":"if known",
+"area":"area of the failed check","severity":"Critical/High/Medium/Low/Informational",
+"evidence":2}. Each bug must cite the evidence ID of a FAIL check.
+Omit severity when unknown. Do not list blocked or unexecuted checks as bugs.
 Add a check for navigation and at least one actual interaction. Each PASS/FAIL check
 must name the browser tool, its evidence ID, and a nonempty exact observed excerpt.
 Use FAIL for observed product defects; NOT TESTED only for intentionally untested
@@ -70,6 +77,10 @@ function validateAgentEvidence(run, url, exitCode) {
     }
     if (report.status === "FAIL" && !report.checks.some((check) => check.status === "FAIL")) {
       throw new Error("Overall FAIL requires an observed failed check");
+    }
+    if (report.bugs !== undefined && (!Array.isArray(report.bugs) || report.bugs.some((bug) =>
+      !bug || !report.checks.some((check) => check.status === "FAIL" && check.evidence === bug.evidence)))) {
+      throw new Error("Each bug must cite an evidence-backed FAIL check");
     }
     return { status: report.status, report };
   } catch (err) {

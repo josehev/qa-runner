@@ -4,6 +4,7 @@ const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const { toMarkdown } = require("./browser-check");
+const { normalizeReport, renderReport, writeReport } = require("./report");
 const { resolveTarget, prepareTarget } = require("./targets");
 const { RESULTS, createArtifactRun, resultUrl, listReports, resolveResult, legacyResultPath } = require("./artifacts");
 const { browserPreflight } = require("./browser-preflight");
@@ -63,6 +64,8 @@ app.post("/api/target", (req, res) => {
 // Serve results as HTML
 app.get("/api/results", (_req, res) => {
   const files = listReports()
+    .filter(({ file }) => path.basename(file) === "report.html" ||
+      !fs.existsSync(path.join(path.dirname(file), "report.html")))
     .sort((a, b) => b.created - a.created)
     .slice(0, 20);
   
@@ -76,6 +79,13 @@ app.get("/api/results", (_req, res) => {
 // Convert markdown results to HTML
 app.get("/results/*", (req, res) => {
   const filename = req.params[0];
+  const canonical = filename.endsWith(".html") &&
+    (path.posix.basename(filename) === "report.html" || resolveResult(filename.replace(/\.html$/, ".md")))
+    ? resolveResult(path.posix.join(path.posix.dirname(filename), "report.html")) : null;
+  if (canonical) {
+    res.set("Content-Security-Policy", "sandbox");
+    return res.sendFile(canonical);
+  }
   const filePath = filename.endsWith(".html")
     ? resolveResult(filename.replace(/\.html$/, ".md")) : null;
 
@@ -88,140 +98,12 @@ app.get("/results/*", (req, res) => {
     });
   }
   
-  let content = fs.readFileSync(filePath, "utf8");
-  
-  // Simple markdown to HTML conversion
- const escapeHtml = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
- const title = escapeHtml(content.match(/# (.+)/)?.[1] || "Test Result");
- const url = escapeHtml(content.match(/URL: (.+)/)?.[1] || "");
-  
-  // Extract the test output (everything after the URL line)
-  const output = content.split('\n').slice(2).join('\n');
-  
-  // Escape HTML and convert markdown
-  let html = output
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/\n/g, '<br>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/`(.+?)`/g, '<code>$1</code>');
-  
-  const stamp = new Date(fs.statSync(filePath).mtimeMs).toLocaleString();
-  
-  const page = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${title}</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      padding: 2rem;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      overflow: hidden;
-    }
-    .header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 2rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .header h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-    }
-    .header .url {
-      font-size: 0.95rem;
-      opacity: 0.9;
-      word-break: break-all;
-      font-family: 'Monaco', 'Menlo', monospace;
-    }
-    .meta {
-      font-size: 0.85rem;
-      opacity: 0.8;
-      margin-top: 0.5rem;
-    }
-    .content {
-      padding: 2rem;
-      line-height: 1.7;
-      color: #333;
-    }
-    .content code {
-      background: #f5f5f5;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: 'Monaco', 'Menlo', monospace;
-      font-size: 0.9em;
-      color: #d63384;
-    }
-    .content strong {
-      color: #222;
-      font-weight: 600;
-    }
-    .content em {
-      color: #666;
-    }
-    .content br + br { margin-bottom: 1rem; }
-    .footer {
-      background: #f8f9fa;
-      padding: 1.5rem 2rem;
-      border-top: 1px solid #e9ecef;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .back-button {
-      display: inline-block;
-      background: #667eea;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: background 0.2s;
-    }
-    .back-button:hover {
-      background: #764ba2;
-    }
-    .timestamp {
-      font-size: 0.85rem;
-      color: #666;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>🧪 ${title}</h1>
-      <div class="url">🔗 ${url}</div>
-      <div class="meta">Completed: ${stamp}</div>
-    </div>
-    <div class="content">
-      ${html}
-    </div>
-    <div class="footer">
-      <a href="/" class="back-button">← Back to QA Runner</a>
-      <span class="timestamp">${stamp}</span>
-    </div>
-  </div>
-</body>
-</html>`;
+  const content = fs.readFileSync(filePath, "utf8");
+  const page = renderReport(normalizeReport({
+    name: content.match(/^# (.+)/m)?.[1],
+    url: content.match(/^URL: (.+)/m)?.[1],
+    details: content,
+  }));
   
   res.set('Content-Type', 'text/html');
   res.set("Content-Security-Policy", "sandbox");
@@ -242,6 +124,7 @@ app.get("/api/run", runRateLimit, (req, res, next) => {
   res.once("close", () => { activeRuns--; });
   next();
 }, async (req, res) => {
+  const startedAt = new Date().toISOString();
   const { promptId, url } = req.query;
   const p = loadPrompts().find((x) => x.id === promptId);
   let target;
@@ -266,7 +149,7 @@ app.get("/api/run", runRateLimit, (req, res, next) => {
   res.set({ "Content-Type": "text/event-stream", "Cache-Control": "no-cache", Connection: "keep-alive" });
   const send = (type, data) => res.write(`data: ${JSON.stringify({ type, data })}\n\n`);
 
-  if (p.type === "playwright") return runBrowserCheck(p, url, req, res, send, run, target);
+  if (p.type === "playwright") return runBrowserCheck(p, url, req, res, send, run, target, startedAt);
 
   const curl = await checkCurl();
   if (disconnected) return;
@@ -275,7 +158,11 @@ app.get("/api/run", runRateLimit, (req, res, next) => {
   if (disconnected) return;
   if (preflight.status === "BLOCKED") {
     fs.writeFileSync(run.file(`${p.id}.md`), `# ${p.name}\nURL: ${url}\n\n${preflight.error}\n`);
-    send("end", `${preflight.error}\nReport: ${run.publicPath(`${p.id}.html`)}`);
+    const diagnostics = commandDiagnostics({ run, workspace: WORKSPACE, curl });
+    fs.writeFileSync(run.file("command-diagnostics.json"), JSON.stringify(diagnostics, null, 2));
+    writeReport(run, { mode: "agent", name: p.name, url: target.identity, startedAt,
+      endedAt: new Date().toISOString(), validation: preflight, diagnostics });
+    send("end", `${preflight.error}\nReport: ${run.publicPath("report.html")}`);
     return res.end();
   }
 
@@ -338,8 +225,14 @@ child.on("error", (err) => {
     const content = `# ${p.name}\nURL: ${url}\n\n**Overall: ${validation.status}**\n${evidenceMarkdown(validation, run)}\n\n${diagnosticsMarkdown(diagnostics)}\n\n## Unvalidated agent output (not accepted as test results)\n${log}`;
     fs.writeFileSync(run.file(`${p.id}.log`), log);
     fs.writeFileSync(mdFile, content);
+    let unvalidatedResult;
+    try { unvalidatedResult = JSON.parse(fs.readFileSync(run.file("agent-result.json"), "utf8")); } catch {}
+    writeReport(run, {
+      mode: "agent", name: p.name, url: target.identity, startedAt, endedAt: new Date().toISOString(),
+      validation, unvalidatedResult, diagnostics, details: content,
+    });
     
-    const htmlFile = run.publicPath(`${p.id}.html`);
+    const htmlFile = run.publicPath("report.html");
     const commandSummary = diagnosticsSummary(diagnostics);
     send("end", `\n${summary}.${commandSummary ? ` ${commandSummary}` : ""} <a href="${htmlFile}" target="_blank">View full report →</a>`);
     res.end();
@@ -358,7 +251,7 @@ child.on("error", (err) => {
 });
 
 // Runs deterministic Playwright checks in a child process instead of the Copilot CLI
-function runBrowserCheck(p, url, req, res, send, run, target) {
+function runBrowserCheck(p, url, req, res, send, run, target, startedAt) {
   const shotName = `${p.id}.png`;
   const args = [path.join(__dirname, "browser-check.js"), target.url, "--screenshot", run.file(shotName)];
 
@@ -406,9 +299,14 @@ function runBrowserCheck(p, url, req, res, send, run, target) {
     }
     fs.writeFileSync(run.file(`${p.id}.log`), log);
     fs.writeFileSync(run.file(`${p.id}.md`), `# ${p.name}\nURL: ${url}\n\n${log}\n${summary}\n`);
+    writeReport(run, {
+      name: p.name, url: target.identity, result, startedAt, endedAt: new Date().toISOString(),
+      error: result ? null : "Browser check did not produce a result.",
+      details: `${log}\n${summary}`,
+    });
 
     send("out", `\n${summary}\n`);
-    const htmlFile = run.publicPath(`${p.id}.html`);
+    const htmlFile = run.publicPath("report.html");
     send("end", `\n✔ Finished (exit ${code}). <a href="${htmlFile}" target="_blank">View full report →</a>`);
     res.end();
   });
