@@ -188,6 +188,8 @@ test("missing Chromium yields explicit setup blocker and no fabricated measureme
   const result = JSON.parse(stdout);
   assert.equal(result.status, "BLOCKED");
   assert.match(result.error, /Chromium launch failed.*npx playwright install chromium/);
+  const audit = JSON.parse(fs.readFileSync(run.file("audit.json")));
+  assert.ok(audit.errors.some((entry) => entry.stage === "setup" && entry.error.includes("Chromium launch failed")));
   assert.equal(result.viewports.length, 0);
   assert.ok(result.checks.every((entry) => entry.status === "NOT TESTED"));
   assert.ok(!fs.existsSync(run.file(VIEWPORTS[0].screenshot)));
@@ -278,12 +280,24 @@ test("browser route enforcement blocks automatic OPTIONS and POST without granti
   const { url, requests } = await website(t, html);
   const run = artifacts(t, url);
   const result = await runSmokeCheck(url, { artifactDirectory: run.directory });
-  assert.equal(result.status, "PARTIAL");
+  assert.equal(result.status, "REVIEW");
   assert.ok(requests.every((request) => ["GET", "HEAD"].includes(request.method)));
   assert.ok(!requests.some((request) => ["/write-attempt", "/options-attempt"].includes(request.url)));
   const audit = JSON.parse(fs.readFileSync(run.file("audit.json")));
-  assert.ok(audit.errors.some((entry) => entry.method === "POST"));
-  assert.ok(audit.errors.some((entry) => entry.method === "OPTIONS"));
+  assert.deepEqual(audit.errors, []);
+  assert.equal(audit.error, null);
+  assert.equal(result.error, null);
+  assert.equal(audit.safety.blockedRequests.length, VIEWPORTS.length * 2);
+  for (const method of ["POST", "OPTIONS"]) {
+    assert.equal(audit.safety.blockedRequests.filter((entry) => entry.method === method).length, VIEWPORTS.length);
+  }
+  assert.ok(audit.safety.blockedRequests.every((entry) => entry.url.startsWith(url) && entry.reason));
+  assert.deepEqual(result.safety, audit.safety);
+  for (const id of ["runtime", "network"]) {
+    assert.equal(result.checks.find((entry) => entry.id === id).status, "REVIEW");
+  }
+  assert.equal(result.checks.find((entry) => entry.id === "load").status, "PASS");
+  assert.equal(result.checks.find((entry) => entry.id === "screen-reader").status, "NOT TESTED");
   assert.deepEqual(audit.safety.permissions, []);
   assertValidated(result, run.directory);
 });

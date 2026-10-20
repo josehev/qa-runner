@@ -183,6 +183,16 @@ function normalizeReport(input = {}) {
       !agent ? result.durationMs : undefined);
   const durationMs = Number.isFinite(recordedDuration) && recordedDuration >= 0 ? recordedDuration :
     startedAt && endedAt && Date.parse(endedAt) >= Date.parse(startedAt) ? Date.parse(endedAt) - Date.parse(startedAt) : null;
+  const blockedRequests = smoke && accepted ? list(source.safety?.blockedRequests)
+    .filter((entry) => entry && typeof entry.method === "string" && typeof entry.url === "string")
+    .map((entry) => ({ method: entry.method, url: entry.url, reason: text(entry.reason) })) : [];
+  const blockedGroups = new Map();
+  for (const request of blockedRequests) {
+    const key = JSON.stringify([request.method, request.url]);
+    const group = blockedGroups.get(key) || { method: request.method, url: request.url, count: 0 };
+    group.count++;
+    blockedGroups.set(key, group);
+  }
   return {
     name: text(input.name || "QA report"),
     title: text(input.title || (accepted && source.title) || "Not recorded"),
@@ -198,6 +208,7 @@ function normalizeReport(input = {}) {
     accepted,
     smoke, checks, viewports: smoke ? smokeData.viewports : [],
     tools: smoke && accepted ? result.tools : null,
+    safety: { blockedRequests, groups: [...blockedGroups.values()], total: blockedRequests.length },
   };
 }
 
@@ -316,6 +327,13 @@ ${model.error ? `<p class="evidence">${escapeHtml(model.error)}</p>` : ""}
 ${model.smoke ? "<p>Deterministic smoke audit. Automated heuristics and manual review items do not establish accessibility compliance.</p>" : "<p>Recorded run checks only. The deterministic smoke checklist was not executed in this mode.</p>"}
 ${findings}
 </section>
+${model.safety?.total ? `<section aria-labelledby="safety-title"><h2 id="safety-title">Read-only policy diagnostics</h2>
+<p>Read-only policy blocked ${model.safety.total} requests across ${model.safety.groups.length} method/URL groups. These are intentional safety blocks, not collector errors. Affected checks remain review or not tested; blocked actions were not exercised.</p>
+<details><summary>Grouped blocked requests and full details</summary>
+<div class="table-scroll" role="region" aria-label="Blocked requests" tabindex="0"><table>
+<thead><tr><th scope="col">Method</th><th scope="col">URL</th><th scope="col">Count</th></tr></thead>
+<tbody>${model.safety.groups.map((group) => `<tr><td>${escapeHtml(group.method)}</td><td>${escapeHtml(group.url)}</td><td>${group.count}</td></tr>`).join("")}</tbody></table></div>
+${pre(JSON.stringify(model.safety.blockedRequests, null, 2))}</details></section>` : ""}
 ${sections}
 <section aria-labelledby="reproduction-title"><h2 id="reproduction-title">Reproduction notes for failures</h2>
 ${model.bugs.length ? `<ol>${model.bugs.map((bug) => `<li><strong>${escapeHtml(bug.title)}</strong>: ${escapeHtml(bug.original.reproduction || bug.original.steps || `Open ${model.url}; inspect ${bug.location}.`)} ${observation(bug.description)}${bug.original.evidence != null && bug.original.evidence !== "" ? ` Evidence: ${evidence(bug.original.evidence)}` : ""}</li>`).join("")}</ol>` : "<p>No failure reproduction steps were recorded.</p>"}
