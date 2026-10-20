@@ -32,6 +32,13 @@ async function smokeRoute(t, mode) {
           assert.equal(actualDirectory, directory);
           validated = result;
           if (mode === "invalid-evidence") throw new Error("Audit hash mismatch");
+          if (mode === "policy") return { status: "REVIEW", report: {
+           contractVersion: require("../smoke-contract").VERSION, status: "REVIEW",
+           checks: [{ id: "network", status: "REVIEW", observed: "Read-only policy blocked requests" }],
+           safety: { blockedRequests: Array.from({ length: 3 }, () => ({
+             method: "POST", url: "https://example.com/events", reason: "Blocked by read-only audit policy",
+           })) },
+          } };
           // A distinct trusted result ensures the server never renders stdout commentary.
           return mode === "partial" ? { status: "PARTIAL", report: {
             contractVersion: require("../smoke-contract").VERSION, title: "Trusted partial fixture", checks: [], tools: {},
@@ -98,6 +105,16 @@ test("Smoke retains validated partial evidence after incomplete stdout", async (
   assert.equal(validated.partial, true);
   assert.match(messages.at(-1).data, /PARTIAL/);
   assert.match(fs.readFileSync(run.file("qa-report.html"), "utf8"), /Trusted partial fixture/);
+});
+
+test("Smoke API retains grouped policy diagnostics without noisy collector error summaries", async (t) => {
+  const { run, messages } = await smokeRoute(t, "policy");
+  assert.match(messages.at(-1).data, /REVIEW/);
+  assert.doesNotMatch(messages.at(-1).data, /safety:|Non-read-only request blocked/);
+  const html = fs.readFileSync(run.file("qa-report.html"), "utf8");
+  assert.match(html, /Read-only policy blocked 3 requests across 1 method\/URL groups/);
+  assert.match(html, /<td>POST<\/td><td>https:\/\/example.com\/events<\/td><td>3<\/td>/);
+  assert.doesNotMatch(html, /\[x\] PASS/);
 });
 
 test("Smoke startup failures and deadlines still write reports, release targets and never accept success", async (t) => {

@@ -627,7 +627,7 @@ async function runSmokeCheck(url, { artifactDirectory, targetIdentity, timeout =
     url: targetIdentity || url, title: null, error: null, errors: [], viewports: [], files: {},
     limits: LIMITS, tools: {}, headers: [], cookies: [], sourceSha256: sourceHash(),
     provenance: { runtime: process.version, collectorPath: __filename, contractPath: path.join(__dirname, "smoke-contract.js"), implementation: "deterministic Playwright collector; no agent judgments accepted as execution" },
-    safety: { credentials: false, submissions: false, mutationPayloads: false, permissions: [], interactions: ["Tab", "Shift+Tab", "scroll"] },
+    safety: { credentials: false, submissions: false, mutationPayloads: false, permissions: [], interactions: ["Tab", "Shift+Tab", "scroll"], blockedRequests: [] },
   };
   let target, run, browser, context;
   try {
@@ -673,7 +673,7 @@ async function runSmokeCheck(url, { artifactDirectory, targetIdentity, timeout =
       }
       if (!["GET", "HEAD"].includes(request.method())) {
         blockedRequests.add(request);
-        audit.errors.push({ stage: "safety", url: request.url(), method: request.method(), reason: "Non-read-only request blocked" });
+        audit.safety.blockedRequests.push({ url: request.url(), method: request.method(), reason: "Blocked by read-only audit policy" });
         return route.abort("blockedbyclient");
       }
       return route.continue();
@@ -832,10 +832,11 @@ function resultFromAudit(audit, auditSha256) {
   return {
     contractVersion: audit.contractVersion, checks: audit.checks,
     viewports: audit.viewports.map(({ name, width, height, screenshot, error }) => ({ name, width, height, screenshot, error })),
-    tools: audit.tools, title: audit.title, url: audit.url, effectiveUrl: audit.effectiveUrl,
+    tools: audit.tools, safety: audit.safety, title: audit.title, url: audit.url, effectiveUrl: audit.effectiveUrl,
     startedAt: audit.startedAt, endedAt: audit.endedAt, durationMs: audit.durationMs,
     error: audit.error || (audit.complete === false ? "Collection incomplete; only persisted browser observations are retained" : null),
-    status: interrupted ? measured ? "PARTIAL" : "BLOCKED" : audit.checks.some((check) => check.status === "FAIL") ? "FAIL" : "PASS",
+    status: interrupted ? measured ? "PARTIAL" : "BLOCKED" : audit.checks.some((check) => check.status === "FAIL") ? "FAIL" :
+      audit.safety?.blockedRequests?.length ? "REVIEW" : "PASS",
     evidence: { collector: COLLECTOR, sourceSha256: audit.sourceSha256, auditSha256, audit: "audit.json", directory: audit.artifactDirectory, files: audit.files },
   };
 }

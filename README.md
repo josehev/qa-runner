@@ -178,7 +178,12 @@ The same seven groups run each time:
 
 Real screen-reader announcements, assistive technology, real devices, visual judgment,
 authentication and form submissions are not automatically verified. Missing or disabled
-widgets are distinguished from exercised widgets. No auth/MFA credentials, state-changing
+widgets are distinguished from exercised widgets. Expected non-GET/HEAD requests are
+still aborted by the read-only policy, but recorded in `audit.safety.blockedRequests`
+instead of collector errors. Reports summarize total blocks and counts per method/URL
+with expandable details; affected checks remain REVIEW/NOT TESTED, and unrelated
+measurements and genuine errors are retained.
+No auth/MFA credentials, state-changing
 submissions, or intrusive payloads are sent. Only audit sites you are authorized to access;
 even GET requests and page scripts can have side effects. Network/browser failures identify
 affected checks and the access or installation needed; no blanket permission is added.

@@ -414,3 +414,48 @@ test("every blocked smoke check retains the validation failure reason, including
   assert.ok(model.checks.every((check) => check.status === "Not tested"));
   assert.equal(model.status, "N/A");
 });
+
+test("smoke policy blocks are grouped without masking coverage or genuine collector errors", () => {
+  const { VERSION } = require("../smoke-contract");
+  const blocked = { method: "POST", url: "https://example.com/api", reason: "Blocked by read-only audit policy" };
+  const attack = "<script>alert('blocked')</script>";
+  const result = { contractVersion: VERSION, status: "REVIEW", checks: [
+    { id: "load", status: "PASS", observed: "HTTP 200" },
+    { id: "network", status: "REVIEW", observed: "Policy blocked requests" },
+  ], safety: { blockedRequests: [blocked, blocked, { ...blocked, method: "OPTIONS" },
+    { method: attack, url: attack, reason: attack }] } };
+  const input = { mode: "smoke", smokeValidated: true, result };
+  const model = normalizeReport(input);
+  assert.equal(model.error, "");
+  assert.equal(model.counts.pass, 1);
+  assert.equal(model.checks.find((check) => check.id === "network").status, "REVIEW");
+  assert.equal(model.checks.find((check) => check.id === "screen-reader").status, "Not tested");
+  assert.notEqual(model.status, "PASS");
+  assert.equal(model.safety.total, 4);
+  assert.equal(model.safety.groups.length, 3);
+  assert.deepEqual(model.safety.groups[0], { method: "POST", url: blocked.url, count: 2 });
+  const html = renderReport(model);
+  assert.match(html, /Read-only policy blocked 4 requests across 3 method\/URL groups/);
+  assert.match(html, /<details><summary>Grouped blocked requests and full details<\/summary>/);
+  assert.match(html, /<td>POST<\/td><td>https:\/\/example.com\/api<\/td><td>2<\/td>/);
+  assert.match(html, /Blocked by read-only audit policy/);
+  assert.match(html, /&lt;script&gt;/);
+  assert.doesNotMatch(html, /<script>/);
+  const failed = normalizeReport({ ...input, result: { ...result, status: "PARTIAL", error: "screenshot: disk full" } });
+  assert.equal(failed.status, "PARTIAL");
+  assert.equal(failed.error, "screenshot: disk full");
+  assert.match(renderReport(failed), /screenshot: disk full/);
+  assert.equal(failed.safety.total, 4);
+  assert.equal(normalizeReport({ ...input, smokeValidated: false }).safety.total, 0);
+});
+
+test("smoke policy diagnostics tolerate absent or malformed legacy safety data", () => {
+  const { VERSION } = require("../smoke-contract");
+  for (const safety of [undefined, null, {}, { blockedRequests: null }, { blockedRequests: {} },
+    { blockedRequests: [null, {}, { method: "POST" }] }]) {
+    const model = normalizeReport({ mode: "smoke", smokeValidated: true,
+      result: { contractVersion: VERSION, checks: [], safety } });
+    assert.deepEqual(model.safety, { total: 0, groups: [], blockedRequests: [] });
+    assert.doesNotMatch(renderReport(model), /id="safety-title"/);
+  }
+});
