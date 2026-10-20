@@ -440,7 +440,7 @@ test("smoke policy blocks are grouped without masking coverage or genuine collec
   assert.match(html, /<td>POST<\/td><td>https:\/\/example.com\/api<\/td><td>2<\/td>/);
   assert.match(html, /Blocked by read-only audit policy/);
   assert.match(html, /&lt;script&gt;/);
-  assert.doesNotMatch(html, /<script>/);
+  assert.doesNotMatch(html, /<script\b/i);
   const failed = normalizeReport({ ...input, result: { ...result, status: "PARTIAL", error: "screenshot: disk full" } });
   assert.equal(failed.status, "PARTIAL");
   assert.equal(failed.error, "screenshot: disk full");
